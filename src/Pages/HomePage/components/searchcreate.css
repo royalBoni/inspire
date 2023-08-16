@@ -286,7 +286,7 @@
 }
 
 
-@media screen and (max-width:1500px){
+@media screen and (max-width:1200px){
     .third-box-content:nth-child(1){
         display: none;
     }
