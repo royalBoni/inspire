@@ -1,0 +1,104 @@
+.privacy-page{
+    height: 81vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--PAGEBACKGROUND);
+    color: var(--PRIMARYCOLOR);
+    overflow: scroll;
+    gap: 1.5rem;
+    padding: 0rem 0.5rem;
+    scroll-behavior: smooth;
+}
+
+.privacy-page-header{
+    display: none;
+}
+
+.privacy-page-content{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.privacy-page-content-content{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.privacy-page-content-title{
+    display: grid;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.privacy-page-content-content-item{
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.privacy-page-content-content-item-title{
+    font-size: 1.2rem;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    background-color: var(--PAGEBACKGROUND);
+    z-index: 1;
+}
+
+.privacy-page-content-content-item-message{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.privacy-page-content-content-item-message ul{
+    display: flex;
+    flex-direction: column;
+    margin-left: 1.5rem;
+}
+
+.privacy-page-content-content-item-message ul li{
+    list-style: circle;
+}
+
+@media screen and (max-width:992px){
+    .privacy-page{
+        height: 81vh;
+        overflow: unset;
+    }
+    
+    
+    .privacy-page-header{
+        display: flex;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        background-color: var(--PAGEBACKGROUND);
+        padding: 0.5rem 0;
+        z-index: unset;
+    }
+
+    .back-button{
+        background-color: var(--PRIMARYCOLOR);
+        color: var(--MAINBGICONCOLOR);
+        font-weight: bold;
+        padding: 0.2rem 0.4rem;
+        border-radius: 8px;
+        display: grid;
+        place-content: center;
+    }
+
+    .privacy-page-content{
+        height: 90%;
+        overflow: scroll;
+    }
+
+    .privacy-page-content-content-item-title{
+        top:0;
+        z-index:unset;
+    }
+}

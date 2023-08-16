@@ -1,0 +1,11 @@
+.no-groups{
+    display:none
+}
+
+.groups{
+    min-height: 50vh;
+    display: grid;
+    place-content: center;
+    color: var(--PRIMARYCOLOR);
+    text-align: center;
+}

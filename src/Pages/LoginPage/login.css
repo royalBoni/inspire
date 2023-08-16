@@ -1,0 +1,339 @@
+.login{
+    height: 100vh;
+    width: 100%;
+    background-image: url('../../../assets/background.jpg');
+    background-repeat: no-repeat;
+    background-size:100% 100%;
+    background-position: center;
+    position: relative;
+}
+
+.background-layer{
+    background-color: rgba(0, 0, 0, 0.884);
+    background-size:100% 100%;
+    width: inherit; 
+    height: 100vh;
+}
+
+.login .signUp-button{
+    padding: 5px;
+    font-size: 18px;
+    background-color: black;
+    color:rgba(207, 207, 207, 0.459);
+    border-radius: 10px;
+}
+
+.login .main-content{
+    height: 100%;
+}
+
+.login .main-content-content{
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.words{
+    color: rgba(255, 255, 255, 0.027);
+    font-size: 8rem;
+    font-weight: bold;
+    font-style: italic;
+    font-family:'Geneva';
+    letter-spacing: 2rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.login .main-content-content .content{
+    height: auto;
+    width: 47%;
+}
+
+/* .left-content{
+    
+} */
+
+.login .right-content{
+    height: auto;
+    background-color:rgba(160, 113, 113, 0.096);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 35px 80px ;
+    border-top-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+    box-shadow: 5px 0px 0px 2px rgba(0, 0, 0, 0.534);
+}
+
+.login .welcome{
+    font-size:45px;
+    font-weight: bold;
+    color:rgba(207, 207, 207, 0.459);
+}
+
+span{
+    color: black;
+}
+
+.login form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+} 
+
+.login form .form-row{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.login form label{
+    font-size: 18px;
+    color: rgba(207, 207, 207, 0.459);
+    font-weight: unset;
+}
+
+.login input{
+    height: 40px;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    padding-left: 1rem;
+}
+
+.login-button{
+    margin-top: 1rem;
+    background-color: black;
+    color:rgba(207, 207, 207, 0.459);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.3rem 0.8rem ;
+    display: grid;
+    place-content: center;
+    width: 5rem;
+    font-size: 1rem;
+    border-radius: 10px;   
+}
+
+.forgetOrRegister{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    color: red;
+}
+
+
+
+/* || EXTRA LARGE */
+
+@media screen and (max-width:1500px){
+   /*  .words{
+        display: none;
+    } */
+
+    .content{
+        height: 60vh;
+    }
+    .right-content{
+        padding: 3rem;
+        background-color: rgba(160, 113, 113, 0.096);
+        box-shadow: 0px 2px 4px 4px rgba(0, 0, 0, 0.274);
+    }
+   
+}
+
+/* || LARGE */
+
+@media screen and (max-width:992px){
+
+    .left-content{
+        display: none;
+    }
+    .right-content{
+        padding: 3rem;
+        width: auto;
+        height: auto;
+        border-radius: 0;
+        background-color: rgba(160, 113, 113, 0.096);
+        box-shadow: 0px 2px 4px 4px rgba(0, 0, 0, 0.274);
+    }
+
+    .welcome{
+        font-size:2rem;
+    }
+
+    .right-content p{
+        font-size: 1rem;
+    }
+
+    form{
+        gap: 1rem;
+    } 
+    
+    .form-row{
+        gap: 0.5rem;
+    }
+    
+    label{
+        font-size: 0.9rem;
+    }
+       
+    .forgetOrRegister{
+        font-size: 0.8rem;
+    }
+    
+   
+}
+/* || MEDIUM */
+
+@media screen and (max-width:768px){
+    .words{
+        color: rgba(255, 255, 255, 0.027);
+        font-size: 6rem;
+        font-weight: bold;
+        font-style: italic;
+        font-family:'Geneva';
+        letter-spacing: 1rem;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+    
+    nav{
+        display: none;
+    }
+
+    .left-content{
+        display: none;
+    }
+    .right-content{
+        padding: 4rem;
+        width: auto;
+        height: auto;
+        border-radius: 0;
+        background-color: rgba(160, 113, 113, 0.096);
+        box-shadow: 0px 2px 4px 4px rgba(0, 0, 0, 0.274);
+    }
+
+    .welcome{
+        font-size:1.2rem;
+        text-align: center;
+    }
+
+    .right-content p{
+        text-align: center;
+        font-size: 0.6rem;
+    }
+
+    
+    label{
+        font-size: 0.9rem;
+    }
+    
+    input{
+        font-size: 0.5rem;
+    }
+    
+    
+}
+
+/* || SMALL */
+
+@media screen and (max-width:576px){
+    .words{
+        display: none;
+    }
+
+    .signUp-button{
+        padding: 0.3rem;
+        font-size: 0.8rem;
+        background-color: black;
+        color:rgba(207, 207, 207, 0.459);
+        border-radius: 10px;
+    }
+
+    .left-content{
+        display: none;
+    }
+    .right-content{
+        padding: 2rem;
+        width: auto;
+        height: auto;
+        border-radius: 0;
+        background-color: rgba(160, 113, 113, 0.096);
+        box-shadow: 0px 2px 4px 4px rgba(0, 0, 0, 0.274);
+    }
+
+    .welcome{
+        font-size:1rem;
+    }
+
+    .right-content p{
+        font-size: 0.5rem;
+    }
+
+    form{
+        gap: 0.5rem;
+    } 
+    
+    .form-row{
+        gap: 0.3rem;
+    }
+    
+    label{
+        font-size: 0.8rem;
+        font-weight: bold;
+    }
+    
+    input{
+        height: 1.5rem;
+        border: 1px solid black;
+        border-radius: 5px;
+        font-size: 0.5rem;
+    }
+    
+    .login-button{
+        background-color: black;
+        color: rgba(207, 207, 207, 0.459);
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0.1rem 0.4rem ;
+        font-size: 0.7rem;
+        border-radius: 5px;
+    }
+
+    .forget{
+        font-size: 0.7rem;
+    }
+    
+    .forgetOrRegister{
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.5rem;
+    }
+    
+    
+}
+
+
+
+
+/* ||MOBILE DEVICE LANSCAPE */
+
+/* @media screen and (max-height:425px) and (min-aspect-ratio:7/4){
+     
+} */
+
+
+
+
+
+
+
+
+
+

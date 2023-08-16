@@ -1,0 +1,299 @@
+.no-user-profile-page{
+    display: none;
+}
+
+.no-inspiration{
+    display: none;
+}
+
+.user-profile-page{
+    height: 100vh;
+    background-color:var(--PAGEBACKGROUND);
+    color: var(--PRIMARYCOLOR);
+    position: absolute;
+    top: 0;
+    width: 56%;
+    overflow: scroll;
+}
+
+.search-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:var(--PAGEBACKGROUND);
+    position: sticky;
+    top: 0;
+    padding: 1rem 0.5rem;
+    z-index: 1;
+
+}
+
+.search-nav input{
+    width: 50%;
+    font-size: 0.8rem;
+    outline: none;
+    border: none;
+    border-radius: 20px;
+    height: 1.6rem;
+}
+
+.search-nav .my-profile{
+    width: 2rem;
+    height: 2rem;
+    display: none;
+}
+
+.search-nav .my-profile img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+}
+
+.top{
+    height: 60vh;
+    border-bottom: 5px solid var(--HOMEBGCOLOR);
+}
+
+.top-top{
+    position: relative;
+    width: 100%;
+    height: 60%;
+    /* background-image: url('./tacos_and_drink_1000x667.png'); */
+    background-repeat: no-repeat;
+    background-size:100% 100%;
+    background-position: center;
+}
+
+.top-top-image{
+    width: 8rem;
+    height: 8rem;
+    position: absolute;
+    bottom: -2rem;
+    left: 0.5rem;
+}
+
+.top-top-image img{
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    border: 6px solid var(--PAGEBACKGROUND);
+}
+
+.top-down{
+    height: 40%;
+    width: 100%;
+    padding: 3rem 0.5rem 0.5rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.top-down-userName{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.top-down-profieName{
+    color: var(--HOMEBGLIGHT);
+}
+
+.top-down-buttons{
+    display: flex;
+    gap: 0.5rem;
+}
+
+.top-down-buttons button{
+    width: 50%;
+    padding-block: 0.4rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: none;
+}
+
+.top-down-buttons .follow{
+    background-color: var(--PRIMARYCOLOR);
+    color: var(--PAGEBACKGROUND);
+}
+
+.top-down-buttons .message{
+    background-color: var(--PAGEBACKGROUND);
+    color: var(--PRIMARYCOLOR);
+    border: 1px solid var(--PRIMARYCOLOR);
+}
+
+.down{
+    height: 50%;
+    padding: 1rem 0.5rem;
+}
+
+.down-user-info{
+    padding-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.user-tagline{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+    font-style: italic;
+}
+
+.down-user-info-experience{
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.down-user-info-experience .item{
+    display: flex;
+    gap: 0.3rem;
+}
+
+.down-user-analytics{
+    display: flex;
+    gap: 2rem;
+}
+
+.down-user-analytics-item{
+    display: flex;
+    gap: 0.5rem;
+}
+.down-user-analytics-item p{
+    color: var(--HOMEBGLIGHT);
+}
+
+.down-header{
+    position: sticky;
+    width: 100%;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 8%;
+    padding: 0.5rem 0;
+    background-color: var(--PAGEBACKGROUND);
+    border-bottom: 2px solid var(--HOMEBGCOLOR);
+    border-top: 2px solid var(--HOMEBGCOLOR);
+    margin-block: 0.5rem;
+    z-index: 1;
+}
+
+.down-header li{
+    cursor:pointer;
+}
+
+.down-header-active{
+    background-color: var(--HOMEBGLIGHT);
+    color: var(--PRIMARYCOLOR);
+    padding: 0.2rem;
+    border-radius: 15px;
+}
+
+@media screen and (max-width:1500px){
+    .user-profile-page{
+        top: 8%;
+        height: 92vh;
+    }
+
+   .down-header{
+        top: 8.5%;
+    } 
+ }
+ 
+ /* || LARGE */
+ 
+ @media screen and (max-width:992px){
+    .user-profile-page{
+        top: 12%;
+        height: 88vh;
+    }
+
+    /* .down-header{
+        top: 7%;
+    } */
+ }
+ /* || MEDIUM */
+ 
+ @media screen and (max-width:768px){
+
+ .user-profile-page{
+        top: 0;
+        height: 100vh;
+        width: 100%;
+        overflow: scroll;
+        left: 0;
+        right: 0;
+        margin-inline: auto;
+        z-index: 1;
+    }
+
+    .search-nav input{
+        width: 70%;
+    }
+
+    .search-nav .my-profile{
+        display: unset;
+    }
+
+   .down-header{
+        top: 8%;
+    } 
+ }
+ 
+ /* || SMALL */
+ 
+ @media screen and (max-width:576px){
+    /* .down-header{
+        top:8.6%;
+    } */
+}
+
+@media screen and (max-height:741px){
+
+    .search-nav{
+        height: 3rem;
+    }
+
+    .top{
+        height: 60vh;
+        border-bottom: 5px solid var(--HOMEBGCOLOR);
+    }
+
+    .top-top{
+        height: 50%;
+    }
+
+    .top-down{
+        height: 50%;
+        gap: 0.5rem;
+        padding: 2.5rem 0.5rem 0.5rem 0.5rem;
+    }
+}
+ 
+ @media  (max-height:600px) and (max-width:1024px ){
+   .user-profile-page{
+        height: 100%;
+        width: 60%;
+    }
+    
+    
+ }
+ 
+ 
+ 
+ /* ||MOBILE DEVICE LANSCAPE */
+ 
+ /* @media screen and (max-height:425px) and (min-aspect-ratio:7/4){
+      
+ } */
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

@@ -1,0 +1,74 @@
+
+.profile-menu{
+    display: none;
+}
+
+.no-profile-menu{
+    display: none;
+}
+
+@media screen and (max-width:768px){
+    .profile-menu{
+        position: absolute;
+        background-color: var(--PAGEBACKGROUND);
+        height: 88%;
+        width: 70%;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        color: var(--PRIMARYCOLOR);
+        animation-name: profileMenu;
+        animation-timing-function: ease-in;
+        animation-duration: 0.3s;
+        animation-delay: 0s;
+    }
+    
+    .no-profile-menu{
+        display: none;
+    }
+
+    .profile-menu-items{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    
+    }
+
+    .profile-menu-items li{
+        box-shadow: 0px 0px 8px 0px rgba(63, 4, 50, 0.068);
+    }
+
+    .profile-menu-items li:hover{
+        color: var(--HOMEBGLIGHT);;
+    }
+
+
+    @keyframes profileMenu {
+        0%{
+            transform: translateX(15px);
+            background-color: rgba(233, 216, 214, 0.192);
+        }
+
+        25%{
+        
+            background-color: rgba(233, 216, 214, 0.356);
+        }
+
+        50%{
+        
+            background-color: rgba(233, 216, 214, 0.74);
+        }
+
+        75%{
+        
+            background-color: rgba(233, 216, 214, 0.795);
+        }
+
+        100%{
+            transform: translateX(0px);
+        }
+    }
+}
+
+

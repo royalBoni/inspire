@@ -1,0 +1,95 @@
+.warning{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+}
+
+.warning-spinner{
+    width: 4rem;
+    height: 4rem;
+    background-color: rgb(243, 240, 237);
+    animation-name: moving;
+    animation-duration: 0.4s;
+    animation-delay: 0.1s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    display: grid;
+    place-content: center;
+    border-radius: 50px;
+}
+
+@keyframes moving {
+    0%{
+        transform: translateX(-20px);
+    }
+   
+}
+
+.spin{
+    color: var(--PRIMARYCOLOR);
+    font-size: 2rem;
+    animation-name: spin;
+    animation-duration: 20s;
+    animation-delay: 0.7s;
+    animation-iteration-count: 1;
+}
+
+@keyframes spin {
+    
+    0%{
+        transform: rotate(360deg);
+    }
+}
+
+.warning-message{
+    width: auto;
+    height: 2rem;
+    background-color: rgb(243, 240, 237);
+    color: var(--PRIMARYCOLOR);
+    display: grid;
+    place-content: center;
+    padding: 0.3rem;
+    margin-left: -7px;
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px;
+    font-weight: bold;
+    animation-name: message;
+    animation-duration: 0.4s;
+    animation-delay: 0.1s;
+    animation-iteration-count: 1;
+}
+
+@keyframes message {
+    
+    0%{
+        transform: translatey(20px);
+    }
+}
+
+@media screen and (max-width:768px){
+
+    .warning{
+        top: 0.5rem;
+        right: 0.8rem;
+       
+    }
+
+    .warning-spinner{
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .spin{
+        font-size: 1.5rem;
+    }
+    
+    .warning-message{
+        height: 1.2rem;
+        font-size: 0.7rem;
+        padding: 0.3rem;
+        margin-left: -7px;
+    }
+}

@@ -1,0 +1,160 @@
+.settings-page{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0.5rem;
+    line-height:1.5rem;
+}
+
+.deactivate_feed_page,.deactivate_feed{
+    display: none;
+}
+
+.settings-page-title{
+    font-size: 1.5rem;
+    color: var(--PRIMARYCOLOR);
+    height: 5%;
+}
+
+.settings-page-item{
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    height: 95%;
+}
+
+.settings-page-nav{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 30%;
+    height: 100%;
+    overflow: scroll;
+}
+
+.deactivate-nav{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 30%;
+    height: 100%;
+    overflow: scroll;
+}
+
+
+.settings-page-nav-item{
+    display: grid;
+    gap: 1rem;
+}
+
+.settings-page-nav-item-title{
+    font-size: 1.2rem;
+    color: var(--PRIMARYCOLOR);
+    font-weight: bold;
+}
+
+.settings-page-nav-item-content{
+    display: grid;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: var(--HOMEBGLIGHT);
+}
+
+.toggle-icon{
+    display:grid;
+}
+
+.settings{
+    display: grid;
+    gap: 1rem;
+    text-decoration: none;
+    font: unset;
+    margin-left: 1rem;
+}
+
+.settings a{
+    text-decoration: none;
+    color: var(--HOMEBGLIGHT);
+    cursor: pointer;
+}
+
+.settings a:hover{
+    color: var(--PRIMARYCOLOR);
+}
+
+.no-settings{
+    display: none;
+}
+
+
+.settings-page-nav-item-content-item{
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+}
+
+.settings-page-item-content{
+    width: 70%;
+    height: 100%;
+}
+
+.display-settings-page-item-content{
+    width: 70%;
+    height: 100%;
+}
+
+.nav-close-button{
+    display: none;
+}
+
+
+@media screen and (max-width:992px){
+    .settings-page-item-content{
+        display: none;
+    }
+
+    .display-settings-page-item-content{
+        display: grid;
+        height: 81vh;
+        width: 100%;
+        background-color: var(--PAGEBACKGROUND);
+        position: unset;
+        top: 0;
+        z-index: 1;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .settings-page-nav{
+        width: 100%;
+    }
+
+    .deactivate-nav{
+        display: none;
+    }
+
+    .nav-close-button{
+        display: grid;
+    }
+
+    .toggle-icon{
+        display:none;
+    }
+
+    .settings{
+        display: none;
+    }
+    
+    .active{
+        color: var(--HOMEBGLIGHT);
+        border-right: none;
+    }
+
+    .settings-page-nav-item-content-item:hover{
+        color: var(--PRIMARYCOLOR);
+    }
+}

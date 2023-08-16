@@ -1,0 +1,362 @@
+{
+  "account-profiles": [
+    {
+      "profile_id": 1,
+      "profile_holder_name": "Boni Emma",
+      "profile_name": "@boni",
+      "profile_image": ""
+    },
+    {
+      "profile_id": 2,
+      "profile_holder_name": "Alina James",
+      "profile_name": "@alina",
+      "profile_image": ""
+    },
+    {
+      "profile_id": 3,
+      "profile_holder_name": "Victoria Arthur",
+      "profile_name": "@victoria",
+      "profile_image": ""
+    },
+    {
+      "profile_id": 4,
+      "profile_holder_name": "James Benedict",
+      "profile_name": "@james",
+      "profile_image": ""
+    },
+    {
+      "profile_id": 5,
+      "profile_holder_name": "Ursula Sampson",
+      "profile_name": "@ursula",
+      "profile_image": ""
+    },
+    {
+      "profile_id": 15,
+      "profile_holder_name": "Portia Mensh",
+      "profile_name": "@portia",
+      "profile_image": ""
+    },
+    {
+      "profile_id": 18,
+      "profile_holder_name": "Benedict Sarfo",
+      "profile_name": "@benedict",
+      "profile_image": ""
+    },
+    {
+      "profile_id": 16,
+      "profile_holder_name": "Kofi Jackson",
+      "profile_name": "@kofi",
+      "profile_image": ""
+    }
+  ],
+  "post": [
+    {
+      "_id": 1,
+      "category": "life",
+      "inspiration_title": "life is good",
+      "datetime": "November 15, 2022 4:14:00 AM",
+      "author_name": "boniface",
+      "author_id": 22,
+      "inspiration_content": "Lorem ipsum sit ametssss ametssss consecteturkkfdfd, adipisicing elit. Odit odio eius beatae laudantium ab accusantium corporis perferendis, nemo aperiam. Tempore, reprehenderit porro! In corrupti dolorem dolore? Obcaecati distinctio dicta optio!  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit odio eius beatae laudantium ab accusantium corporis perferendis, nemo aperiam. Tempore, reprehenderit porro! In corrupti dolorem dolore? Obcaecati distinctio dicta optio! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit odio eius beatae laudantium ab accusantium corporis perferendis, nemo aperiam. Tempore, reprehenderit porro! In corrupti dolorem dolore? Obcaecati distinctio dicta optio!",
+      "inspiration_image": 21,
+      "read_time": 3
+    },
+    {
+      "_id": 2,
+      "category": "life",
+      "inspiration_title": "life is good",
+      "datetime": "November 15, 2022 4:14:00 AM",
+      "author_name": "boniface",
+      "author_id": 22,
+      "inspiration_content": "Lorem ipsum sit ametssss ametssss consecteturkkfdfd, adipisicing elit. Odit odio eius beatae laudantium ab accusantium corporis perferendis, nemo aperiam. Tempore, reprehenderit porro! In corrupti dolorem dolore? Obcaecati distinctio dicta optio!  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit odio eius beatae laudantium ab accusantium corporis perferendis, nemo aperiam. Tempore, reprehenderit porro! In corrupti dolorem dolore? Obcaecati distinctio dicta optio! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit odio eius beatae laudantium ab accusantium corporis perferendis, nemo aperiam. Tempore, reprehenderit porro! In corrupti dolorem dolore? Obcaecati distinctio dicta optio!",
+      "inspiration_image": 21,
+      "read_time": 3
+    },
+    {
+      "_id": 4,
+      "category": "life",
+      "inspiration_title": "life is good",
+      "datetime": "November 15, 2022 4:14:00 AM",
+      "author_name": "boniface",
+      "author_id": 22,
+      "inspiration_content": "Lorem ipsum sit ametssss ametssss consecteturkkfdfd, adipisicing elit. Odit odio eius beatae laudantium ab accusantium corporis perferendis, nemo aperiam. Tempore, reprehenderit porro! In corrupti dolorem dolore? Obcaecati distinctio dicta optio!  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit odio eius beatae laudantium ab accusantium corporis perferendis, nemo aperiam. Tempore, reprehenderit porro! In corrupti dolorem dolore? Obcaecati distinctio dicta optio! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit odio eius beatae laudantium ab accusantium corporis perferendis, nemo aperiam. Tempore, reprehenderit porro! In corrupti dolorem dolore? Obcaecati distinctio dicta optio!",
+      "inspiration_image": 21,
+      "read_time": 3
+    },
+    {
+      "_id": 5,
+      "category": "love",
+      "inspiration_title": "lovee is good and life is a gift",
+      "datetime": "November 15, 2022 4:14:00 AM",
+      "author_name": "james",
+      "author_id": 23,
+      "inspiration_content": "Lorem ipsum sit ametssss ametssss consecteturkkfdfd, adipisicing elit. Odit odio eius beatae laudantium ab accusantium corporis perferendis, nemo aperiam. Tempore, reprehenderit porro! In corrupti dolorem dolore? Obcaecati distinctio dicta optio!  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit odio eius beatae laudantium ab accusantium corporis perferendis, nemo aperiam. Tempore, reprehenderit porro! In corrupti dolorem dolore? Obcaecati distinctio dicta optio! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit odio eius beatae laudantium ab accusantium corporis perferendis, nemo aperiam. Tempore, reprehenderit porro! In corrupti dolorem dolore? Obcaecati distinctio dicta ok optio!",
+      "inspiration_image": 21,
+      "read_time": 7
+    }
+  ],
+  "comments": [
+    {
+      "post_id": 1,
+      "commenter_id": "1",
+      "comment": "Lorem ipsum sit ametssss ametssss",
+      "date": "November 15, 2022 4:14:00 AM"
+    },
+    {
+      "post_id": 4,
+      "commenter_id": "1",
+      "comment": "Lorem ipsum sit ametssss ametssss",
+      "date": "November 15, 2022 4:14:00 AM"
+    },
+    {
+      "post_id": 4,
+      "commenter_id": "1",
+      "comment": "Lorem ipsum sit ametssss ametssss",
+      "date": "November 15, 2022 4:14:00 AM"
+    },
+    {
+      "post_id": 5,
+      "commenter_id": "1",
+      "comment": "Lorem ipsum sit ametssss ametssss",
+      "date": "November 15, 2022 4:14:00 AM"
+    }
+  ],
+  "likes": [
+    {
+      "post_id": 1,
+      "liker_id": 5
+    },
+    {
+      "post_id": 4,
+      "liker_id": 4
+    },
+    {
+      "post_id": 4,
+      "liker_id": 2
+    },
+    {
+      "post_id": 5,
+      "liker_id": 1
+    },
+    {
+      "post_id": 5,
+      "liker_id": 10
+    },
+    {
+      "post_id": 5,
+      "liker_id": 11
+    },
+    {
+      "post_id": 5,
+      "liker_id": 15
+    },
+    {
+      "post_id": 5,
+      "liker_id": 17
+    },
+    {
+      "post_id": 2,
+      "liker_id": 1
+    }
+  ],
+  "favorite_inspirers": [
+    {
+      "id": 1,
+      "fan_id": 1,
+      "inspirer_id": 1,
+      "inspirer_image": "",
+      "inspirer_name": "Louis"
+    },
+    {
+      "id": 2,
+      "fan_id": 1,
+      "inspirer_id": 2,
+      "inspirer_image": "",
+      "inspirer_name": "Ben"
+    },
+    {
+      "id": 3,
+      "fan_id": 1,
+      "inspirer_id": 3,
+      "inspirer_image": "",
+      "inspirer_name": "Mary"
+    },
+    {
+      "id": 4,
+      "fan_id": 1,
+      "inspirer_id": 4,
+      "inspirer_image": "",
+      "inspirer_name": "Jane"
+    },
+    {
+      "id": 5,
+      "fan_id": 1,
+      "inspirer_id": 4,
+      "inspirer_image": "",
+      "inspirer_name": "Jane"
+    },
+    {
+      "id": 6,
+      "fan_id": 1,
+      "inspirer_id": 4,
+      "inspirer_image": "",
+      "inspirer_name": "Jane"
+    },
+    {
+      "id": 7,
+      "fan_id": 1,
+      "inspirer_id": 4,
+      "inspirer_image": "",
+      "inspirer_name": "Jane"
+    },
+    {
+      "id": 8,
+      "fan_id": 1,
+      "inspirer_id": 4,
+      "inspirer_image": "",
+      "inspirer_name": "Jane"
+    },
+    {
+      "id": 9,
+      "fan_id": 1,
+      "inspirer_id": 4,
+      "inspirer_image": "",
+      "inspirer_name": "Jane"
+    },
+    {
+      "id": 10,
+      "fan_id": 1,
+      "inspirer_id": 4,
+      "inspirer_image": "",
+      "inspirer_name": "Jane"
+    },
+    {
+      "id": 11,
+      "fan_id": 1,
+      "inspirer_id": 4,
+      "inspirer_image": "",
+      "inspirer_name": "Jane"
+    },
+    {
+      "id": 12,
+      "fan_id": 1,
+      "inspirer_id": 4,
+      "inspirer_image": "",
+      "inspirer_name": "Jane"
+    }
+  ],
+  "bookmarked_post": [
+    {
+      "_id": 1,
+      "post_id": 1,
+      "bookmarker_id": 1
+    },
+    {
+      "_id": 2,
+      "post_id": 2,
+      "bookmarker_id": 4
+    },
+    {
+      "_id": 3,
+      "post_id": 4,
+      "bookmarker_id": 2
+    },
+    {
+      "_id": 4,
+      "post_id": 5,
+      "bookmarker_id": 1
+    },
+    {
+      "_id": 6,
+      "post_id": 2,
+      "bookmarker_id": 1
+    },
+    {
+      "_id": 5,
+      "post_id": 4,
+      "bookmarker_id": 10
+    }
+  ],
+  "inspirers": [
+    {
+      "id": 2,
+      "fan_id": 1,
+      "inspirer_id": 2,
+      "inspirer_image": ""
+    },
+    {
+      "id": 3,
+      "fan_id": 1,
+      "inspirer_id": 3,
+      "inspirer_image": ""
+    },
+    {
+      "id": 8,
+      "fan_id": 1,
+      "inspirer_id": 4,
+      "inspirer_image": ""
+    },
+    {
+      "id": 13,
+      "fan_id": 2,
+      "inspirer_id": 4,
+      "inspirer_image": ""
+    },
+    {
+      "id": 14,
+      "fan_id": 2,
+      "inspirer_id": 15,
+      "inspirer_image": ""
+    },
+    {
+      "id": 19,
+      "fan_id": 3,
+      "inspirer_id": 4,
+      "inspirer_image": ""
+    },
+    {
+      "id": 22,
+      "fan_id": 6,
+      "inspirer_id": 5,
+      "inspirer_image": ""
+    },
+    {
+      "id": 23,
+      "fan_id": 7,
+      "inspirer_id": 5,
+      "inspirer_image": ""
+    },
+    {
+      "id": 24,
+      "fan_id": 6,
+      "inspirer_id": 18,
+      "inspirer_image": ""
+    },
+    {
+      "id": 25,
+      "fan_id": 2,
+      "inspirer_id": 1,
+      "inspirer_image": ""
+    },
+    {
+      "id": 26,
+      "fan_id": 3,
+      "inspirer_id": 1,
+      "inspirer_image": ""
+    },
+    {
+      "id": 27,
+      "fan_id": 16,
+      "inspirer_id": 1,
+      "inspirer_image": ""
+    }
+  ],
+  "user": [
+    {
+      "email": "j@gmail.com",
+      "username": "j",
+      "password": "jjjjjjjjjj",
+      "id": 1
+    }
+  ]
+}

@@ -1,0 +1,466 @@
+.register{
+    height: 100vh;
+    width: 100%;
+    background-image: url('../../../assets/background.jpg');
+    background-repeat: no-repeat;
+    background-size:100% 100%;
+    background-position: center;
+    position: relative;
+    
+}
+
+.register .background-layer{
+    background-color: rgba(0, 0, 0, 0.884);
+    background-size:100% 100%;
+    width: 100%; 
+    height: 100vh;
+}
+
+.register .signIn-button{
+    padding: 0.3rem;
+    font-size: 0.8rem;
+    background-color: black;
+    color:rgba(207, 207, 207, 0.459);
+    border-radius: 10px;
+}
+
+.register .main-content{
+    height: 100vh;
+}
+
+.register .main-content-content{
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem; 
+}
+
+.register .words{
+    color: rgba(255, 255, 255, 0.027);
+    font-size: 8rem;
+    font-weight: bold;
+    font-style: italic;
+    font-family:'Geneva';
+    letter-spacing: 2rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.register .content{
+    height: auto;
+    width: 40%;
+    display: grid;
+    place-content: center;
+}
+
+/* .left-content{
+    
+} */
+
+.register .right-content{
+
+    background-color:rgba(160, 113, 113, 0.096);
+    display: grid;
+    gap: 1rem;
+    padding: 1rem 5rem;
+    border-top-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+    box-shadow: 5px 0px 0px 2px rgba(0, 0, 0, 0.534);
+}
+
+.register .welcome{
+    font-size:2rem;
+    font-weight: bold;
+    color:rgba(207, 207, 207, 0.459);
+}
+
+.register span{
+    color: black;
+}
+
+.register .right-content p{
+    font-size: 1rem;
+    color:rgba(207, 207, 207, 0.459);
+}
+
+.register .register form{
+    display: grid;
+    gap: 0.8rem;
+} 
+
+.register .form-row{
+    position: relative;
+    display: grid;
+    gap: 0.5rem;
+}
+
+.register label{
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.register input{
+    height: 2rem;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    padding-left: 1rem;
+}
+
+
+.register-button{
+    margin-top: 1rem;
+    background-color: black;
+    color:rgba(207, 207, 207, 0.459);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.3rem 0.8rem ;
+    display: grid;
+    place-content: center;
+    width: 5rem;
+    font-size: 1rem;
+    border-radius: 10px;
+}
+
+.forgetOrRegister{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+}
+
+.weak{
+    color: red;
+}
+
+.fairly-strong{
+    color: rgb(187, 255, 0);
+}
+
+.very-strong{
+    color:green;
+}
+
+.test{
+    position: absolute;
+    right: -4rem;
+    font-size: 0.7rem;
+    bottom: 0.7rem;
+}
+
+.input-error{
+    background-color:rgba(160, 113, 113, 0.096);
+    color:rgba(207, 207, 207, 0.459);
+    width: 9rem;
+    padding: 2rem 1rem 1rem 1rem;
+    text-align: justify;
+    border-radius: 15px;
+    box-shadow: 5px 5px 2px 5px rgba(0, 0, 0, 0.534);
+    position: absolute;
+    margin-top: 1rem;
+    animation-name: error-message-appear;
+    animation-duration: 1s;
+    animation-delay: 0.1s;
+    left: 2rem;
+    bottom: 1rem;
+   
+}
+
+@keyframes error-message-appear {
+    0%{
+        transform: translatey(-50px);
+    }
+}
+
+.input-error-close-button{
+    font-size: 0.7rem;
+    border: 1px solid black;
+    position: absolute;
+    right: 1rem;
+    border-radius: 50px;
+    display: grid;
+    place-content: center;
+    top: 1rem;
+    background-color:rgba(207, 207, 207, 0.459);
+    color: black;
+    cursor: pointer;
+}
+
+.input-error-close-button:hover{
+    background-color:black;
+    color: rgba(207, 207, 207, 0.459);
+}
+
+.loading-animation{
+    animation-name: spin;
+    animation-duration: 5s;
+    animation-delay: 0.1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes spin {
+    0%{
+        transform: rotate(500deg);
+    }
+}
+
+
+/* || EXTRA LARGE */
+
+@media screen and (max-width:1500px){
+   /*  .words{
+        display: none;
+    } */
+
+    .register .main-content-content{
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem; 
+    }
+    
+    
+    .register .content{
+        height: auto;
+        width: 50%;
+    }
+    
+    /* .left-content{
+        
+    } */
+    
+    .register .right-content{
+    
+        background-color:rgba(160, 113, 113, 0.096);
+        display: grid;
+        gap: 1rem;
+        padding: 1rem 3rem;
+        border-top-left-radius: 60px;
+        border-bottom-right-radius: 60px;
+        box-shadow: 5px 0px 0px 2px rgba(0, 0, 0, 0.534);
+        
+    }
+   
+}
+
+/* || LARGE */
+
+@media screen and (max-width:992px){
+
+    .register nav{
+        display: none;
+    }
+
+    .register .left-content{
+        display: none;
+    }
+    .register .right-content{
+        padding: 2rem;
+        width: 70%;
+        height: auto;
+        border-radius: 0;
+        background-color: rgba(160, 113, 113, 0.096);
+        box-shadow: 0px 2px 4px 4px rgba(0, 0, 0, 0.274);
+    }
+
+    .register .welcome{
+        font-size:2rem;
+    }
+
+    .register .right-content p{
+        font-size: 1rem;
+    }
+
+    .register form{
+        gap: 1rem;
+    } 
+    
+    .register .form-row{
+        gap: 0.5rem;
+    }
+    
+    .register label{
+        font-size: 0.9rem;
+    }
+       
+    .register .forgetOrRegister{
+        font-size: 0.8rem;
+    }
+    
+   
+}
+/* || MEDIUM */
+
+@media screen and (max-width:768px){
+    .register .words{
+        color: rgba(255, 255, 255, 0.027);
+        font-size: 6rem;
+        font-weight: bold;
+        font-style: italic;
+        font-family:'Geneva';
+        letter-spacing: 1rem;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+    
+    .register .left-content{
+        display: none;
+    }
+    .register .right-content{
+        padding: 2rem;
+        width: 70%;
+        height: auto;
+        border-radius: 0;
+        background-color: rgba(160, 113, 113, 0.096);
+        box-shadow: 0px 2px 4px 4px rgba(0, 0, 0, 0.274);
+    }
+
+    .register .welcome{
+        font-size:1.2rem;
+        text-align: center;
+    }
+
+    .register .right-content p{
+        text-align: center;
+        font-size: 0.6rem;
+    }
+
+    
+    .register label{
+        font-size: 0.9rem;
+    }
+    
+    .register input{
+        font-size: 0.5rem;
+    }
+    
+    
+}
+
+/* || SMALL */
+
+@media screen and (max-width:576px){
+    .register .words{
+        display: none;
+    }
+
+    .register .signUp-button{
+        padding: 0.3rem;
+        font-size: 0.8rem;
+        background-color: black;
+        color:rgba(207, 207, 207, 0.459);
+        border-radius: 10px;
+    }
+
+    .register .left-content{
+        display: none;
+    }
+    .register .right-content{
+        padding: 3rem;
+        width: 100%;
+        height: auto;
+        border-radius: 0;
+        background-color: rgba(160, 113, 113, 0.096);
+        box-shadow: 0px 2px 4px 4px rgba(0, 0, 0, 0.274);
+    }
+
+    .register .welcome{
+        font-size:1rem;
+    }
+
+    .register .right-content p{
+        font-size: 0.5rem;
+    }
+
+    .register form{
+        gap: 0.5rem;
+    } 
+    
+    .register .form-row{
+        gap: 0.3rem;
+    }
+    
+    .register label{
+        font-size: 0.8rem;
+        font-weight: bold;
+    }
+    
+    .register input{
+        height: 1.5rem;
+        border: 1px solid black;
+        border-radius: 5px;
+        font-size: 0.5rem;
+    }
+    
+    .register-button{
+        background-color: black;
+        color: rgba(207, 207, 207, 0.459);
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0.1rem 0.4rem ;
+        font-size: 0.7rem;
+        border-radius: 5px;
+    }
+    
+    .register .forgetOrRegister{
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.5rem;
+    }
+    
+    .test{
+        position: sticky;
+        font-size: 0.7rem;
+        
+    }
+
+    .input-error{
+        background-color:rgba(29, 28, 28, 0.747);
+        color:rgba(207, 207, 207, 0.459);
+        width: 100%;
+        padding: 2rem 1rem 1rem 1rem;
+        text-align: justify;
+        border-radius: 0px;
+        box-shadow: 5px 5px 2px 5px rgba(0, 0, 0, 0.534);
+        position: absolute;
+        margin-top: 1rem;
+        animation-name: error-message-appear;
+        animation-duration: 1s;
+        animation-delay: 0.1s;
+        left: 0;
+        right: 0;
+        bottom:0;
+        z-index: 1;
+       
+    }
+    
+    .input-error-content{
+        font-size: 0.7rem;
+        text-align: center;
+    }
+
+}
+
+
+
+
+/* ||MOBILE DEVICE LANSCAPE */
+
+/* @media screen and (max-height:425px) and (min-aspect-ratio:7/4){
+     
+} */
+
+
+
+
+
+
+
+
+
+

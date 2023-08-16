@@ -1,0 +1,21 @@
+.pageError{
+    height: 50%;
+    width: 100%;
+    background-color: transparent;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--PRIMARYCOLOR);    
+
+}
+
+
+.error-icon{
+    font-size: 3rem;   
+}
+
+.error-text{
+    text-align: center;
+}

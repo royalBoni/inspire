@@ -1,0 +1,98 @@
+/* .notification-page{
+    background-color: var(--PAGEBACKGROUND);
+    height: 95vh;
+    width: 100%;
+    padding: 0 0.3rem;
+    overflow: scroll;
+    color: var(--PRIMARYCOLOR);
+}
+
+
+.notification-page-header{
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background-color: var(--PAGEBACKGROUND);
+    z-index: 1;
+    margin-top: -0.5rem;
+    padding: 0.5rem 0;
+}
+
+.notification-page-header{
+    font-weight: bold;
+}
+
+.notification-page .nav-close-button{
+   display: none;
+}
+
+
+
+.notification-page .close-button{
+    background-color: var(--PRIMARYCOLOR);
+    color: var(--PAGEBACKGROUND);
+    display: grid;
+    place-content: center;
+    padding: 0.5rem 0.5rem;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.notification-page-content{
+    display:grid;
+    gap:0.5rem;
+}
+
+.notification-details{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+
+.notification-image{
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.notification-image img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+}
+
+
+
+@media screen and (max-width:1500px){
+    .notification-page{
+        height: 88vh;
+    }
+}
+
+@media screen and (max-width:992px){
+    .notification-page{
+        height: 85vh;
+    }
+
+    .notification-page .nav-close-button{
+        background-color: var(--PRIMARYCOLOR);
+        color: var(--PAGEBACKGROUND);
+        display: grid;
+        place-content: center;
+        padding: 0.2rem 0.5rem;
+        border-radius: 8px;
+    }
+}
+
+ 
+@media screen and (max-width:768px){
+    .notification-page{
+        height: 84vh;
+    }
+
+    .notification-page textarea{
+        font-size: 0.8rem;
+    }
+} */
