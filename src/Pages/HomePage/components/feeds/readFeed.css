@@ -6,9 +6,10 @@
     flex-direction: column;
     gap: 0.5rem;
     overflow: scroll;
+    overflow-x: hidden;
     position: relative;   
     background-color: var(--PAGEBACKGROUND);
-    
+
 }
 
 .post-header{
@@ -41,7 +42,7 @@
 
 .read-content-details{
     display: flex;
-    height: 70%;
+    height: auto;
     flex-direction: column;
     gap: 0.25rem;
     border: 1px solid var(--BORDERRIGHTCOLOR);
@@ -51,14 +52,13 @@
 
 .read-image{
     width: 100%;
-    height: 75%;
+    height: 400px;
     margin-right: 1rem;
 }
 
 .read-image img{
     width: 100%;
     height: 100%;
-    border-radius: 5px;
 }
 
 .read-image .text{
@@ -286,14 +286,9 @@
         padding: 0.5rem 0.6rem;
     }
 
-    .read-content-details{
-        height: 75%;
-        background-color: var(--PAGEBACKGROUND);
-    }
-
     .read-image{
         width: 100%;
-        height: 65%;
+        height: 500px;
         margin-right: 1rem;
     }
 

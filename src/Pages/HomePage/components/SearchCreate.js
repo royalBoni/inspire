@@ -8,10 +8,10 @@ import { useSelector,useDispatch } from 'react-redux'
 import { selectAllBookmarks } from '../../../reducxSlices/bookmarksSlice'
 import { selectAllInspirations } from '../../../reducxSlices/inspirationsSlice'
 
-const SearchCreate = ({setAllFeed,setSearchInput,searchInput,
+const SearchCreate = ({setSearchInput,searchInput,
     handleCreatePost,toggleProfile,toggle,profile_image_avatar,
     postAuthorImg,postAuthorName,friendSuggestionBox,readBookmark,functionalityUnderDevelopment,handleActive,
-    suggestedNoDuplicate,inspirersFollowed,handleFollowUnfollow,handleOpenUserProfilePage,activateSearch}) => {
+    handleFollowUnfollow,handleOpenUserProfilePage,activateSearch}) => {
 
 
   const {userID}= useParams();
@@ -19,6 +19,9 @@ const SearchCreate = ({setAllFeed,setSearchInput,searchInput,
   const bookmarks=useSelector(selectAllBookmarks)
   const inspirations=useSelector(selectAllInspirations)
   const bookmarked=bookmarks?.filter((item)=>item.bookmarker_id===userID)
+
+  const suggested=useSelector((state)=>state.myStates.suggested)
+  const inspirersFollowed=useSelector((state)=>state.myStates.inspirersFollowed)
 
   return (
     <div className="third-box">
@@ -51,7 +54,7 @@ const SearchCreate = ({setAllFeed,setSearchInput,searchInput,
                 <div className="friend-suggest-content">
                     <div className='suggestions'>
                             {
-                                suggestedNoDuplicate?.slice(0,3).map((item)=>{
+                                suggested?.slice(0,3).map((item)=>{
                                     return(
                                         <div key={item?._id} className="individual-account">
                                             {

@@ -2,8 +2,8 @@ import React from 'react'
 import { FaEllipsisV,FaHeart,FaCommentDots,FaBookmark } from 'react-icons/fa'
 
 const MyFeeds = ({userID,posts,handleSetLike,numberOfLikes,handleReadPost,numberOfComments,
-    bookmarkAndUnbookmark,handleSetBookmark,postAuthorImg,postAuthorName,likeAndUnlike,setBackID}) => {
-        console.log(userID)
+    bookmarkAndUnbookmark,handleSetBookmark,postAuthorImg,postAuthorName,likeAndUnlike}) => {
+
   return (
     <div>
     {

@@ -8,7 +8,11 @@ const initialState={
     selectedNotification:null,
     feedPosts:null,
     viewInspiration:false,
-    isSearched:false
+    selectedInspiration:{},
+    isSearched:false,
+    inspirersFollowed:[],
+    beenFollowed:[],
+    suggested:[]
 }
 
 export const myStatesSlice =createSlice({
@@ -33,10 +37,24 @@ export const myStatesSlice =createSlice({
         },
         setIsSearched:(state, action)=>{
             state.isSearched=action.payload
+        },
+        setInspirersFollowed:(state, action)=>{
+            state.inspirersFollowed=action.payload
+        },
+        setBeenFollowed:(state, action)=>{
+            state.beenFollowed=action.payload
+        },
+        setSuggested:(state, action)=>{
+            state.suggested=action.payload
+        },
+        setSelectedInspiration:(state, action)=>{
+            state.selectedInspiration=action.payload
         }
     }
 })
 
-export const {setIsToggleMobileNav,setIsOverPage, setIsAccountNav, setPageWidth, setSelectedNotification, setFeedPosts, setViewInspiration, setOpenMobileSearchComponent,setIsSearched} = myStatesSlice.actions;
+export const {setIsToggleMobileNav,setIsOverPage, setIsAccountNav, setPageWidth, setSelectedNotification,
+    setFeedPosts, setViewInspiration, setOpenMobileSearchComponent,setIsSearched,setInspirersFollowed,
+    setBeenFollowed,setSuggested,setSelectedInspiration} = myStatesSlice.actions;
 
 export default myStatesSlice.reducer;

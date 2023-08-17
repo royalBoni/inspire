@@ -21,10 +21,10 @@ import { useSelector,useDispatch } from 'react-redux';
 import { FaHome,FaRegEnvelope,FaUserAlt,FaBookmark,FaUsers,FaRegSun,FaUserFriends,FaAngleDown,FaSearch,FaAngleUp,FaPlus, FaBell} from 'react-icons/fa';
 import { selectNotificationsCounter } from '../../reducxSlices/notificationCounterSlice';
 import { selectAllProfiles } from '../../reducxSlices/profilesSlice';
+import { selectAllInspirers } from '../../reducxSlices/inspirersSlice';
 import { selectAllBookmarks } from '../../reducxSlices/bookmarksSlice';
-import { setFeedPosts } from '../../reducxSlices/actionStateSlice';
-import { setIsSearched } from '../../reducxSlices/actionStateSlice';
-import { setOpenMobileSearchComponent } from '../../reducxSlices/actionStateSlice';
+import { selectAllComments } from '../../reducxSlices/commentsSlice';
+import { setFeedPosts, setOpenMobileSearchComponent, setIsSearched, setInspirersFollowed,setSuggested,setBeenFollowed } from '../../reducxSlices/actionStateSlice';
 import { selectAllLikes } from '../../reducxSlices/likesSlice';
 import { useDeleteLikeMutation } from '../../reducxSlices/likesSlice';
 import { useAddNewLikeMutation } from '../../reducxSlices/likesSlice';
@@ -35,7 +35,6 @@ import { useAddNewBookmarkMutation } from '../../reducxSlices/bookmarksSlice';
 const Home = () => {
 
     const {userID}= useParams();
-    const param=1
     const dispatch = useDispatch()
     const [trigger,setTrigger]=useState('')
     const [removeFeedSection,setRemoveFeedSection]=useState('')
@@ -57,6 +56,9 @@ const Home = () => {
     const myNotificationsCounter  = useSelector(selectNotificationsCounter)
     const profiles = useSelector(selectAllProfiles)
     const likes = useSelector(selectAllLikes)
+    const inspirers= useSelector(selectAllInspirers)
+    const comments= useSelector(selectAllComments)
+    console.log(comments)
 
     useEffect(()=>{
       setPosts(inspirations)
@@ -67,8 +69,6 @@ const Home = () => {
     const activateSearch=()=>{
         const search=inspirations.filter((item)=>(((item.inspiration_title).toLowerCase()).includes(searchInput.toLowerCase()) ||
         (((item.inspiration_content).toLocaleLowerCase()).includes(searchInput.toLowerCase()))) )       
-            /* setinspirations(search)
-            setMobileSearchResult(search) */
         dispatch(setFeedPosts(search))    
         if(searchInput){
             dispatch(setIsSearched(true))
@@ -115,11 +115,7 @@ const Home = () => {
         setTriggerCloseProfileMenu(true)
     } 
 
-    const [displayMobileSearch,setDisplayMobileSearch]=useState('no-display-mobile-search')
-    const [mobileSearchResult,setMobileSearchResult]=useState([])
-
     const handleMobileSearch=()=>{
-        setDisplayMobileSearch('display-mobile-search')
         setDisplayMenu('no-menu')
         setToggle(!toggle)
         setTriggerCloseProfileMenu(true)
@@ -130,7 +126,6 @@ const Home = () => {
         setToggle(!toggle)
         if(toggle){
           handleDisplayMenu()
-          setTriggerInspirers(!triggerInspirers)
         }
         else{
           handleCloseMenu()
@@ -146,108 +141,30 @@ const Home = () => {
     const [searchTrigger,setSearchTrigger]=useState(false);
     const [searchInput,setSearchInput]=useState('')
 
-    useEffect(()=>{
-        if(searchInput.length>0){
-            setSearchTrigger(true)
-        }
-        else{
-            setSearchTrigger(false)
-        }
-    },[searchInput])
-  
     
-   
-    
-    const inspirers_url='http://localhost:5000/inspirer';
-    const [inspirersFollowed,setInspirersFollowed]=useState([])
-    const [suggested,setSuggested]=useState([])
-    const [suggestedNoDuplicate,setSuggestedNoDuplicate]=useState([])
-    const [allInspirers,setAllInspirers]=useState([])
-    const [beenFollowed,setBeenFollowed]=useState([])
-    const [triggerInspirers,setTriggerInspirers]=useState(true)
-    const [loadingInspirers,setLoadingInspirers]=useState(false)
-    const [inspirersError,setFetchInspirersError]=useState('')
-    useEffect(()=>{
-    const fetchInspirers =async () => {
-        try{
-          setLoadingInspirers(true)
-          const response = await fetch(inspirers_url);
-          if(!response.ok) throw Error("did not recieve expected data");
-          const jsonInspirers = await response.json();
-          setAllInspirers(jsonInspirers.inspirersResults)
-          const userInspirers=await (jsonInspirers.inspirersResults).filter((item)=>item.fan_id===userID)
-          setInspirersFollowed(userInspirers);
-         
-          const followed=allInspirers.filter((item)=>item.inspirer_id===userID)
-          setBeenFollowed(followed)
-        
-         const suggestedInspires=profiles.filter((item)=>item.userID!=userID)
-         setSuggestedNoDuplicate(suggestedInspires)
-     
-        
-        }
-        catch(err){
-          if(err.message==='Failed to fetch'){
-            setFetchInspirersError(`network or server might be down`)
-          }
-          else{
-            setFetchInspirersError(`Error: ${err.message}`)
-          }
-        }
-        finally{
-          setLoadingInspirers(false)
-        }
-  
-      } 
 
-      fetchInspirers();
-},[triggerInspirers])
+    useEffect(()=>{
+      dispatch(setInspirersFollowed(inspirers.filter((item)=>item.fan_id===userID)))
+      dispatch(setBeenFollowed(inspirers.filter((item)=>item.inspirer_id===userID)))
+      dispatch(setSuggested(profiles.filter((item)=>item.userID!=userID)))
+    },)
 
 const usersFollowed=(id)=>{
-  const uF=allInspirers.filter((item)=>item.fan_id===id)
+  const uF=inspirers.filter((item)=>item.fan_id===id)
   return uF.length
 }
 
 const myFollowers=(id)=>{
-  const uF=allInspirers.filter((item)=>item.inspirer_id===id)
+  const uF=inspirers.filter((item)=>item.inspirer_id===id)
   return uF.length
 }
 
-   
-
-    const account_profiles_url='http://localhost:3002/account-profiles';
-    const [accountProfiles,setAccountProfiles]=useState([]);
-    useEffect(()=>{
-        const fetchAccountProfile =async () => {
-
-            try{
-            const response = await fetch(account_profiles_url);
-            if(!response.ok) throw Error("did not recieve expected data");
-            const jsonAccountProfiles = await response.json();
-            setAccountProfiles(jsonAccountProfiles);
-            }
-            catch(err){
-            console.log(err)
-            }
-    
-        } 
-
-        fetchAccountProfile();
-    },[])
-
-    const [myProfile,setMyProfile]=useState([])
-
-    useEffect(()=>{
-        const personalProfile=accountProfiles.find((item)=>item.profile_id===param)
-        setMyProfile(personalProfile)
-    },[]);
-
-    const [myInfo,setMyInfo]=useState()
-    useEffect(()=>{
-        const myInfoResult=profiles?.find((item)=>item.userID===userID)
-        setMyInfo(myInfoResult)
-    },)
-    const {profile_image_avatar}=myInfo||[]
+  const [myInfo,setMyInfo]=useState()
+  useEffect(()=>{
+      const myInfoResult=profiles?.find((item)=>item.userID===userID)
+      setMyInfo(myInfoResult)
+  },)
+  const {profile_image_avatar}=myInfo||[]
     
 
     const likeAndUnlike=(id)=>{
@@ -295,41 +212,20 @@ const myFollowers=(id)=>{
     
 }
 
-    const comments_url='http://localhost:5000/comment';
-    const [comments,setComments]=useState([]);
-    const [triggerFetchComments,setTriggerFetchComments]=useState(false)
 
-    useEffect(()=>{
-        const fetchComments =async () => {
-  
-            try{
-              const response = await fetch(comments_url);
-              if(!response.ok) throw Error("did not recieve expected data");
-              const jsoncomments = await response.json();
-              setComments(jsoncomments.commentsResults);
-            }
-            catch(err){
-              console.log(err)
-            }
-      
-          } 
-
-          fetchComments();
-    },[triggerFetchComments])
-
-    const numberOfComments=(id)=>{
-        const total=comments.filter((item)=>item.post_id===id)
-        return total?.length
-    }
+  const numberOfComments=(id)=>{
+      const total=comments.filter((item)=>item.post_id===id)
+      return total?.length
+  }
     
 
-    const bookmarkAndUnbookmark=(id)=>{
-      const userbook=bookmarks?.filter((item)=>item.post_id===id)
-      const findbook=userbook?.find((item)=>item.bookmarker_id===userID);
-      if(findbook){
-          return 'activeLikeBtn'
-      } 
-  }
+  const bookmarkAndUnbookmark=(id)=>{
+    const userbook=bookmarks?.filter((item)=>item.post_id===id)
+    const findbook=userbook?.find((item)=>item.bookmarker_id===userID);
+    if(findbook){
+        return 'activeLikeBtn'
+    } 
+}
 
     const handleSetBookmark=async(id)=>{
       const findBookmark=bookmarks?.find((item)=>item.post_id===id&&item.bookmarker_id===userID)
@@ -379,13 +275,6 @@ const myFollowers=(id)=>{
       const handleReadPost=(post_id)=>{
     }
 
-    const handleCloseMobileSearch=()=>{
-        setDisplayMobileSearch('no-display-mobile-search')
-        setSearchInput('')
-        setMobileSearchResult(null)
-        setTriggerCloseProfileMenu(false)
-    }
-
     const[displayMenu,setDisplayMenu]=useState('no-menu')
     const handleDisplayMenu=()=>{
       setDisplayMenu('menu')
@@ -401,7 +290,7 @@ const myFollowers=(id)=>{
 
     const handleFollowUnfollow=async(item)=>{
 
-      const checkFollowed=inspirersFollowed.find((element)=>element.inspirer_id===item)
+     /*  const checkFollowed=inspirersFollowed.find((element)=>element.inspirer_id===item)
       if(checkFollowed){
           const newFollow=inspirersFollowed.filter((ins)=>ins.inspirer_id!==item)
           setInspirersFollowed(newFollow)
@@ -426,7 +315,7 @@ const myFollowers=(id)=>{
       else{
           const newFollow={inspirer_id:item,fan_id:userID,_id:item}
           setInspirersFollowed([...inspirersFollowed,newFollow])
-          console.log(inspirersFollowed)
+          console.log(inspirersFollowed) 
           try{
           
               const postOptions ={
@@ -462,7 +351,7 @@ const myFollowers=(id)=>{
                  console.log(err)
               }    
       
-      }
+      } */
   }
 
   const [friendSuggestionBox,setFriendSuggestionBox]=useState('')
@@ -566,8 +455,6 @@ const myFollowers=(id)=>{
         handleCloseMenu={handleCloseMenu}
         myInfo={myInfo}
         handleActive={handleActive}
-        inspirersFollowed={inspirersFollowed}
-        beenFollowed={beenFollowed}
         />
 
         {
@@ -660,8 +547,6 @@ const myFollowers=(id)=>{
                 bookmarkAndUnbookmark={bookmarkAndUnbookmark}
                 numberOfLikes={numberOfLikes}
                 numberOfComments={numberOfComments}
-                comments={comments}
-                setComments={setComments}
                 handleSetBookmark={handleSetBookmark}
                 handleSetLike={handleSetLike}
                 postAuthorImg={postAuthorImg}
@@ -672,12 +557,9 @@ const myFollowers=(id)=>{
                 setSwitchFeedPage={setSwitchFeedPage}
                 switchReadPage={switchReadPage}
                 selectedPost={selectedPost}
-                triggerFetchComments={triggerFetchComments}
-                setTriggerFetchComments={setTriggerFetchComments}
                 setOverColor={setOverColor}
                 setWarning={setWarning}
                 setWarningMessage={setWarningMessage}
-                inspirersFollowed={inspirersFollowed}
                 handleFollowUnfollow={handleFollowUnfollow}
                 functionalityUnderDevelopment={functionalityUnderDevelopment}
                 handleActive={handleActive}
@@ -690,7 +572,6 @@ const myFollowers=(id)=>{
                 />:
                 activeComponent===3?
                 <Profile 
-                myProfile={myProfile}
                 posts={posts}
                 trigger={trigger}
                 setTrigger={setTrigger}
@@ -699,24 +580,16 @@ const myFollowers=(id)=>{
                 setAllFeed={setAllFeed}
                 removeFeedSection={removeFeedSection}
                 deactivatePostCss={deactivatePostCss}
-                inspirersFollowed={inspirersFollowed}
-                accountProfiles={accountProfiles}
-                profiles={profiles}
-                suggestedNoDuplicate={suggestedNoDuplicate}
-                beenFollowed={beenFollowed}
                 upperSection={upperSection}
                 lowerSection={lowerSection}
                 setLowerSection={setLowerSection}
                 setUpperSection={setUpperSection}
                 myInfo={myInfo}
-                /* setLikes={setLikes} */
                 likes={likes}
                 likeAndUnlike={likeAndUnlike}
                 bookmarkAndUnbookmark={bookmarkAndUnbookmark}
                 numberOfLikes={numberOfLikes}
                 numberOfComments={numberOfComments}
-                comments={comments}
-                setComments={setComments}
                 postAuthorImg={postAuthorImg}
                 postAuthorName={postAuthorName}
                 switchFeedPage={switchFeedPage}
@@ -724,10 +597,6 @@ const myFollowers=(id)=>{
                 setSwitchFeedPage={setSwitchFeedPage}
                 switchReadPage={switchReadPage}
                 selectedPost={selectedPost}
-                triggerInspirers={triggerInspirers}
-                setTriggerInspirers={setTriggerInspirers}
-                loadingInspirers={loadingInspirers}
-                inspirersError={inspirersError}
                 triggerCloseProfileMenu={triggerCloseProfileMenu}
                 handleFollowUnfollow={handleFollowUnfollow}
                 userID={userID}
@@ -745,17 +614,8 @@ const myFollowers=(id)=>{
                 />:
                 activeComponent===5?
                 <InspireComp
-                inspirersFollowed={inspirersFollowed}
-                accountProfiles={accountProfiles}
-                suggestedNoDuplicate={suggestedNoDuplicate}
-                beenFollowed={beenFollowed}
-                profiles={profiles}
-                setTriggerInspirers={setTriggerInspirers}
-                triggerInspirers={triggerInspirers}
-                loadingInspirers={loadingInspirers}
-                inspirersError={inspirersError} 
+                profiles={profiles}       
                 userID={userID}
-                setInspirersFollowed={setInspirersFollowed}
                 handleFollowUnfollow={handleFollowUnfollow}
                 />:
                 activeComponent===6?
@@ -811,14 +671,12 @@ const myFollowers=(id)=>{
                 setAllFeed={setAllFeed}
                 searchInput={searchInput}
                 setSearchInput={setSearchInput}
-                accountProfiles={accountProfiles}
                 handleCreatePost={handleCreatePost}
                 setOverColor={setOverColor}
                 toggleProfile={toggleProfile}
                 toggle={toggle}
                 profiles={profiles}
                 profile_image_avatar={profile_image_avatar}
-                setMobileSearchResult={setMobileSearchResult}
                 postAuthorImg={postAuthorImg}
                 postAuthorName={postAuthorName}
                 handleReadPost={handleReadPost}
@@ -826,11 +684,7 @@ const myFollowers=(id)=>{
                 handleSeeAll={handleSeeAll}
                 readBookmark={readBookmark}
                 functionalityUnderDevelopment={functionalityUnderDevelopment}
-                suggestedNoDuplicate={suggestedNoDuplicate}
-                inspirersFollowed={inspirersFollowed}
                 handleFollowUnfollow={handleFollowUnfollow}
-                setTriggerInspirers={setTriggerInspirers}
-                triggerInspirers={triggerInspirers}
                 handleOpenUserProfilePage={handleOpenUserProfilePage}
                 activateSearch={activateSearch}
                 />

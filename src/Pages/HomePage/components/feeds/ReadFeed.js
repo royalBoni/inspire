@@ -3,18 +3,22 @@ import './readFeed.css'
 import {FaGenderless,FaHeart,FaCommentDots,FaBookmark,FaRegPaperPlane,FaSpinner,FaEllipsisH} from 'react-icons/fa'
 import { useState,useRef,useEffect } from 'react'
 import { format } from 'date-fns'
-import { useDispatch } from 'react-redux'
+import { useDispatch,useSelector } from 'react-redux'
 import { setViewInspiration } from '../../../../reducxSlices/actionStateSlice'
-import { parseISO, formatDistanceToNow } from 'date-fns';
+import { selectAllComments } from '../../../../reducxSlices/commentsSlice'
+import { useAddNewNotificationMutation } from '../../../../reducxSlices/notificationsSlice'
+import { useAddNewCommentMutation } from '../../../../reducxSlices/commentsSlice'
 
-const ReadFeed = ({switchReadPage,setSwitchFeedPage,setSwitchReadPage,selectedPost,numberOfComments,numberOfLikes,likeAndUnlike,bookmarkAndUnbookmark,
-  handleSetBookmark,handleSetLike,profiles,postAuthorImg,postAuthorName,userID,comments,setComments,setLowerSection,
-  setUpperSection,setHeader,triggerFetchComments,setTriggerFetchComments,handleActive,backID,setOpenCloseUserProfilePage,handleOpenUserProfilePage,
-  dayPosted}) => {
+const ReadFeed = ({numberOfComments,numberOfLikes,likeAndUnlike,bookmarkAndUnbookmark,handleSetBookmark,handleSetLike,postAuthorImg,postAuthorName,handleOpenUserProfilePage,
+  datePosted,userID}) => {
     const dispatch=useDispatch()
+    const selectedInspiration = useSelector((state)=>state.myStates.selectedInspiration)
+    const [addNewNotification]=useAddNewNotificationMutation()
+    const [addNewComment,{isLoading,isSuccess}]=useAddNewCommentMutation()
     const [comment,setComment]=useState('')
-    const [loading,setLoading]=useState(false)
     const [placeholder,setPlaceholder]=useState('write a comment...')
+
+    const comments = useSelector(selectAllComments)
 
     const bottomRef=useRef()
     const commentShowRef=useRef()
@@ -28,63 +32,17 @@ const ReadFeed = ({switchReadPage,setSwitchFeedPage,setSwitchReadPage,selectedPo
       setComment(postAuthorName(id))
     }
 
-  /* useEffect(()=>{
-    bottomRef.current.scrollIntoView({behavior:'smooth'});
-  },[triggerFetchComments]) */
+    useEffect(()=>{
+      setComment('')
+    },[isSuccess])
     
     const handleSubmitComment=async(id,authorID)=>{
       const datetime =format(new Date(), 'MMMM dd, yyyy pp');
       
       if(comment.length>0){
         try{
-          /* const date =format(new Date(), 'EE MM dd, yyyy pp'); */
-          const date =new Date();
-          const newNotification={date:date,operation:"commented on your post",post_id:id}
-          const postNotificationOptions ={
-            method : 'POST',
-            headers: {
-              'Content-type': 'application/json'
-            },
-            body: JSON.stringify(newNotification)
-            }
-
-          const notificationResponse=await fetch(`http://localhost:5000/notification/${userID}/${authorID}`,postNotificationOptions)
-          const jsonNotificationResponse=notificationResponse.json()
-          if(!notificationResponse.ok){
-            console.log(jsonNotificationResponse.message)
-          }
-          else{
-            console.log(jsonNotificationResponse.message)
-          }
-          setLoading(true)
-              const newComment={comment:comment,datetime:datetime}
-      
-              const postOptions ={
-              method : 'POST',
-              headers: {
-                'Content-type': 'application/json'
-              },
-              body: JSON.stringify(newComment)
-              }
-
-              const response=await fetch(`http://localhost:5000/comment/${userID}/${id}`,postOptions)
-
-              const jsonfile= await response.json()
-
-              if(!response.ok){
-              console.log(jsonfile.message)
-              setPlaceholder(jsonfile.message)
-             
-              }
-          
-              else{
-              
-              console.log('successful')
-              setTriggerFetchComments(!triggerFetchComments)
-              bottomRef.current.scrollIntoView({behavior:'smooth'});
-              setComment('')
-              setPlaceholder('write a comment...')
-          }
+          await addNewNotification({date:new Date(),operation:"commented on your post",post_id:id,userID,authorID})
+          await addNewComment({comment:comment,datetime:datetime,id,userID})
           }
           catch(err){
               if(err.message==='Failed to fetch'){
@@ -96,16 +54,8 @@ const ReadFeed = ({switchReadPage,setSwitchFeedPage,setSwitchReadPage,selectedPo
                   setPlaceholder(err.message)
                 }
           }
-          finally{
-              setLoading(false)
-          }
-          
-      
       }
-     
     }
-
-   
 
   return (
     <div>
@@ -115,25 +65,23 @@ const ReadFeed = ({switchReadPage,setSwitchFeedPage,setSwitchReadPage,selectedPo
             <div className="post-name">Post</div>
           </div>
           <div className="read-content-details">
-            <div className="read-image">{!selectedPost?.inspiration_image_avatar?
-            <div className='text' style={{backgroundColor:selectedPost.bgColor,color:selectedPost.fgColor,fontFamily:selectedPost.fStyle}}>{selectedPost.inspiration_content}</div>
-            :<img src={selectedPost.inspiration_image_avatar} alt="" />}</div>
+            <div className="read-image">{!selectedInspiration?.inspiration_image_avatar?
+            <div className='text' style={{backgroundColor:selectedInspiration.bgColor,color:selectedInspiration.fgColor,fontFamily:selectedInspiration.fStyle}}>{selectedInspiration.inspiration_content}</div>
+            :<img src={selectedInspiration.inspiration_image_avatar} alt="" />}</div>
             <div className="categoryDateRead">
               <div className='categoryDate'>
-                <div className="contentCategory">{selectedPost.category?selectedPost.category:'uncategorized'}</div>
-                <FaGenderless/>
-                <div className="contentDate">{dayPosted(selectedPost.datetime)}</div>
+                <div className="contentCategory">{selectedInspiration.category?selectedInspiration.category:'General'}</div>
               </div>
-              <div className="contentReadtime">{`${selectedPost.read_time} min read`}</div>
+              <div className="contentReadtime">{datePosted(selectedInspiration.datetime)}</div>
             </div>
-            <div className="read-title">{selectedPost.inspiration_title}</div>
-            <div className="read-inspiration">{selectedPost.inspiration_content}</div> 
+            <div className="read-title">{selectedInspiration.inspiration_title}</div>
+            <div className="read-inspiration">{selectedInspiration.inspiration_content}</div> 
 
             <div className="interaction">
-              <div className="author" onClick={()=>handleOpenUserProfilePage(selectedPost.authorID)}>
+              <div className="author" onClick={()=>handleOpenUserProfilePage(selectedInspiration.authorID)}>
                   <div className="author-info">
-                      <div className="author-image"><img src={postAuthorImg(selectedPost.authorID)} alt="" /></div>
-                      <div className="author-name">{postAuthorName(selectedPost.authorID)?postAuthorName(selectedPost.authorID):'anonymous'}</div>
+                      <div className="author-image"><img src={postAuthorImg(selectedInspiration.authorID)} alt="" /></div>
+                      <div className="author-name">{postAuthorName(selectedInspiration.authorID)?postAuthorName(selectedInspiration.authorID):'anonymous'}</div>
                   </div>
                                             {/* <div className="post-operation">
                                                 <div className="settings">...</div>
@@ -142,39 +90,33 @@ const ReadFeed = ({switchReadPage,setSwitchFeedPage,setSwitchReadPage,selectedPo
               </div>
               <div className="metrics" ref={commentShowRef}>
                       <div className="likes">
-                        <FaHeart className={likeAndUnlike(selectedPost._id)} onClick={()=>handleSetLike(selectedPost._id,selectedPost.authorID)}/>
-                        <div className="number">{numberOfLikes(selectedPost._id)}</div>
+                        <FaHeart className={likeAndUnlike(selectedInspiration._id)} onClick={()=>handleSetLike(selectedInspiration._id,selectedInspiration.authorID)}/>
+                        <div className="number">{numberOfLikes(selectedInspiration._id)}</div>
                       </div>
                       <div className="comments">
                         <FaCommentDots/>
-                        <div className="number">{numberOfComments(selectedPost._id)}</div>
+                        <div className="number">{numberOfComments(selectedInspiration._id)}</div>
                       </div>
                       <div className="comments">
-                        <FaBookmark className={bookmarkAndUnbookmark(selectedPost._id)}  onClick={()=>handleSetBookmark(selectedPost._id)}/>
+                        <FaBookmark className={bookmarkAndUnbookmark(selectedInspiration._id)}  onClick={()=>handleSetBookmark(selectedInspiration._id)}/>
                       </div>
               </div>
            
                                                            
             </div>
-            {/*<div className="comment-input">
-             <input type="text" placeholder={placeholder} value={comment} onChange={(e)=>setComment(e.target.value)}/>
-            {
-              loading?<FaSpinner className='loading-animation post-animation'/>:<FaRegPaperPlane className='post-comment' onClick={()=>handleSubmitComment(selectedPost._id)}/>
-            }
-          </div> */}
             
         </div>
         <div className="read-content-comment-section">
           <div className="comment-input">
             <input type="text" placeholder={placeholder} value={comment} onChange={(e)=>setComment(e.target.value)}/>
             {
-              loading?<FaSpinner className='loading-animation post-animation'/>:<FaRegPaperPlane className='post-comment' onClick={()=>handleSubmitComment(selectedPost._id,selectedPost.authorID)}/>
+              isLoading?<FaSpinner className='loading-animation post-animation'/>:<FaRegPaperPlane className='post-comment' onClick={()=>handleSubmitComment(selectedInspiration._id,selectedInspiration.authorID)}/>
             }
           </div>
           <div className="comment-read">
             {
               comments.map((item)=>{
-                if(item.post_id===selectedPost._id){
+                if(item.post_id===selectedInspiration._id){
                   return(
                     <div key={item._id} className="individual-comment">
                       <div className="commenter-profile-image" onClick={()=>handleOpenUserProfilePage(item.commenter_id)}>
@@ -191,7 +133,7 @@ const ReadFeed = ({switchReadPage,setSwitchFeedPage,setSwitchReadPage,selectedPo
                           </div>
                           <div className="commenter-content-iteractions">
                             <div className="commenter-content-interactions-actions">
-                              <div className="commenter-content-iteraction-item">{dayPosted(item.comment_date)}</div>
+                              <div className="commenter-content-iteraction-item">{/* {dayPosted(item.comment_date)} */}date</div>
                               <div className={`commenter-content-iteraction-item ${likeAndUnlike(item._id)}`} onClick={()=>handleSetLike(item._id)}>Like</div>
                               <div className="commenter-content-iteraction-item" onClick={()=>handleClickReply(item.commenter_id)}>Reply</div>
                             </div>

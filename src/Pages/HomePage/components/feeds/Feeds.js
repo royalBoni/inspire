@@ -13,11 +13,12 @@ import { selectAllInspirations } from '../../../../reducxSlices/inspirationsSlic
 import { useSelector,useDispatch } from 'react-redux'
 import { setFeedPosts } from '../../../../reducxSlices/actionStateSlice'
 import { setViewInspiration } from '../../../../reducxSlices/actionStateSlice'
+import { setSelectedInspiration } from '../../../../reducxSlices/actionStateSlice'
 
-const Feeds = ({posts,setPosts,userID,profiles,setUpperSection,setLowerSection,loadingInspiration,setHeader,likeAndUnlike,bookmarkAndUnbookmark,
+const Feeds = ({posts,setPosts,userID,profiles,setUpperSection,setLowerSection,setHeader,likeAndUnlike,bookmarkAndUnbookmark,
   numberOfLikes,numberOfComments,comments,setComments,handleSetBookmark,handleSetLike, postAuthorName,postAuthorImg,
 setSwitchReadPage,setSwitchFeedPage,switchReadPage,selectedPost,triggerFetchComments,setTriggerFetchComments,setOverColor,setWarningMessage,setWarning,
-  inspirersFollowed,handleFollowUnfollow,functionalityUnderDevelopment,backID,handleOpenUserProfilePage,setOpenCloseUserProfilePage,
+handleFollowUnfollow,functionalityUnderDevelopment,backID,handleOpenUserProfilePage,setOpenCloseUserProfilePage,
   activateSearch,searchInput,setSearchInput}) => {
    
 const dispatch=useDispatch()
@@ -61,8 +62,9 @@ const isSearched=useSelector((state)=>state.myStates.isSearched)
 const viewInspiration=useSelector((state)=>state.myStates.viewInspiration)
 const openMobileSearchComponent=useSelector((state)=>state.myStates.openMobileSearchComponent)
 
-const handleReadPost =()=>{
+const handleReadPost =(item)=>{
     dispatch(setViewInspiration())
+    dispatch(setSelectedInspiration(item))
 }
 
 const handleFilterFeedItems=(filterValue,key)=>{
@@ -134,7 +136,6 @@ return (
       setWarning={setWarning}
       creatorID={creatorID}
       postAuthorName={postAuthorName}
-      inspirersFollowed={inspirersFollowed}
       handleFollowUnfollow={handleFollowUnfollow}
       functionalityUnderDevelopment={functionalityUnderDevelopment}/>
 
@@ -186,7 +187,7 @@ return (
         <div className="feed-box-content-content feeds-content" onScroll={scrolling}>
           <div className='feed-box-content-content-item'>
               {
-                loadingInspiration?
+                resourceLoading?
                 <ProductLoadingPage
                 message='Loading Inspirations'/>:
                 
@@ -200,7 +201,7 @@ return (
                               </div>
                             </div>
                             <div className='post-info'>
-                              <div className="post-image" style={{backgroundColor:item.bgColor,color:item.fgColor,fontFamily:item.fStyle}} onClick={()=>handleReadPost(item._id)}>
+                              <div className="post-image" style={{backgroundColor:item.bgColor,color:item.fgColor,fontFamily:item.fStyle}} onClick={()=>handleReadPost(item)}>
                                   {item.inspiration_image_avatar?<img src={item.inspiration_image_avatar} alt="" />:null}
                                   {
                                       !item.inspiration_image_avatar?<div className='text'>{item.inspiration_content}</div>:null    
@@ -227,7 +228,7 @@ return (
                                         <FaHeart className={likeAndUnlike(item._id)} onClick={()=>handleSetLike(item._id,item.authorID)}/>
                                         <div className="number">{numberOfLikes(item._id)}</div>
                                     </div>
-                                    <div className="comments" onClick={()=>handleReadPost(item._id)}>
+                                    <div className="comments" onClick={()=>handleReadPost(item)}>
                                         <FaCommentDots/>
                                         <div className="number">{numberOfComments(item._id)}</div>
                                     </div>
@@ -246,14 +247,10 @@ return (
         </div>
                 
       </div>:
-      <ReadFeed setSwitchReadPage={setSwitchReadPage} setSwitchFeedPage={setSwitchFeedPage} 
-      switchReadPage={switchReadPage} selectedPost={selectedPost} numberOfComments={numberOfComments}
-      numberOfLikes={numberOfLikes} likeAndUnlike={likeAndUnlike} bookmarkAndUnbookmark={bookmarkAndUnbookmark}
-      handleSetBookmark={handleSetBookmark} handleSetLike={handleSetLike} profiles={profiles} postAuthorImg={postAuthorImg}
-      postAuthorName={postAuthorName} userID={userID} comments={comments} setComments={setComments}
-      setUpperSection={setUpperSection} setLowerSection={setLowerSection} setHeader={setHeader} triggerFetchComments={triggerFetchComments}
-      setTriggerFetchComments={setTriggerFetchComments} backID={backID} setOpenCloseUserProfilePage={setOpenCloseUserProfilePage}
-      handleOpenUserProfilePage={handleOpenUserProfilePage} dayPosted={dayPosted} />
+      <ReadFeed 
+      numberOfComments={numberOfComments} numberOfLikes={numberOfLikes} likeAndUnlike={likeAndUnlike} bookmarkAndUnbookmark={bookmarkAndUnbookmark}
+      handleSetBookmark={handleSetBookmark} handleSetLike={handleSetLike}  postAuthorImg={postAuthorImg} datePosted={datePosted}
+      postAuthorName={postAuthorName} setOpenCloseUserProfilePage={setOpenCloseUserProfilePage} handleOpenUserProfilePage={handleOpenUserProfilePage} />
       }
       </>
     }  

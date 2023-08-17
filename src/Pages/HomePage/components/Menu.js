@@ -4,9 +4,13 @@ import { FaTimes,FaUsers,FaAngleDown,FaAngleUp,FaBookmark, FaPalette, FaFont,FaU
 import { Link } from 'react-router-dom'
 import pic from './me.jpeg'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
-const Menu = ({displayMenu,handleCloseMenu,myInfo,handleActive,inspirersFollowed,beenFollowed}) => {
+const Menu = ({displayMenu,handleCloseMenu,myInfo,handleActive}) => {
     const [pageWidth,setPageWidth]=useState('')
+
+const inspirersFollowed=useSelector((state)=>state.myStates.inspirersFollowed)
+const beenFollowed=useSelector((state)=>state.myStates.beenFollowed)
 
 const screen =()=>{
     const myWidth = window.innerWidth;
