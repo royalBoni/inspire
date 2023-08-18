@@ -6,7 +6,7 @@ const Timeline = ({deactivateTimeline,posts,bookmarked,allFeed,setAllFeed,remove
   loadingInspiration,fetchInspirationError,setUpperSection,setLowerSection,setLikes,likes,likeAndUnlike,bookmarkAndUnbookmark,
   numberOfLikes,numberOfComments,comments,setComments,postAuthorName,postAuthorImg,switchFeedPage,setSwitchReadPage,setSwitchFeedPage,switchReadPage,selectedPost}) => {
   return (
-    <div className={`${deactivateTimeline}`}>
+    <div className='timeline'>
         <Feeds
         posts={posts}
         loadingInspiration={loadingInspiration}

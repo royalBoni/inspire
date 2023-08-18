@@ -8,8 +8,7 @@ import { useSelector,useDispatch } from 'react-redux'
 import { selectAllBookmarks } from '../../../reducxSlices/bookmarksSlice'
 import { selectAllInspirations } from '../../../reducxSlices/inspirationsSlice'
 
-const SearchCreate = ({setSearchInput,searchInput,
-    handleCreatePost,toggleProfile,toggle,profile_image_avatar,
+const SearchCreate = ({setSearchInput,searchInput,handleCreatePost,toggleProfile,toggle,profile_image_avatar,
     postAuthorImg,postAuthorName,friendSuggestionBox,readBookmark,functionalityUnderDevelopment,handleActive,
     handleFollowUnfollow,handleOpenUserProfilePage,activateSearch}) => {
 
@@ -45,7 +44,7 @@ const SearchCreate = ({setSearchInput,searchInput,
                 </div>
             </div>
         </div>
-        <div className={`third-box-content`}>
+        <div className='third-box-content'>
             <div className="friend-suggest">
                 <div className="friend-suggest-title">
                     <div>Suggestions For You</div>
@@ -81,7 +80,7 @@ const SearchCreate = ({setSearchInput,searchInput,
                 </div>
             </div>
         </div>
-        <div className={`third-box-content ${friendSuggestionBox}`}>
+        <div className='third-box-content'>
             <div className="bookmark">
                 <div className="bookmarked-title">
                     <div>Bookmarked</div>

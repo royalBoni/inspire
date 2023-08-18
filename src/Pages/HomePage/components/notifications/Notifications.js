@@ -7,8 +7,9 @@ import { selectNotifications } from '../../../../reducxSlices/notificationsSlice
 import { useSelector,useDispatch } from 'react-redux';
 import { setSelectedNotification } from '../../../../reducxSlices/actionStateSlice';
 import { selectAllProfiles } from '../../../../reducxSlices/profilesSlice';
+import { setIsOverColor } from '../../../../reducxSlices/actionStateSlice';
 
-const Notifications = ({setOverColor,setWarning,setWarningMessage,functionalityUnderDevelopment}) => {
+const Notifications = ({setWarning,setWarningMessage,functionalityUnderDevelopment}) => {
   const dispatch = useDispatch()
   const [openClose,setOpenClose]=useState(false)
   const notifications = useSelector(selectNotifications)
@@ -18,12 +19,12 @@ const Notifications = ({setOverColor,setWarning,setWarningMessage,functionalityU
     if(!openClose){
       dispatch(setSelectedNotification(data))
       setOpenClose(!openClose) 
-      setOverColor('over-color')
+      dispatch(setIsOverColor())
     }
     else{
       dispatch(setSelectedNotification(null))
       setOpenClose(!openClose) 
-      setOverColor('no-over-color') 
+      dispatch(setIsOverColor()) 
     }
     
   }
@@ -42,7 +43,7 @@ const Notifications = ({setOverColor,setWarning,setWarningMessage,functionalityU
      
         <div className='notification-page'>
         <div className="notification-page-header">
-            Notification
+            <p>Notifications</p>
         </div>
 
         <div className="notification-page-content">

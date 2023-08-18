@@ -25,16 +25,7 @@ const FeedPostMenu = ({ userID,postID,posts,setPosts,postMenuStyle,handleUnpostM
       }
      
     }
-
-   /*  const functionalityUnderDevelopment=()=>{
-      setWarningMessage('functionality under construction')
-      setWarning(true)
-      setTimeout(() => {
-          setWarning(false)
-          setWarningMessage(null)
-      }, 17000);
-    } */
-     
+    
   return (
     <div className={`${postMenuStyle}`}>
     <div className="close-post-menu" onClick={handleUnpostMenu}><FaTimes/></div>

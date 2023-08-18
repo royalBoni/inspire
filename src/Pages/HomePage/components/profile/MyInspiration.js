@@ -12,7 +12,7 @@ const MyInspiration = ({deactivateMyInspirations,userID,posts,handleSetLike,numb
     }
     
   return (
-    <div className={`${deactivateMyInspirations}`}> 
+    <div className='my-inspiration'> 
          <MyFeeds 
             posts={posts}
             handleReadPost={handleReadPost}

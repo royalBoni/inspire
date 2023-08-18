@@ -14,11 +14,10 @@ import { useSelector,useDispatch } from 'react-redux'
 import { setFeedPosts } from '../../../../reducxSlices/actionStateSlice'
 import { setViewInspiration } from '../../../../reducxSlices/actionStateSlice'
 import { setSelectedInspiration } from '../../../../reducxSlices/actionStateSlice'
+import { setIsOverColor } from '../../../../reducxSlices/actionStateSlice'
 
-const Feeds = ({posts,setPosts,userID,profiles,setUpperSection,setLowerSection,setHeader,likeAndUnlike,bookmarkAndUnbookmark,
-  numberOfLikes,numberOfComments,comments,setComments,handleSetBookmark,handleSetLike, postAuthorName,postAuthorImg,
-setSwitchReadPage,setSwitchFeedPage,switchReadPage,selectedPost,triggerFetchComments,setTriggerFetchComments,setOverColor,setWarningMessage,setWarning,
-handleFollowUnfollow,functionalityUnderDevelopment,backID,handleOpenUserProfilePage,setOpenCloseUserProfilePage,
+const Feeds = ({posts,setPosts,userID,likeAndUnlike,bookmarkAndUnbookmark,numberOfLikes,numberOfComments,handleSetBookmark,handleSetLike, postAuthorName,postAuthorImg,setWarningMessage,setWarning,
+handleFollowUnfollow,functionalityUnderDevelopment,handleOpenUserProfilePage,setOpenCloseUserProfilePage,
   activateSearch,searchInput,setSearchInput}) => {
    
 const dispatch=useDispatch()
@@ -100,12 +99,12 @@ const handlePostMenu=(id,author)=>{
   setPostMenuStyle('feed-post-menu')
   setPostID(id)
   setCreatorID(author)
-  setOverColor('over-color') 
+  dispatch(setIsOverColor()) 
 }
 
 const handleUnpostMenu=()=>{
   setPostMenuStyle('no-feed-post-menu')
-  setOverColor('no-over-color') 
+  dispatch(setIsOverColor()) 
   setWarning(false)
   setWarningMessage(null)
 }

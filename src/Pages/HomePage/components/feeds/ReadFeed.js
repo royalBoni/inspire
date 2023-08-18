@@ -133,7 +133,7 @@ const ReadFeed = ({numberOfComments,numberOfLikes,likeAndUnlike,bookmarkAndUnboo
                           </div>
                           <div className="commenter-content-iteractions">
                             <div className="commenter-content-interactions-actions">
-                              <div className="commenter-content-iteraction-item">{/* {dayPosted(item.comment_date)} */}date</div>
+                              <div className="commenter-content-iteraction-item">{datePosted(item.comment_date)}</div>
                               <div className={`commenter-content-iteraction-item ${likeAndUnlike(item._id)}`} onClick={()=>handleSetLike(item._id)}>Like</div>
                               <div className="commenter-content-iteraction-item" onClick={()=>handleClickReply(item.commenter_id)}>Reply</div>
                             </div>

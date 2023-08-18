@@ -1,11 +1,12 @@
 import React from 'react'
 import { FaEllipsisV,FaHeart,FaCommentDots,FaBookmark } from 'react-icons/fa'
+import './myFeeds.css'
 
 const MyFeeds = ({userID,posts,handleSetLike,numberOfLikes,handleReadPost,numberOfComments,
     bookmarkAndUnbookmark,handleSetBookmark,postAuthorImg,postAuthorName,likeAndUnlike}) => {
 
   return (
-    <div>
+    <div className='my-feed'>
     {
        posts.filter((item)=>item.authorID===userID).length>0?
        posts.filter((item)=>item.authorID===userID).map((item)=>{
@@ -47,7 +48,7 @@ const MyFeeds = ({userID,posts,handleSetLike,numberOfLikes,handleReadPost,number
                                 <FaHeart className={likeAndUnlike(item._id)} onClick={()=>handleSetLike(item._id,item.authorID)}/>
                                 <div className="number">{numberOfLikes(item._id)}</div>
                             </div>
-                            <div className="comments"/*  onClick={()=>handleReadMyInspiration(item._id)} */>
+                           <div className="comments"/*  onClick={()=>handleReadMyInspiration(item._id)} */>
                                 <FaCommentDots/>
                                 <div className="number">{numberOfComments(item._id)}</div>
                             </div>

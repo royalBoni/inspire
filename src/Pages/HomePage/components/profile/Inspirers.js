@@ -3,13 +3,16 @@ import './inspirers.css'
 import { useState } from 'react'
 import {format} from 'date-fns'
 import { useSelector } from 'react-redux'
+import { selectAllProfiles } from '../../../../reducxSlices/profilesSlice'
 
-const Inspirers = ({deactivateInspirers,profiles,handleFollowUnfollow,handleOpenUserProfilePage}) => {
+const Inspirers = ({deactivateInspirers,handleFollowUnfollow,handleOpenUserProfilePage}) => {
     const [activeInspirerItem, setActiveInspirerItem]=useState(1)
 
     const suggested=useSelector((state)=>state.myStates.suggested)
     const inspirersFollowed=useSelector((state)=>state.myStates.inspirersFollowed)
     const beenFollowed=useSelector((state)=>state.myStates.beenFollowed)
+
+    const profiles = useSelector(selectAllProfiles)
 
   return (
     <div className={`${deactivateInspirers}`}>
@@ -31,7 +34,7 @@ const Inspirers = ({deactivateInspirers,profiles,handleFollowUnfollow,handleOpen
                 <div className="all-followed">
                     
                         {
-                            inspirersFollowed.map((item)=>{
+                            inspirersFollowed?.map((item)=>{
                                 return(
                                     <div key={item._id} className="individual-account">
                                         {

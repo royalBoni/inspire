@@ -22,56 +22,34 @@ export const extendedInspirersApiSlice=apiSlice.injectEndpoints({
             ]
         }),
 
-        /* getPostsByUserId: builder.query({
-            query: id => `/posts/?userId=${id}`,
-            transformResponse: responseData => {
-                const loadedPosts = responseData.map(post => {
-                    return post;
-                });
-                return inspirersAdapter.setAll(initialState, loadedPosts)
-            },
-            providesTags: (result, error, arg) => [
-                ...result.ids.map(id => ({ type: 'Post', id }))
-            ]
-        }),
-
-        addNewPost: builder.mutation({
-            query: initialPost => ({
-                url: '/dishes',
-                method: 'POST',
-                body: initialPost
+        
+        addNewInspirer: builder.mutation({
+            query: ({userID,item}) => ({
+                url: `inspirer/${userID}/${item}`,
+                method: 'POST'
             }),
             invalidatesTags: [
                 { type: 'Post', id: "LIST" }
             ]
         }),
 
-        updatePost: builder.mutation({
-            query: initialPost => ({
-                url: `/dishes`,
-                method: 'PUT',
-                body: initialPost
+        deleteInspirer: builder.mutation({
+            query: ({userID,followID}) => ({
+                url: `/inspirer/${userID}/${followID}`,
+                method: 'DELETE'
             }),
             invalidatesTags: (result, error, arg) => [
                 { type: 'Post', id: arg.id }
             ]
         }),
 
-        deletePost: builder.mutation({
-            query: ({dishID,adminID}) => ({
-                url: `/dishes/${dishID}/${adminID}`,
-                method: 'DELETE'
-            }),
-            invalidatesTags: (result, error, arg) => [
-                { type: 'Post', id: arg.id }
-            ]
-        }), */
-
   })
 })
 
 export const {
     useGetInspirersQuery,
+    useDeleteInspirerMutation,
+    useAddNewInspirerMutation
 }=extendedInspirersApiSlice
 
 // returns the query result object

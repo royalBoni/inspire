@@ -16,7 +16,6 @@ import InspireComp from './components/inspirers/InspireComp';
 import Settings from './components/settings/Settings';
 import UserProfilePage from './components/userProfilePage/UserProfilePage';
 import { selectAllInspirations } from '../../reducxSlices/inspirationsSlice';
-import { selectNotifications } from '../../reducxSlices/notificationsSlice';
 import { useSelector,useDispatch } from 'react-redux';
 import { FaHome,FaRegEnvelope,FaUserAlt,FaBookmark,FaUsers,FaRegSun,FaUserFriends,FaAngleDown,FaSearch,FaAngleUp,FaPlus, FaBell} from 'react-icons/fa';
 import { selectNotificationsCounter } from '../../reducxSlices/notificationCounterSlice';
@@ -24,47 +23,39 @@ import { selectAllProfiles } from '../../reducxSlices/profilesSlice';
 import { selectAllInspirers } from '../../reducxSlices/inspirersSlice';
 import { selectAllBookmarks } from '../../reducxSlices/bookmarksSlice';
 import { selectAllComments } from '../../reducxSlices/commentsSlice';
-import { setFeedPosts, setOpenMobileSearchComponent, setIsSearched, setInspirersFollowed,setSuggested,setBeenFollowed } from '../../reducxSlices/actionStateSlice';
-import { selectAllLikes } from '../../reducxSlices/likesSlice';
-import { useDeleteLikeMutation } from '../../reducxSlices/likesSlice';
-import { useAddNewLikeMutation } from '../../reducxSlices/likesSlice';
+import { setFeedPosts, setOpenMobileSearchComponent, setIsSearched, setInspirersFollowed,setSuggested,setBeenFollowed,setIsOverColor } from '../../reducxSlices/actionStateSlice';
+import { useDeleteLikeMutation,useAddNewLikeMutation,selectAllLikes } from '../../reducxSlices/likesSlice';
 import { useAddNewNotificationMutation } from '../../reducxSlices/notificationsSlice';
-import { useDeleteBookmarkMutation } from '../../reducxSlices/bookmarksSlice';
-import { useAddNewBookmarkMutation } from '../../reducxSlices/bookmarksSlice';
+import { useDeleteBookmarkMutation,useAddNewBookmarkMutation } from '../../reducxSlices/bookmarksSlice';
+import { useDeleteInspirerMutation, useAddNewInspirerMutation } from '../../reducxSlices/inspirersSlice'; 
 
 const Home = () => {
 
     const {userID}= useParams();
     const dispatch = useDispatch()
-    const [trigger,setTrigger]=useState('')
-    const [removeFeedSection,setRemoveFeedSection]=useState('')
-    const [deactivatePostCss,setDeactivatePostCss]=useState('posts')
-    const [deactivateFeed,setDeactivateFeed]=useState('')
-    const [home,setHome]=useState('activee')
-    const [homeIcon,setHomeIcon]=useState('active-icon')
-    const [header,setHeader]=useState('header')
 
     const [deleteLike]=useDeleteLikeMutation()
     const [addNewLike]=useAddNewLikeMutation()
     const [addNewNotification]=useAddNewNotificationMutation()
     const [deleteBookmark]=useDeleteBookmarkMutation()
     const [addNewBookmark]=useAddNewBookmarkMutation()
+    const [deleteInspirer]=useDeleteInspirerMutation()
+    const [addNewInspirer]=useAddNewInspirerMutation()
     const [posts, setPosts]=useState()
     const bookmarks = useSelector(selectAllBookmarks)
     const inspirations = useSelector(selectAllInspirations)
-    const myNotifications = useSelector(selectNotifications)
     const myNotificationsCounter  = useSelector(selectNotificationsCounter)
     const profiles = useSelector(selectAllProfiles)
     const likes = useSelector(selectAllLikes)
     const inspirers= useSelector(selectAllInspirers)
     const comments= useSelector(selectAllComments)
-    console.log(comments)
 
+    const isOverColor=useSelector((state)=>state.myStates.isOverColor)
+  
     useEffect(()=>{
       setPosts(inspirations)
     },[])
     dispatch(setFeedPosts(inspirations))
-    
 
     const activateSearch=()=>{
         const search=inspirations.filter((item)=>(((item.inspiration_title).toLowerCase()).includes(searchInput.toLowerCase()) ||
@@ -82,44 +73,15 @@ const Home = () => {
     const [lowerSection,setLowerSection]=useState('')
 
     const [triggerCloseProfileMenu,setTriggerCloseProfileMenu]=useState(false)
-
-    const [overColor,setOverColor]=useState('no-over-color')
     const [creatingPost,setCreatingPost]=useState('no-createpost')
-
-    const [message,setMessage]=useState('')
-    const [messageIcon,setMessageIcon]=useState('')
-
-    const [profile,setProfile]=useState('')
-    const [profileIcon,setProfileIcon]=useState('')
-
-    const [settings,setSettings]=useState('')
-    const [settingsIcon,setSettingsIcon]=useState('')
-
-    const [friends,setFriends]=useState('')
-    const [friendsIcon,setFriendsIcon]=useState('')
-
-    
-
-    const [inspiration,setInspiration]=useState('')
-    const [inspirationIcon,setInspirationIcon]=useState('')
 
     const [warning,setWarning]=useState(false)
     const [warningMessage,setWarningMessage]=useState('')
 
-    const [activateHomePage,setActivateHomePage]=useState(false);
     const handleCreatePost=()=>{
-        setOverColor('over-color')
-        setCreatingPost('createpost')
-        setDisplayMenu('no-menu')
-        setToggle(!toggle)
-        setTriggerCloseProfileMenu(true)
+      dispatch(setIsOverColor())
+      setCreatingPost('createpost')
     } 
-
-    const handleMobileSearch=()=>{
-        setDisplayMenu('no-menu')
-        setToggle(!toggle)
-        setTriggerCloseProfileMenu(true)
-    }
 
     const [toggle,setToggle]=useState(true)
     const toggleProfile=()=>{
@@ -138,7 +100,6 @@ const Home = () => {
     }
 
     const [allFeed,setAllFeed]=useState('active-feed');
-    const [searchTrigger,setSearchTrigger]=useState(false);
     const [searchInput,setSearchInput]=useState('')
 
     
@@ -147,7 +108,7 @@ const Home = () => {
       dispatch(setInspirersFollowed(inspirers.filter((item)=>item.fan_id===userID)))
       dispatch(setBeenFollowed(inspirers.filter((item)=>item.inspirer_id===userID)))
       dispatch(setSuggested(profiles.filter((item)=>item.userID!=userID)))
-    },)
+    })
 
 const usersFollowed=(id)=>{
   const uF=inspirers.filter((item)=>item.fan_id===id)
@@ -229,7 +190,6 @@ const myFollowers=(id)=>{
 
     const handleSetBookmark=async(id)=>{
       const findBookmark=bookmarks?.find((item)=>item.post_id===id&&item.bookmarker_id===userID)
-      console.log(findBookmark)
       
       try{
         if(findBookmark){
@@ -269,8 +229,6 @@ const myFollowers=(id)=>{
 
       const [switchReadPage,setSwitchReadPage]=useState('no-feed');
       const [switchFeedPage,setSwitchFeedPage]=useState('');
-      const [selectedPost,setSelectedPost]=useState([]);
-      const [backID,setBackID]=useState(1)
 
       const handleReadPost=(post_id)=>{
     }
@@ -290,79 +248,29 @@ const myFollowers=(id)=>{
 
     const handleFollowUnfollow=async(item)=>{
 
-     /*  const checkFollowed=inspirersFollowed.find((element)=>element.inspirer_id===item)
+     const inspirersFollowed=inspirers.filter((item)=>item.fan_id===userID)
+     const checkFollowed=inspirersFollowed.find((element)=>element.inspirer_id===item)
+     try{
       if(checkFollowed){
-          const newFollow=inspirersFollowed.filter((ins)=>ins.inspirer_id!==item)
-          setInspirersFollowed(newFollow)
-      
-         try{
-          
-              const postOptions ={
-              method : 'DELETE'
-              }
-
-              const response=await fetch(`http://localhost:5000/inspirer/${userID}/${checkFollowed._id}`,postOptions)
-              if(!response.ok){
-              console.log('there was a problem')
-              }
-              
-              }
-              catch(err){
-                 console.log(err)
-              }  
-            
+        await deleteInspirer({userID,followID:checkFollowed._id}).unwrap()     
       } 
       else{
-          const newFollow={inspirer_id:item,fan_id:userID,_id:item}
-          setInspirersFollowed([...inspirersFollowed,newFollow])
-          console.log(inspirersFollowed) 
-          try{
-          
-              const postOptions ={
-              method : 'POST'
-              }
+        await addNewNotification({date:format(new Date(), 'EE MM dd, yyyy pp'),operation:"followed you",userID,authorID:item}).unwrap()
+        await addNewInspirer({userID,item}).unwrap()
+      }
+      }
+      catch(err){
+        console.log(err)
+      }  
+               
+    } 
 
-              const response=await fetch(`http://localhost:5000/inspirer/${userID}/${item}`,postOptions)
-              if(!response.ok){
-              console.log('there was a problem')
-              }
-
-              const date =format(new Date(), 'EE MM dd, yyyy pp');
-              const newNotification={date:date,operation:"followed you"}
-              const postNotificationOptions ={
-              method : 'POST',
-              headers: {
-                'Content-type': 'application/json'
-              },
-              body: JSON.stringify(newNotification)
-              }
-
-            const notificationResponse=await fetch(`http://localhost:5000/notification/${userID}/${item}`,postNotificationOptions)
-            const jsonNotificationResponse=notificationResponse.json()
-            if(!notificationResponse.ok){
-              console.log(jsonNotificationResponse.message)
-            }
-            else{
-              console.log(jsonNotificationResponse.message)
-            }
-              
-              }
-              catch(err){
-                 console.log(err)
-              }    
-      
-      } */
-  }
-
-  const [friendSuggestionBox,setFriendSuggestionBox]=useState('')
 
   const handleSeeAll=()=>{
-      setFriendSuggestionBox('no-box')
       handleActive(8)
   }
 
   const handleSeeLess=(num)=>{
-      setFriendSuggestionBox('')
       handleActive(num)
   }
 
@@ -395,7 +303,7 @@ const myFollowers=(id)=>{
   return (
     <div className='home'>
       <div className="bookmark-icon" onClick={handleSeeAll}><FaBookmark className='real-icon'/></div>
-        <div className={`${header}`}>
+        <div className='header'>
              <div className="header-content">
                 <div className="header-brand">inspire</div>
                 <div className='input'>
@@ -404,7 +312,7 @@ const myFollowers=(id)=>{
                   <button onClick={activateSearch}><FaSearch/></button>
                 </div>
                 <div className="profileAndCreate">
-                    <div className="header-search-button" role='button' onClick={handleMobileSearch}>
+                    <div className="header-search-button" role='button'>
                             <FaSearch className='search-icon' onClick={()=>dispatch(setOpenMobileSearchComponent())}/> 
                     </div>
                     <div className="header-create-button" role='button' onClick={handleCreatePost}>
@@ -420,11 +328,11 @@ const myFollowers=(id)=>{
                 </div>
              </div> 
              <div className="header-nav">
-                <div className={`icon ${homeIcon} ${home}`}  onClick={()=>handleActive(1)}><FaHome /></div>
-                <div className={`icon ${messageIcon} ${message}`} onClick={()=>handleActive(2)}><FaRegEnvelope/></div>
-                <div className={`icon ${profileIcon} ${profile}`} onClick={()=>handleActive(3)}><FaUserAlt/></div>
-                <div className={`icon ${friendsIcon} ${friends}`} onClick={()=>handleActive(5)}><FaUserFriends/></div>
-                <div className={`icon ${inspirationIcon} ${inspiration}`} onClick={()=>handleActive(7)}>
+                <div className={`icon ${activeComponent===1?'active-icon':null}`}  onClick={()=>handleActive(1)}><FaHome /></div>
+                <div className={`icon ${activeComponent===2?'active-icon':null}`} onClick={()=>handleActive(2)}><FaRegEnvelope/></div>
+                <div className={`icon ${activeComponent===3?'active-icon':null}`} onClick={()=>handleActive(3)}><FaUserAlt/></div>
+                <div className={`icon ${activeComponent===5?'active-icon':null}`} onClick={()=>handleActive(5)}><FaUserFriends/></div>
+                <div className={`icon ${activeComponent===7?'active-icon':null}`} onClick={()=>handleActive(7)}>
                   <FaBell/> 
                   {
                     myNotificationsCounter===0?
@@ -436,14 +344,13 @@ const myFollowers=(id)=>{
                 
              </div>
         </div>
-        <div className={`${overColor}`}></div>
+        <div className={isOverColor?'over-color':'no-over-color'}></div>
         <CreatePost 
         creatingPost={creatingPost}
         warning={warning}
         setWarning={setWarning}
         setWarningMessage={setWarningMessage}
         setCreatingPost={setCreatingPost}
-        setOverColor={setOverColor}
         userID={userID}
         setTriggerCloseProfileMenu={setTriggerCloseProfileMenu}
         posts={posts}
@@ -525,24 +432,7 @@ const myFollowers=(id)=>{
               {
                 activeComponent===1?
                 <Feeds 
-                posts={posts}
-                setPosts={setPosts}
-                allFeed={allFeed} 
-                setAllFeed={setAllFeed}
-                searchTrigger={searchTrigger} 
-                activateHomePage={activateHomePage}
-                deactivateFeed={deactivateFeed}
-                trigger={trigger}
-                removeFeedSection={removeFeedSection}
-                deactivatePostCss={deactivatePostCss}
-                profiles={profiles}
                 userID={userID}
-
-                setUpperSection={setUpperSection}
-                setLowerSection={setLowerSection}
-                setHeader={setHeader}
-                /* setLikes={setLikes} */
-                likes={likes}
                 likeAndUnlike={likeAndUnlike}
                 bookmarkAndUnbookmark={bookmarkAndUnbookmark}
                 numberOfLikes={numberOfLikes}
@@ -551,19 +441,10 @@ const myFollowers=(id)=>{
                 handleSetLike={handleSetLike}
                 postAuthorImg={postAuthorImg}
                 postAuthorName={postAuthorName}
-                handleReadPost={handleReadPost}
-                switchFeedPage={switchFeedPage}
-                setSwitchReadPage={setSwitchReadPage}
-                setSwitchFeedPage={setSwitchFeedPage}
-                switchReadPage={switchReadPage}
-                selectedPost={selectedPost}
-                setOverColor={setOverColor}
                 setWarning={setWarning}
                 setWarningMessage={setWarningMessage}
                 handleFollowUnfollow={handleFollowUnfollow}
                 functionalityUnderDevelopment={functionalityUnderDevelopment}
-                handleActive={handleActive}
-                backID={backID}
                 handleOpenUserProfilePage={handleOpenUserProfilePage}
                 setOpenCloseUserProfilePage={setOpenCloseUserProfilePage}
                 activateSearch={activateSearch}
@@ -573,13 +454,9 @@ const myFollowers=(id)=>{
                 activeComponent===3?
                 <Profile 
                 posts={posts}
-                trigger={trigger}
-                setTrigger={setTrigger}
                 post={posts}
                 allFeed={allFeed} 
                 setAllFeed={setAllFeed}
-                removeFeedSection={removeFeedSection}
-                deactivatePostCss={deactivatePostCss}
                 upperSection={upperSection}
                 lowerSection={lowerSection}
                 setLowerSection={setLowerSection}
@@ -596,14 +473,12 @@ const myFollowers=(id)=>{
                 setSwitchReadPage={setSwitchReadPage}
                 setSwitchFeedPage={setSwitchFeedPage}
                 switchReadPage={switchReadPage}
-                selectedPost={selectedPost}
                 triggerCloseProfileMenu={triggerCloseProfileMenu}
                 handleFollowUnfollow={handleFollowUnfollow}
                 userID={userID}
                 handleSetLike={handleSetLike}
                 handleReadPost={handleReadPost}
                 handleSetBookmark={handleSetBookmark}
-                setBackID={setBackID}
                 handleOpenUserProfilePage={handleOpenUserProfilePage}
                 />:
                 activeComponent===4?
@@ -622,7 +497,6 @@ const myFollowers=(id)=>{
                 <Groups/>:
                 activeComponent===7?
                 <Notifications 
-                setOverColor={setOverColor}
                 setWarning={setWarning}
                 setWarningMessage={setWarningMessage}
                 functionalityUnderDevelopment={functionalityUnderDevelopment}
@@ -668,20 +542,15 @@ const myFollowers=(id)=>{
                 setPosts={setPosts}
                 posts={posts}
                 handleActive={handleActive}
-                setAllFeed={setAllFeed}
                 searchInput={searchInput}
                 setSearchInput={setSearchInput}
                 handleCreatePost={handleCreatePost}
-                setOverColor={setOverColor}
                 toggleProfile={toggleProfile}
                 toggle={toggle}
-                profiles={profiles}
                 profile_image_avatar={profile_image_avatar}
                 postAuthorImg={postAuthorImg}
                 postAuthorName={postAuthorName}
                 handleReadPost={handleReadPost}
-                friendSuggestionBox={friendSuggestionBox}
-                handleSeeAll={handleSeeAll}
                 readBookmark={readBookmark}
                 functionalityUnderDevelopment={functionalityUnderDevelopment}
                 handleFollowUnfollow={handleFollowUnfollow}

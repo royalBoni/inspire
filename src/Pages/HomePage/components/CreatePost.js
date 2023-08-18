@@ -4,10 +4,11 @@ import { FaTimes,FaImage,FaSpinner,FaPalette,FaFillDrip, FaItalic, FaFont} from 
 import { useState,useEffect  } from 'react';
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
+import { setIsOverColor } from '../../../reducxSlices/actionStateSlice';
+import { useDispatch } from 'react-redux';
 
 
-
-const CreatePost = ({creatingPost,warning,setWarning,setWarningMessage,setCreatingPost,setOverColor,userID,setTriggerCloseProfileMenu,
+const CreatePost = ({creatingPost,warning,setWarning,setWarningMessage,setCreatingPost,userID,setTriggerCloseProfileMenu,
     posts,setPosts,profileImage}) => {
     const colors=['rgba(243, 240, 237, 0.884)','red','blue','yellow','aqua','pink','antiquewhite','#ffffff','#ffff00','#ccff00',
     '#99ff00','#99ccff','#ccff99','#333300']
@@ -43,6 +44,7 @@ const CreatePost = ({creatingPost,warning,setWarning,setWarningMessage,setCreati
     const [ffContent,setFfContent]=useState('no-content')
     const [cContent,setCContent]=useState('no-content')
 
+    const dispatch=useDispatch()
     const handleActiveMenu=(num)=>{
         if(num===1){
             setActivateBg('create-active')
@@ -146,7 +148,7 @@ const CreatePost = ({creatingPost,warning,setWarning,setWarningMessage,setCreati
         setFg('')
     }
     const handleCloseCreatePost=()=>{
-        setOverColor('no-over-color')
+        dispatch(setIsOverColor())
         setCreatingPost('no-createpost')
         reset()
         setTriggerCloseProfileMenu(false)

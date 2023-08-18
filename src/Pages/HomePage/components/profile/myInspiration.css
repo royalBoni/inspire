@@ -1,9 +1,3 @@
-.no_inspiration{
-    display: none;
-}
-
-.inspiration-notice{
-    text-align: center;
-    color: var(--PRIMARYCOLOR);
-    padding: 2rem 0;
+.my-inspiration{
+    height: 100%;
 }
