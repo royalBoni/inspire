@@ -30,7 +30,11 @@ const inspirations= useSelector(selectAllInspirations)
 const feedButtonList=['All','Category','Following','Newest','Popular']
 const [limitOfInspirationsToDisplay, setLimitOfInspirationsToDisplay]=useState(4)
 
-const [resourceLoading, setResourceLoading]=useState(false)
+const [resourceLoading, setResourceLoading]=useState(true)
+
+setTimeout(() => {
+  setResourceLoading(false)
+}, 5000);
 
 
 const scrolling =(e)=>{
