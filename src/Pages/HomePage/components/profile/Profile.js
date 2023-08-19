@@ -2,15 +2,17 @@ import React from 'react'
 import { useState,useEffect } from 'react';
 import './profile.css'
 import { FaAngleDown,FaAngleUp,FaBars,FaEllipsisH, FaList, FaListAlt,FaUserAlt } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 import Timeline from './Timeline';
 import About from './About';
 import Inspirers from './Inspirers';
 import ProfileMenu from '../ProfileMenu';
 import MyInspiration from './MyInspiration';
+import { selectAllInspirations } from '../../../../reducxSlices/inspirationsSlice';
 
 
-const Profile = ({deactivateProfile,myProfile,setTrigger,posts,bookmarked,setBookmarked,allFeed,setAllFeed,
-    removeFeedSection,deactivatePostCss,suggestedNoDuplicate,beenFollowed,upperSection,lowerSection,
+const Profile = ({bookmarked,allFeed,setAllFeed,
+    removeFeedSection,deactivatePostCss,suggestedNoDuplicate,beenFollowed,
     inspirersFollowed,accountProfiles,loadingInspiration,fetchInspirationError,setLowerSection,setUpperSection,myInfo,
     setLikes,likes,likeAndUnlike,bookmarkAndUnbookmark,numberOfLikes,numberOfComments,comments,setComments,
     postAuthorName,postAuthorImg,switchFeedPage,setSwitchReadPage,setSwitchFeedPage,switchReadPage,selectedPost,profiles,
@@ -43,7 +45,7 @@ const Profile = ({deactivateProfile,myProfile,setTrigger,posts,bookmarked,setBoo
         setActiveItem(id)
     }
     
-   
+    const posts = useSelector(selectAllInspirations)
 
     useEffect(()=>{
         if(triggerCloseProfileMenu){

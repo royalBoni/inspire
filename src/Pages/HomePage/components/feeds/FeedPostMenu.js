@@ -1,16 +1,18 @@
 import React from 'react'
 import './feedpostmenu.css'
+import { useSelector } from 'react-redux'
 import { FaWindowClose,FaToggleOff,FaFlag,FaTimes,FaFrown, FaUserPlus } from 'react-icons/fa'
+import { selectAllInspirations } from '../../../../reducxSlices/inspirationsSlice'
 
-const FeedPostMenu = ({ userID,postID,posts,setPosts,postMenuStyle,handleUnpostMenu,creatorID,postAuthorName,
-  inspirersFollowed,handleFollowUnfollow,functionalityUnderDevelopment}) => {
+const FeedPostMenu = ({ userID,postID,handlePostMenu,creatorID,postAuthorName,handleFollowUnfollow,functionalityUnderDevelopment}) => {
+
+    const posts = useSelector(selectAllInspirations)
+    const inspirersFollowed=useSelector((state)=>state.myStates.inspirersFollowed)
     const findFollowedOrUnfollowed=inspirersFollowed?.filter((item)=>item.inspirer_id===creatorID)
     const checkForMatch=posts?.find((item)=>item._id===postID)
+
     const handleDeletePost=async()=>{
-      const newPosts=posts.filter((item)=>item._id!==postID)
-      handleUnpostMenu()
-      setPosts(newPosts)
-      console.log(postID)
+    
       try{
         const deleteResponse= await fetch(`http://localhost:5000/inspiration/${postID}/${userID}`,{
           method : 'DELETE'
@@ -25,10 +27,10 @@ const FeedPostMenu = ({ userID,postID,posts,setPosts,postMenuStyle,handleUnpostM
       }
      
     }
-    
+
   return (
-    <div className={`${postMenuStyle}`}>
-    <div className="close-post-menu" onClick={handleUnpostMenu}><FaTimes/></div>
+    <div className='feed-post-menu'>
+    <div className="close-post-menu" onClick={handlePostMenu}><FaTimes/></div>
     
     {
         checkForMatch?.authorID===userID?

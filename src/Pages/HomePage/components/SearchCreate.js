@@ -7,13 +7,16 @@ import { useState,useEffect } from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 import { selectAllBookmarks } from '../../../reducxSlices/bookmarksSlice'
 import { selectAllInspirations } from '../../../reducxSlices/inspirationsSlice'
+import { setViewInspiration } from '../../../reducxSlices/actionStateSlice'
+import { setSelectedInspiration } from '../../../reducxSlices/actionStateSlice'
 
 const SearchCreate = ({setSearchInput,searchInput,handleCreatePost,toggleProfile,toggle,profile_image_avatar,
-    postAuthorImg,postAuthorName,friendSuggestionBox,readBookmark,functionalityUnderDevelopment,handleActive,
+    postAuthorImg,postAuthorName,functionalityUnderDevelopment,handleActive,
     handleFollowUnfollow,handleOpenUserProfilePage,activateSearch}) => {
 
 
   const {userID}= useParams();
+  const dispatch = useDispatch()
 
   const bookmarks=useSelector(selectAllBookmarks)
   const inspirations=useSelector(selectAllInspirations)
@@ -21,6 +24,12 @@ const SearchCreate = ({setSearchInput,searchInput,handleCreatePost,toggleProfile
 
   const suggested=useSelector((state)=>state.myStates.suggested)
   const inspirersFollowed=useSelector((state)=>state.myStates.inspirersFollowed)
+
+  const readBookmark = (item)=>{
+    dispatch(setViewInspiration())
+    dispatch(setSelectedInspiration(item))
+    console.log(item)
+  }
 
   return (
     <div className="third-box">
@@ -99,17 +108,17 @@ const SearchCreate = ({setSearchInput,searchInput,handleCreatePost,toggleProfile
                                                 <div key={item._id} className="content-items">
                                                     {/* <div className="bookmark-image"></div> */}
                                                     <div className="content-items-details">
-                                                        <div className="bookmark-image" style={{backgroundColor:item.bgColor,color:item.fgColor,fontFamily:item.fStyle}} onClick={()=>readBookmark(item._id)} >
+                                                        <div className="bookmark-image" style={{backgroundColor:item.bgColor,color:item.fgColor,fontFamily:item.fStyle}} onClick={()=>readBookmark(item)} >
                                                             {item.inspiration_image_avatar?<img src={item.inspiration_image_avatar} alt="" />:null}
                                                             {
                                                                 !item.inspiration_image_avatar?<div className='post-image-text'>{item.inspiration_content}</div>:null    
                                                             }
                                                         </div>
                                                         <div className="bookmark-info">
-                                                            <div className="post-category" onClick={()=>readBookmark(item._id)}>{item.category?(item.category):'General'}</div>
-                                                            <div className="title" onClick={()=>readBookmark(item._id)}>{item.inspiration_title}</div>
+                                                            <div className="post-category" onClick={()=>readBookmark(item)}>{item.category?(item.category):'General'}</div>
+                                                            <div className="title" onClick={()=>readBookmark(item)}>{item.inspiration_title}</div>
                                                             <div className="author">
-                                                                <div className="author-info" onClick={()=>readBookmark(item._id)}>
+                                                                <div className="author-info" onClick={()=>readBookmark(item)}>
                                                                     <div className="author-image">
                                                                         <img src={postAuthorImg(item.authorID)} alt="" />
                                                                     </div>

@@ -16,7 +16,7 @@ import { setViewInspiration } from '../../../../reducxSlices/actionStateSlice'
 import { setSelectedInspiration } from '../../../../reducxSlices/actionStateSlice'
 import { setIsOverColor } from '../../../../reducxSlices/actionStateSlice'
 
-const Feeds = ({posts,setPosts,userID,likeAndUnlike,bookmarkAndUnbookmark,numberOfLikes,numberOfComments,handleSetBookmark,handleSetLike, postAuthorName,postAuthorImg,setWarningMessage,setWarning,
+const Feeds = ({userID,likeAndUnlike,bookmarkAndUnbookmark,numberOfLikes,numberOfComments,handleSetBookmark,handleSetLike, postAuthorName,postAuthorImg,setWarningMessage,setWarning,
 handleFollowUnfollow,functionalityUnderDevelopment,handleOpenUserProfilePage,setOpenCloseUserProfilePage,
   activateSearch,searchInput,setSearchInput}) => {
    
@@ -25,16 +25,14 @@ const dispatch=useDispatch()
 const [activeFeedButton, setActiveFeedButton]=useState(0)
 const [toggleActiveFeedNavBoard, setToggleActiveFeedNavBoard]=useState(false)
 
+const [feedMenu, setFeedMenu]=useState(false)
+
 const inspirations= useSelector(selectAllInspirations)
 
 const feedButtonList=['All','Category','Following','Newest','Popular']
 const [limitOfInspirationsToDisplay, setLimitOfInspirationsToDisplay]=useState(4)
 
-const [resourceLoading, setResourceLoading]=useState(true)
-
-setTimeout(() => {
-  setResourceLoading(false)
-}, 5000);
+const [resourceLoading, setResourceLoading]=useState(false)
 
 
 const scrolling =(e)=>{
@@ -98,25 +96,20 @@ const handleFilterFeedItems=(filterValue,key)=>{
 
 const [postID,setPostID]=useState('')
 const [creatorID,setCreatorID]=useState('')
-const [postMenuStyle,setPostMenuStyle]=useState('no-feed-post-menu')
 const handlePostMenu=(id,author)=>{
-  setPostMenuStyle('feed-post-menu')
-  setPostID(id)
   setCreatorID(author)
+  setPostID(id)
+  setFeedMenu(!feedMenu)
   dispatch(setIsOverColor()) 
 }
 
-const handleUnpostMenu=()=>{
+/* const handleUnpostMenu=()=>{
   setPostMenuStyle('no-feed-post-menu')
   dispatch(setIsOverColor()) 
   setWarning(false)
   setWarningMessage(null)
-}
+} */
    
-    
-
-const dayPosted=(timestamp)=>{
-}
 
 return (
   
@@ -128,19 +121,19 @@ return (
     {
     !viewInspiration?
     <div className='feed-box'>
-      <FeedPostMenu 
-      userID={userID}
-      postID={postID}
-      posts={posts}
-      setPosts={setPosts}
-      postMenuStyle={postMenuStyle}
-      handleUnpostMenu={handleUnpostMenu}
-      setWarningMessage={setWarningMessage}
-      setWarning={setWarning}
-      creatorID={creatorID}
-      postAuthorName={postAuthorName}
-      handleFollowUnfollow={handleFollowUnfollow}
-      functionalityUnderDevelopment={functionalityUnderDevelopment}/>
+      {
+        feedMenu&&
+        <FeedPostMenu 
+        userID={userID}
+        postID={postID}
+        handlePostMenu={handlePostMenu}
+        setWarningMessage={setWarningMessage}
+        setWarning={setWarning}
+        creatorID={creatorID}
+        postAuthorName={postAuthorName}
+        handleFollowUnfollow={handleFollowUnfollow}
+        functionalityUnderDevelopment={functionalityUnderDevelopment}/>
+        }
 
       <div className='feed-box-content favorite-inspires'>
           <div className="feed-box-content-title i">Favorite Authors</div>

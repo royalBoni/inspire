@@ -14,20 +14,20 @@ import Groups from './components/groups/Groups';
 import BookmarkPage from './components/bookmark/BookmarkPage';
 import InspireComp from './components/inspirers/InspireComp';
 import Settings from './components/settings/Settings';
-import UserProfilePage from './components/userProfilePage/UserProfilePage';
 import { selectAllInspirations } from '../../reducxSlices/inspirationsSlice';
 import { useSelector,useDispatch } from 'react-redux';
 import { FaHome,FaRegEnvelope,FaUserAlt,FaBookmark,FaUsers,FaRegSun,FaUserFriends,FaAngleDown,FaSearch,FaAngleUp,FaPlus, FaBell} from 'react-icons/fa';
 import { selectNotificationsCounter } from '../../reducxSlices/notificationCounterSlice';
-import { selectAllProfiles } from '../../reducxSlices/profilesSlice';
+import { selectAllProfiles} from '../../reducxSlices/profilesSlice';
 import { selectAllInspirers } from '../../reducxSlices/inspirersSlice';
 import { selectAllBookmarks } from '../../reducxSlices/bookmarksSlice';
 import { selectAllComments } from '../../reducxSlices/commentsSlice';
-import { setFeedPosts, setOpenMobileSearchComponent, setIsSearched, setInspirersFollowed,setSuggested,setBeenFollowed,setIsOverColor } from '../../reducxSlices/actionStateSlice';
+import { setFeedPosts, setOpenMobileSearchComponent, setIsSearched, setInspirersFollowed,setSuggested,setBeenFollowed,setIsOverColor,setPageWidth } from '../../reducxSlices/actionStateSlice';
 import { useDeleteLikeMutation,useAddNewLikeMutation,selectAllLikes } from '../../reducxSlices/likesSlice';
 import { useAddNewNotificationMutation } from '../../reducxSlices/notificationsSlice';
 import { useDeleteBookmarkMutation,useAddNewBookmarkMutation } from '../../reducxSlices/bookmarksSlice';
 import { useDeleteInspirerMutation, useAddNewInspirerMutation } from '../../reducxSlices/inspirersSlice'; 
+import ProductLoadingPage from './components/ProductLoadingPage';
 
 const Home = () => {
 
@@ -41,7 +41,6 @@ const Home = () => {
     const [addNewBookmark]=useAddNewBookmarkMutation()
     const [deleteInspirer]=useDeleteInspirerMutation()
     const [addNewInspirer]=useAddNewInspirerMutation()
-    const [posts, setPosts]=useState()
     const bookmarks = useSelector(selectAllBookmarks)
     const inspirations = useSelector(selectAllInspirations)
     const myNotificationsCounter  = useSelector(selectNotificationsCounter)
@@ -49,13 +48,30 @@ const Home = () => {
     const likes = useSelector(selectAllLikes)
     const inspirers= useSelector(selectAllInspirers)
     const comments= useSelector(selectAllComments)
+    const [resourceLoading,setResourceLoading]=useState(true)
 
     const isOverColor=useSelector((state)=>state.myStates.isOverColor)
+
+    setTimeout(() => {
+      setResourceLoading(false)
+    }, 5000);
   
-    useEffect(()=>{
-      setPosts(inspirations)
-    },[])
+    
     dispatch(setFeedPosts(inspirations))
+
+    useEffect(()=>{
+      const width=window.innerWidth
+      dispatch(setPageWidth(width))
+    })
+    
+   
+    const screen = () =>{
+      const width=window.innerWidth
+      dispatch(setPageWidth(width))
+   
+   }
+    window.onload=screen
+    window.onresize=screen
 
     const activateSearch=()=>{
         const search=inspirations.filter((item)=>(((item.inspiration_title).toLowerCase()).includes(searchInput.toLowerCase()) ||
@@ -267,7 +283,7 @@ const myFollowers=(id)=>{
 
 
   const handleSeeAll=()=>{
-      handleActive(8)
+      handleActive(9)
   }
 
   const handleSeeLess=(num)=>{
@@ -302,7 +318,11 @@ const myFollowers=(id)=>{
 
   return (
     <div className='home'>
-      <div className="bookmark-icon" onClick={handleSeeAll}><FaBookmark className='real-icon'/></div>
+      {
+        resourceLoading?
+        <ProductLoadingPage message='loading resources'/>:
+        <>
+        <div className="bookmark-icon" onClick={handleSeeAll}><FaBookmark className='real-icon'/></div>
         <div className='header'>
              <div className="header-content">
                 <div className="header-brand">inspire</div>
@@ -353,7 +373,6 @@ const myFollowers=(id)=>{
         setCreatingPost={setCreatingPost}
         userID={userID}
         setTriggerCloseProfileMenu={setTriggerCloseProfileMenu}
-        posts={posts}
         profileImage={profile_image_avatar}
         />
 
@@ -453,8 +472,6 @@ const myFollowers=(id)=>{
                 />:
                 activeComponent===3?
                 <Profile 
-                posts={posts}
-                post={posts}
                 allFeed={allFeed} 
                 setAllFeed={setAllFeed}
                 upperSection={upperSection}
@@ -504,7 +521,6 @@ const myFollowers=(id)=>{
                 activeComponent===9?
                 <BookmarkPage
                 handleSeeLess={handleSeeLess}
-                posts={posts}
                 postAuthorImg={postAuthorImg}
                 postAuthorName={postAuthorName}
                 readBookmark={readBookmark}
@@ -539,8 +555,6 @@ const myFollowers=(id)=>{
             </div>
             <div className="flex-box third">
                 <SearchCreate 
-                setPosts={setPosts}
-                posts={posts}
                 handleActive={handleActive}
                 searchInput={searchInput}
                 setSearchInput={setSearchInput}
@@ -559,9 +573,9 @@ const myFollowers=(id)=>{
                 />
             </div>
         </div>
+        </>
+      }
     </div>
-   
-    
   )
 }
 

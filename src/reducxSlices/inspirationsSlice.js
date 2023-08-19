@@ -22,18 +22,7 @@ export const extendedApiSlice=apiSlice.injectEndpoints({
             ]
         }),
 
-        getPostsByUserId: builder.query({
-            query: id => `/posts/?userId=${id}`,
-            transformResponse: responseData => {
-                const loadedPosts = responseData.map(post => {
-                    return post;
-                });
-                return inspirationsAdapter.setAll(initialState, loadedPosts)
-            },
-            providesTags: (result, error, arg) => [
-                ...result.ids.map(id => ({ type: 'Post', id }))
-            ]
-        }),
+      
 
         addNewPost: builder.mutation({
             query: initialPost => ({
@@ -46,20 +35,9 @@ export const extendedApiSlice=apiSlice.injectEndpoints({
             ]
         }),
 
-        updatePost: builder.mutation({
-            query: initialPost => ({
-                url: `/dishes`,
-                method: 'PUT',
-                body: initialPost
-            }),
-            invalidatesTags: (result, error, arg) => [
-                { type: 'Post', id: arg.id }
-            ]
-        }),
-
-        deletePost: builder.mutation({
-            query: ({dishID,adminID}) => ({
-                url: `/dishes/${dishID}/${adminID}`,
+        deleteInspiration: builder.mutation({
+            query: ({postID,userID}) => ({
+                url: `inspiration/${postID}/${userID}`,
                 method: 'DELETE'
             }),
             invalidatesTags: (result, error, arg) => [
@@ -72,10 +50,8 @@ export const extendedApiSlice=apiSlice.injectEndpoints({
 
 export const {
     useGetInspirationsQuery,
-    useGetPostsByUserIdQuery,
     useAddNewPostMutation,
-    useUpdatePostMutation,
-    useDeletePostMutation
+    useDeleteInspirationMutation
 }=extendedApiSlice
 
 // returns the query result object
