@@ -2,12 +2,11 @@ import React from 'react'
 import './myInspiration.css'
 import MyFeeds from '../feeds/MyFeeds'
 
-const MyInspiration = ({deactivateMyInspirations,userID,posts,handleSetLike,numberOfLikes,handleReadPost,numberOfComments,
-    bookmarkAndUnbookmark,handleSetBookmark,postAuthorImg,postAuthorName,likeAndUnlike,setBackID}) => {
+const MyInspiration = ({userID,posts,handleReadPost,numberOfComments,
+    bookmarkAndUnbookmark,postAuthorImg,postAuthorName}) => {
     /* const myPosts=posts.filter((item)=>item.authorID===userID) */
 
     const handleReadMyInspiration=(id)=>{
-        setBackID('3')
         handleReadPost(id)
     }
     
@@ -18,14 +17,9 @@ const MyInspiration = ({deactivateMyInspirations,userID,posts,handleSetLike,numb
             handleReadPost={handleReadPost}
             postAuthorImg={postAuthorImg}
             postAuthorName={postAuthorName}
-            likeAndUnlike={likeAndUnlike}
-            handleSetLike={handleSetLike}
-            numberOfLikes={numberOfLikes}
             numberOfComments={numberOfComments}
             bookmarkAndUnbookmark={bookmarkAndUnbookmark}
-            handleSetBookmark={handleSetBookmark}
             userID={userID}/>
-   
     </div>
   )
 }

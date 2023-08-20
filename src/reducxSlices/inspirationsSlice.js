@@ -24,9 +24,9 @@ export const extendedApiSlice=apiSlice.injectEndpoints({
 
       
 
-        addNewPost: builder.mutation({
+        addNewInspiration: builder.mutation({
             query: initialPost => ({
-                url: '/dishes',
+                url: `inspiration`,
                 method: 'POST',
                 body: initialPost
             }),
@@ -50,7 +50,7 @@ export const extendedApiSlice=apiSlice.injectEndpoints({
 
 export const {
     useGetInspirationsQuery,
-    useAddNewPostMutation,
+    useAddNewInspirationMutation,
     useDeleteInspirationMutation
 }=extendedApiSlice
 

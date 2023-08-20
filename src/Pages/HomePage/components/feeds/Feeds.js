@@ -10,17 +10,28 @@ import ProductLoadingPage from '../ProductLoadingPage'
 import { FaEllipsisV } from 'react-icons/fa'
 import FeedPostMenu from './FeedPostMenu'
 import { selectAllInspirations } from '../../../../reducxSlices/inspirationsSlice'
+import { selectAllBookmarks,useAddNewBookmarkMutation ,useDeleteBookmarkMutation} from '../../../../reducxSlices/bookmarksSlice'
+import { selectAllLikes, useDeleteLikeMutation, useAddNewLikeMutation } from '../../../../reducxSlices/likesSlice'
+import { useAddNewNotificationMutation } from '../../../../reducxSlices/notificationsSlice'
 import { useSelector,useDispatch } from 'react-redux'
 import { setFeedPosts } from '../../../../reducxSlices/actionStateSlice'
 import { setViewInspiration } from '../../../../reducxSlices/actionStateSlice'
 import { setSelectedInspiration } from '../../../../reducxSlices/actionStateSlice'
 import { setIsOverColor } from '../../../../reducxSlices/actionStateSlice'
 
-const Feeds = ({userID,likeAndUnlike,bookmarkAndUnbookmark,numberOfLikes,numberOfComments,handleSetBookmark,handleSetLike, postAuthorName,postAuthorImg,setWarningMessage,setWarning,
-handleFollowUnfollow,functionalityUnderDevelopment,handleOpenUserProfilePage,setOpenCloseUserProfilePage,
-  activateSearch,searchInput,setSearchInput}) => {
+const Feeds = ({userID,bookmarkAndUnbookmark,numberOfComments, postAuthorName,postAuthorImg,setWarningMessage,setWarning,
+handleFollowUnfollow,functionalityUnderDevelopment,handleOpenUserProfilePage,setOpenCloseUserProfilePage,activateSearch,searchInput,setSearchInput}) => {
    
 const dispatch=useDispatch()
+
+const likes = useSelector(selectAllLikes)
+const [deleteLike]=useDeleteLikeMutation()
+const [addNewLike]=useAddNewLikeMutation()
+const [addNewNotification]=useAddNewNotificationMutation()
+
+const bookmarks= useSelector(selectAllBookmarks)
+const [deleteBookmark]=useDeleteBookmarkMutation()
+const [addNewBookmark] = useAddNewBookmarkMutation()
 
 const [activeFeedButton, setActiveFeedButton]=useState(0)
 const [toggleActiveFeedNavBoard, setToggleActiveFeedNavBoard]=useState(false)
@@ -103,12 +114,74 @@ const handlePostMenu=(id,author)=>{
   dispatch(setIsOverColor()) 
 }
 
-/* const handleUnpostMenu=()=>{
-  setPostMenuStyle('no-feed-post-menu')
-  dispatch(setIsOverColor()) 
-  setWarning(false)
-  setWarningMessage(null)
-} */
+const likeAndUnlike=(id)=>{
+  const userLiked=likes?.filter((item)=>item.post_id===id)
+  const findLiked=userLiked?.filter((item)=>item.liker_id===userID);
+  if(findLiked?.length>0){
+      return 'activeLikeBtn'
+  }
+}
+
+const numberOfLikes=(id)=>{
+const total=likes?.filter((item)=>item.post_id===id)
+return total?.length
+}
+
+const handleSetLike=async(id,authorID)=>{
+  const findLikes=likes.find((item)=>item.post_id===id&&item.liker_id===userID)
+  if(findLikes){
+   try{  
+    await deleteLike({userID,postID:findLikes.post_id}).unwrap()
+   }
+   catch(err){
+     if(err.message==='Failed to fetch'){
+       console.log(`network or server might be down`)
+     }
+     else{
+       console.log(`Error: ${err.message}`)
+     }
+   } 
+  }
+  else{
+      try{
+        await addNewNotification({date:format(new Date(), 'EE MM dd, yyyy pp'),operation:"liked your post",post_id:id,userID,authorID}).unwrap()
+        await addNewLike({userID,postID:id}).unwrap()
+     }
+     catch(err){
+       if(err.message==='Failed to fetch'){
+         console.log(`network or server might be down`)
+       }
+       else{
+         console.log(`Error: ${err.message}`)
+       }
+     }
+ }
+  
+}
+
+const handleSetBookmark=async(id)=>{
+  const findBookmark=bookmarks?.find((item)=>item.post_id===id&&item.bookmarker_id===userID)
+  
+  try{
+    if(findBookmark){
+      await deleteBookmark({bookmarkID:findBookmark.post_id,userID:userID})
+    }
+    else{
+      await addNewBookmark({bookmarkID:id,userID})
+    }
+  }
+  catch(err){
+    if(err.message==='Failed to fetch'){
+      console.log(`network or server might be down`)
+    }
+    else{
+      console.log(`Error: ${err.message}`)
+    }
+  } 
+    
+   
+}
+
    
 
 return (

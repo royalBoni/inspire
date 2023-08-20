@@ -1,8 +1,9 @@
 import React from 'react'
 import './feedpostmenu.css'
 import { useSelector } from 'react-redux'
-import { FaWindowClose,FaToggleOff,FaFlag,FaTimes,FaFrown, FaUserPlus } from 'react-icons/fa'
+import { FaWindowClose,FaToggleOff,FaFlag,FaTimes,FaFrown, FaUserPlus,FaSpinner } from 'react-icons/fa'
 import { selectAllInspirations } from '../../../../reducxSlices/inspirationsSlice'
+import { useDeleteInspirationMutation } from '../../../../reducxSlices/inspirationsSlice'
 
 const FeedPostMenu = ({ userID,postID,handlePostMenu,creatorID,postAuthorName,handleFollowUnfollow,functionalityUnderDevelopment}) => {
 
@@ -11,16 +12,12 @@ const FeedPostMenu = ({ userID,postID,handlePostMenu,creatorID,postAuthorName,ha
     const findFollowedOrUnfollowed=inspirersFollowed?.filter((item)=>item.inspirer_id===creatorID)
     const checkForMatch=posts?.find((item)=>item._id===postID)
 
+    const [deleteInspiration, {isLoading}]=useDeleteInspirationMutation()
+
     const handleDeletePost=async()=>{
-    
       try{
-        const deleteResponse= await fetch(`http://localhost:5000/inspiration/${postID}/${userID}`,{
-          method : 'DELETE'
-        })
-        const jsonNotification = await deleteResponse.json();
-        if(!deleteResponse.ok) throw Error(jsonNotification.message);
-        console.log(jsonNotification.message)
-        
+        await deleteInspiration({postID,userID})
+        handlePostMenu()
       }
       catch(err){
           console.log(err)
@@ -34,14 +31,21 @@ const FeedPostMenu = ({ userID,postID,handlePostMenu,creatorID,postAuthorName,ha
     
     {
         checkForMatch?.authorID===userID?
-        <div className="feed-post-menu-control" onClick={handleDeletePost}>
-          <div className="feed-post-menu-control-item">
-            <div className="feed-post-menu-icon">
-              <FaWindowClose className='feed-post-menu-control-item-icon'/>
+        <>
+        {
+          isLoading?
+          <FaSpinner className='run'/>
+          :
+          <div className="feed-post-menu-control" onClick={handleDeletePost}>
+            <div className="feed-post-menu-control-item">
+              <div className="feed-post-menu-icon">
+                <FaWindowClose className='feed-post-menu-control-item-icon'/>
+              </div>
+              Remove this inspiration
             </div>
-            Remove this inspiration
           </div>
-        </div>
+        }
+        </>
         :
         <div className="feed-post-menu-control">
           <div className="feed-post-menu-control-item" onClick={functionalityUnderDevelopment}>

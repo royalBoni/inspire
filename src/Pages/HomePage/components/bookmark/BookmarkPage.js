@@ -13,7 +13,6 @@ const BookmarkPage = ({handleSeeLess,postAuthorImg,postAuthorName,readBookmark,f
     const posts = useSelector(selectAllInspirations)
     const bookmarked=bookmarks?.filter((item)=>item.bookmarker_id===userID)
     const pageWidth = useSelector((state)=>state.myStates.pageWidth)
-    console.log(pageWidth)
   return (
 
     <div className="bookmark-page">

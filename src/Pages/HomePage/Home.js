@@ -23,9 +23,7 @@ import { selectAllInspirers } from '../../reducxSlices/inspirersSlice';
 import { selectAllBookmarks } from '../../reducxSlices/bookmarksSlice';
 import { selectAllComments } from '../../reducxSlices/commentsSlice';
 import { setFeedPosts, setOpenMobileSearchComponent, setIsSearched, setInspirersFollowed,setSuggested,setBeenFollowed,setIsOverColor,setPageWidth } from '../../reducxSlices/actionStateSlice';
-import { useDeleteLikeMutation,useAddNewLikeMutation,selectAllLikes } from '../../reducxSlices/likesSlice';
 import { useAddNewNotificationMutation } from '../../reducxSlices/notificationsSlice';
-import { useDeleteBookmarkMutation,useAddNewBookmarkMutation } from '../../reducxSlices/bookmarksSlice';
 import { useDeleteInspirerMutation, useAddNewInspirerMutation } from '../../reducxSlices/inspirersSlice'; 
 import ProductLoadingPage from './components/ProductLoadingPage';
 
@@ -34,18 +32,13 @@ const Home = () => {
     const {userID}= useParams();
     const dispatch = useDispatch()
 
-    const [deleteLike]=useDeleteLikeMutation()
-    const [addNewLike]=useAddNewLikeMutation()
     const [addNewNotification]=useAddNewNotificationMutation()
-    const [deleteBookmark]=useDeleteBookmarkMutation()
-    const [addNewBookmark]=useAddNewBookmarkMutation()
     const [deleteInspirer]=useDeleteInspirerMutation()
     const [addNewInspirer]=useAddNewInspirerMutation()
     const bookmarks = useSelector(selectAllBookmarks)
     const inspirations = useSelector(selectAllInspirations)
     const myNotificationsCounter  = useSelector(selectNotificationsCounter)
     const profiles = useSelector(selectAllProfiles)
-    const likes = useSelector(selectAllLikes)
     const inspirers= useSelector(selectAllInspirers)
     const comments= useSelector(selectAllComments)
     const [resourceLoading,setResourceLoading]=useState(true)
@@ -85,18 +78,15 @@ const Home = () => {
 
     const [activeComponent, setActiveComponent]=useState(1)
 
-    const [upperSection,setUpperSection]=useState('')
-    const [lowerSection,setLowerSection]=useState('')
-
     const [triggerCloseProfileMenu,setTriggerCloseProfileMenu]=useState(false)
-    const [creatingPost,setCreatingPost]=useState('no-createpost')
+    const [creatingPost,setCreatingPost]=useState(false)
 
     const [warning,setWarning]=useState(false)
     const [warningMessage,setWarningMessage]=useState('')
 
     const handleCreatePost=()=>{
       dispatch(setIsOverColor())
-      setCreatingPost('createpost')
+      setCreatingPost(true)
     } 
 
     const [toggle,setToggle]=useState(true)
@@ -115,7 +105,6 @@ const Home = () => {
       setActiveComponent(num)
     }
 
-    const [allFeed,setAllFeed]=useState('active-feed');
     const [searchInput,setSearchInput]=useState('')
 
     
@@ -144,52 +133,6 @@ const myFollowers=(id)=>{
   const {profile_image_avatar}=myInfo||[]
     
 
-    const likeAndUnlike=(id)=>{
-        const userLiked=likes?.filter((item)=>item.post_id===id)
-        const findLiked=userLiked?.filter((item)=>item.liker_id===userID);
-        if(findLiked?.length>0){
-            return 'activeLikeBtn'
-        }
-    }
-
-    const numberOfLikes=(id)=>{
-      const total=likes?.filter((item)=>item.post_id===id)
-      return total?.length
-  }
-
-  const handleSetLike=async(id,authorID)=>{
-    const findLikes=likes.find((item)=>item.post_id===id&&item.liker_id===userID)
-    if(findLikes){
-     try{  
-      await deleteLike({userID,postID:findLikes.post_id}).unwrap()
-     }
-     catch(err){
-       if(err.message==='Failed to fetch'){
-         console.log(`network or server might be down`)
-       }
-       else{
-         console.log(`Error: ${err.message}`)
-       }
-     } 
-    }
-    else{
-        try{
-          await addNewNotification({date:format(new Date(), 'EE MM dd, yyyy pp'),operation:"liked your post",post_id:id,userID,authorID}).unwrap()
-          await addNewLike({userID,postID:id}).unwrap()
-       }
-       catch(err){
-         if(err.message==='Failed to fetch'){
-           console.log(`network or server might be down`)
-         }
-         else{
-           console.log(`Error: ${err.message}`)
-         }
-       }
-   }
-    
-}
-
-
   const numberOfComments=(id)=>{
       const total=comments.filter((item)=>item.post_id===id)
       return total?.length
@@ -204,15 +147,15 @@ const myFollowers=(id)=>{
     } 
 }
 
-    const handleSetBookmark=async(id)=>{
+   /*  const handleSetBookmark=async(id)=>{
       const findBookmark=bookmarks?.find((item)=>item.post_id===id&&item.bookmarker_id===userID)
       
       try{
         if(findBookmark){
-          await deleteBookmark({bookmarkID:findBookmark.post_id,userID}).unwrap()
+          await deleteBookmark({bookmarkID:findBookmark.post_id,userID})
         }
         else{
-          await addNewBookmark({bookmarkID:id,userID}).unwrap()
+          await addNewBookmark({bookmarkID:id,userID})
         }
       }
       catch(err){
@@ -225,7 +168,7 @@ const myFollowers=(id)=>{
       } 
         
        
-    }
+    } */
 
     
     const postAuthorImg=(id)=>{
@@ -241,13 +184,6 @@ const myFollowers=(id)=>{
           return name.userName
         }
       }
-
-
-      const [switchReadPage,setSwitchReadPage]=useState('no-feed');
-      const [switchFeedPage,setSwitchFeedPage]=useState('');
-
-      const handleReadPost=(post_id)=>{
-    }
 
     const[displayMenu,setDisplayMenu]=useState('no-menu')
     const handleDisplayMenu=()=>{
@@ -268,11 +204,11 @@ const myFollowers=(id)=>{
      const checkFollowed=inspirersFollowed.find((element)=>element.inspirer_id===item)
      try{
       if(checkFollowed){
-        await deleteInspirer({userID,followID:checkFollowed._id}).unwrap()     
+        await deleteInspirer({userID,followID:checkFollowed._id})     
       } 
       else{
         await addNewNotification({date:format(new Date(), 'EE MM dd, yyyy pp'),operation:"followed you",userID,authorID:item}).unwrap()
-        await addNewInspirer({userID,item}).unwrap()
+        await addNewInspirer({userID,item})
       }
       }
       catch(err){
@@ -288,11 +224,6 @@ const myFollowers=(id)=>{
 
   const handleSeeLess=(num)=>{
       handleActive(num)
-  }
-
-  const readBookmark=(id)=>{
-    handleSeeLess(1)
-    handleReadPost(id)
   }
 
   const functionalityUnderDevelopment=()=>{
@@ -365,6 +296,8 @@ const myFollowers=(id)=>{
              </div>
         </div>
         <div className={isOverColor?'over-color':'no-over-color'}></div>
+        {
+        creatingPost?
         <CreatePost 
         creatingPost={creatingPost}
         warning={warning}
@@ -374,7 +307,9 @@ const myFollowers=(id)=>{
         userID={userID}
         setTriggerCloseProfileMenu={setTriggerCloseProfileMenu}
         profileImage={profile_image_avatar}
-        />
+        />:
+        null
+        }
 
         <Menu
         displayMenu={displayMenu}
@@ -452,12 +387,8 @@ const myFollowers=(id)=>{
                 activeComponent===1?
                 <Feeds 
                 userID={userID}
-                likeAndUnlike={likeAndUnlike}
                 bookmarkAndUnbookmark={bookmarkAndUnbookmark}
-                numberOfLikes={numberOfLikes}
                 numberOfComments={numberOfComments}
-                handleSetBookmark={handleSetBookmark}
-                handleSetLike={handleSetLike}
                 postAuthorImg={postAuthorImg}
                 postAuthorName={postAuthorName}
                 setWarning={setWarning}
@@ -472,30 +403,13 @@ const myFollowers=(id)=>{
                 />:
                 activeComponent===3?
                 <Profile 
-                allFeed={allFeed} 
-                setAllFeed={setAllFeed}
-                upperSection={upperSection}
-                lowerSection={lowerSection}
-                setLowerSection={setLowerSection}
-                setUpperSection={setUpperSection}
                 myInfo={myInfo}
-                likes={likes}
-                likeAndUnlike={likeAndUnlike}
                 bookmarkAndUnbookmark={bookmarkAndUnbookmark}
-                numberOfLikes={numberOfLikes}
                 numberOfComments={numberOfComments}
                 postAuthorImg={postAuthorImg}
                 postAuthorName={postAuthorName}
-                switchFeedPage={switchFeedPage}
-                setSwitchReadPage={setSwitchReadPage}
-                setSwitchFeedPage={setSwitchFeedPage}
-                switchReadPage={switchReadPage}
-                triggerCloseProfileMenu={triggerCloseProfileMenu}
                 handleFollowUnfollow={handleFollowUnfollow}
                 userID={userID}
-                handleSetLike={handleSetLike}
-                handleReadPost={handleReadPost}
-                handleSetBookmark={handleSetBookmark}
                 handleOpenUserProfilePage={handleOpenUserProfilePage}
                 />:
                 activeComponent===4?
@@ -523,7 +437,6 @@ const myFollowers=(id)=>{
                 handleSeeLess={handleSeeLess}
                 postAuthorImg={postAuthorImg}
                 postAuthorName={postAuthorName}
-                readBookmark={readBookmark}
                 functionalityUnderDevelopment={functionalityUnderDevelopment}
                 />:
                 <p>component under construction</p>
@@ -564,8 +477,6 @@ const myFollowers=(id)=>{
                 profile_image_avatar={profile_image_avatar}
                 postAuthorImg={postAuthorImg}
                 postAuthorName={postAuthorName}
-                handleReadPost={handleReadPost}
-                readBookmark={readBookmark}
                 functionalityUnderDevelopment={functionalityUnderDevelopment}
                 handleFollowUnfollow={handleFollowUnfollow}
                 handleOpenUserProfilePage={handleOpenUserProfilePage}

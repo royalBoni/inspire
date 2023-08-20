@@ -65,7 +65,10 @@
 .createpost form{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 1rem;
+    height: 100%;
+    padding-block: 10px;
 }
 
 .createpost input{
@@ -217,7 +220,7 @@ input[type='file']{
     display: none;
 }
 
-@media screen and (max-width:1500px){
+@media screen and (max-width:1200px){
     .createpost{
         width: 50%;
         height: 48%;

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState,useEffect } from 'react';
 import './profile.css'
-import { FaAngleDown,FaAngleUp,FaBars,FaEllipsisH, FaList, FaListAlt,FaUserAlt } from 'react-icons/fa';
+import { FaBars,FaEllipsisH,FaUserAlt } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import Timeline from './Timeline';
 import About from './About';
@@ -11,18 +11,10 @@ import MyInspiration from './MyInspiration';
 import { selectAllInspirations } from '../../../../reducxSlices/inspirationsSlice';
 
 
-const Profile = ({bookmarked,allFeed,setAllFeed,
-    removeFeedSection,deactivatePostCss,suggestedNoDuplicate,beenFollowed,
-    inspirersFollowed,accountProfiles,loadingInspiration,fetchInspirationError,setLowerSection,setUpperSection,myInfo,
-    setLikes,likes,likeAndUnlike,bookmarkAndUnbookmark,numberOfLikes,numberOfComments,comments,setComments,
-    postAuthorName,postAuthorImg,switchFeedPage,setSwitchReadPage,setSwitchFeedPage,switchReadPage,selectedPost,profiles,
-    setTriggerInspirers,triggerInspirers,loadingInspirers,inspirersError,triggerCloseProfileMenu,handleFollowUnfollow,userID,
-    handleSetLike,handleReadPost,handleSetBookmark,setBackID,handleOpenUserProfilePage}) => {
-    const [timeline,setTimeline]=useState('')
-    const [about,setAbout]=useState('active_contol')
-    const [inspirers,setInspirers]=useState('')
-    const [inspirations,setInspirations]=useState('')
-    const [more,SetMore]=useState('')
+const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,setOpenCloseUserProfilePage,
+    activateSearch,searchInput,setSearchInput,myInfo,bookmarkAndUnbookmark,numberOfComments,
+    postAuthorName,postAuthorImg,triggerCloseProfileMenu,handleFollowUnfollow,userID,handleReadPost,handleOpenUserProfilePage}) => {
+   
    
     const [profileOver,setProfileOver]=useState('no-profile-over-color')
 
@@ -104,11 +96,11 @@ const Profile = ({bookmarked,allFeed,setAllFeed,
                         <button className="more" onClick={handleProfileMenu}><FaEllipsisH/></button>
                     </div>
                     <div className="new-section-controls">
-                        <div className={`upper-section-controls-content ${timeline}`} onClick={()=>handleControlActive(1)}>Timeline</div>
-                        <div className={`upper-section-controls-content ${about}`} onClick={()=>handleControlActive(2)}>About</div>
-                        <div className={`upper-section-controls-content ${inspirers}`} onClick={()=>handleControlActive(3)}>Inspirers</div>
-                        <div className={`upper-section-controls-content ${inspirations}`} onClick={()=>handleControlActive(4)}>Inspirations</div>
-                        <div className={`upper-section-controls-content ${more}`} onClick={()=>handleControlActive(5)}><FaBars/></div>
+                        <div className={`upper-section-controls-content ${activeItem===1?'active_contol':null}`} onClick={()=>handleControlActive(1)}>Timeline</div>
+                        <div className={`upper-section-controls-content ${activeItem===2?'active_contol':null}`} onClick={()=>handleControlActive(2)}>About</div>
+                        <div className={`upper-section-controls-content ${activeItem===3?'active_contol':null}`} onClick={()=>handleControlActive(3)}>Inspirers</div>
+                        <div className={`upper-section-controls-content ${activeItem===4?'active_contol':null}`} onClick={()=>handleControlActive(4)}>Inspirations</div>
+                        <div className={`upper-section-controls-content ${activeItem===5?'active_contol':null}`} onClick={()=>handleControlActive(5)}><FaBars/></div>
                     </div>
                 </div>
             </div>
@@ -117,46 +109,27 @@ const Profile = ({bookmarked,allFeed,setAllFeed,
             {
                 activeItem===1?
                 <Timeline
-                posts={posts}
-                loadingInspiration={loadingInspiration}
-                fetchInspirationError={fetchInspirationError}
-                bookmarked={bookmarked}
-                allFeed={allFeed} 
-                setAllFeed={setAllFeed}
-                removeFeedSection={removeFeedSection}
-                deactivatePostCss={deactivatePostCss}
-                setLowerSection={setLowerSection}
-                setUpperSection={setUpperSection}
-                setLikes={setLikes}
-                likes={likes}
-                likeAndUnlike={likeAndUnlike}
+                userID={userID}
                 bookmarkAndUnbookmark={bookmarkAndUnbookmark}
-                numberOfLikes={numberOfLikes}
                 numberOfComments={numberOfComments}
-                comments={comments}
-                setComments={setComments}
                 postAuthorImg={postAuthorImg}
                 postAuthorName={postAuthorName}
-                switchFeedPage={switchFeedPage}
-                setSwitchReadPage={setSwitchReadPage}
-                setSwitchFeedPage={setSwitchFeedPage}
-                switchReadPage={switchReadPage}
-                selectedPost={selectedPost}/>
+                setWarning={setWarning}
+                setWarningMessage={setWarningMessage}
+                handleFollowUnfollow={handleFollowUnfollow}
+                functionalityUnderDevelopment={functionalityUnderDevelopment}
+                handleOpenUserProfilePage={handleOpenUserProfilePage}
+                setOpenCloseUserProfilePage={setOpenCloseUserProfilePage}
+                activateSearch={activateSearch}
+                searchInput={searchInput}
+                setSearchInput={setSearchInput}/>
+
                 :
                 activeItem===2?
                 <About />
                 :
                 activeItem===3?
                 <Inspirers 
-                inspirersFollowed={inspirersFollowed}
-                accountProfiles={accountProfiles}
-                suggestedNoDuplicate={suggestedNoDuplicate}
-                beenFollowed={beenFollowed}
-                profiles={profiles}
-                setTriggerInspirers={setTriggerInspirers}
-                triggerInspirers={triggerInspirers}
-                loadingInspirers={loadingInspirers}
-                inspirersError={inspirersError}
                 handleFollowUnfollow={handleFollowUnfollow}
                 handleOpenUserProfilePage={handleOpenUserProfilePage}
                 />
@@ -165,16 +138,11 @@ const Profile = ({bookmarked,allFeed,setAllFeed,
                 <MyInspiration 
                 userID={userID}
                 posts={posts}
-                handleSetLike={handleSetLike}
-                numberOfLikes={numberOfLikes}
                 handleReadPost={handleReadPost}
                 numberOfComments={numberOfComments}
                 bookmarkAndUnbookmark={bookmarkAndUnbookmark}
-                handleSetBookmark={handleSetBookmark}
                 postAuthorImg={postAuthorImg}
-                postAuthorName={postAuthorName}
-                likeAndUnlike={likeAndUnlike}
-                setBackID={setBackID}/>
+                postAuthorName={postAuthorName}/>
                 :
                 null
             }
