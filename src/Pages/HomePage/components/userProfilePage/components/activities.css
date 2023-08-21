@@ -1,9 +1,5 @@
-.no-activities{
-    display:none
-}
-
 .activity{
-    min-height: 50vh;
+    height: auto;
     display: grid;
     place-content: center;
     color: var(--PRIMARYCOLOR);

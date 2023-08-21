@@ -50,7 +50,7 @@ const BookmarkPage = ({handleSeeLess,postAuthorImg,postAuthorName,readBookmark,f
                                                         </div>
                                                         {
                                                             pageWidth>992&&
-                                                            <div className="post-operation-menu" onClick={functionalityUnderDevelopment}>
+                                                            <div className="post-operation-menu" onClick={()=>functionalityUnderDevelopment('functionality under construction')}>
                                                             <FaEllipsisH/>
                                                             </div>
                                                         }

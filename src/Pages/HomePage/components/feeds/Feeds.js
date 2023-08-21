@@ -10,6 +10,7 @@ import ProductLoadingPage from '../ProductLoadingPage'
 import { FaEllipsisV } from 'react-icons/fa'
 import FeedPostMenu from './FeedPostMenu'
 import { selectAllInspirations } from '../../../../reducxSlices/inspirationsSlice'
+import { selectAllComments } from '../../../../reducxSlices/commentsSlice'
 import { selectAllBookmarks,useAddNewBookmarkMutation ,useDeleteBookmarkMutation} from '../../../../reducxSlices/bookmarksSlice'
 import { selectAllLikes, useDeleteLikeMutation, useAddNewLikeMutation } from '../../../../reducxSlices/likesSlice'
 import { useAddNewNotificationMutation } from '../../../../reducxSlices/notificationsSlice'
@@ -19,11 +20,12 @@ import { setViewInspiration } from '../../../../reducxSlices/actionStateSlice'
 import { setSelectedInspiration } from '../../../../reducxSlices/actionStateSlice'
 import { setIsOverColor } from '../../../../reducxSlices/actionStateSlice'
 
-const Feeds = ({userID,bookmarkAndUnbookmark,numberOfComments, postAuthorName,postAuthorImg,setWarningMessage,setWarning,
+const Feeds = ({userID,postAuthorName,postAuthorImg,
 handleFollowUnfollow,functionalityUnderDevelopment,handleOpenUserProfilePage,setOpenCloseUserProfilePage,activateSearch,searchInput,setSearchInput}) => {
    
 const dispatch=useDispatch()
 
+const comments = useSelector(selectAllComments)
 const likes = useSelector(selectAllLikes)
 const [deleteLike]=useDeleteLikeMutation()
 const [addNewLike]=useAddNewLikeMutation()
@@ -177,11 +179,21 @@ const handleSetBookmark=async(id)=>{
     else{
       console.log(`Error: ${err.message}`)
     }
-  } 
-    
-   
+  }   
 }
 
+const bookmarkAndUnbookmark=(id)=>{
+  const userbook=bookmarks?.filter((item)=>item.post_id===id)
+  const findbook=userbook?.find((item)=>item.bookmarker_id===userID);
+  if(findbook){
+      return 'activeLikeBtn'
+  } 
+}
+
+const numberOfComments=(id)=>{
+  const total=comments.filter((item)=>item.post_id===id)
+  return total?.length
+}
    
 
 return (
@@ -200,8 +212,6 @@ return (
         userID={userID}
         postID={postID}
         handlePostMenu={handlePostMenu}
-        setWarningMessage={setWarningMessage}
-        setWarning={setWarning}
         creatorID={creatorID}
         postAuthorName={postAuthorName}
         handleFollowUnfollow={handleFollowUnfollow}
@@ -317,7 +327,7 @@ return (
                 
       </div>:
       <ReadFeed 
-      numberOfComments={numberOfComments} numberOfLikes={numberOfLikes} likeAndUnlike={likeAndUnlike} bookmarkAndUnbookmark={bookmarkAndUnbookmark}
+      userID={userID} numberOfComments={numberOfComments} numberOfLikes={numberOfLikes} likeAndUnlike={likeAndUnlike} bookmarkAndUnbookmark={bookmarkAndUnbookmark}
       handleSetBookmark={handleSetBookmark} handleSetLike={handleSetLike}  postAuthorImg={postAuthorImg} datePosted={datePosted}
       postAuthorName={postAuthorName} setOpenCloseUserProfilePage={setOpenCloseUserProfilePage} handleOpenUserProfilePage={handleOpenUserProfilePage} />
       }

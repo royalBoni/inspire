@@ -5,19 +5,14 @@ import { useDeleteNotificationMutation } from '../../../../../reducxSlices/notif
 import { selectInspirationById } from '../../../../../reducxSlices/inspirationsSlice'
 import { useSelector } from 'react-redux'
 
-const NotificationMenu = ({handleOpenNotificationMenu,setWarning,setWarningMessage,functionalityUnderDevelopment}) => {
+const NotificationMenu = ({handleOpenNotificationMenu,functionalityUnderDevelopment}) => {
 
   const notificationData=useSelector((state)=>state.myStates.selectedNotification)
   const inspiration = useSelector((state)=>selectInspirationById(state,notificationData?.clickedNotification.post_id))
   const [deleteNotification,{isSuccess}]=useDeleteNotificationMutation()
 
   if(isSuccess){
-    setWarningMessage('Notification removed')
-    setWarning(true)
-    setTimeout(() => {
-        setWarning(false)
-        setWarningMessage(null)
-    }, 17000);
+    functionalityUnderDevelopment('Notification removed')
   }
 
   const handleDeleteNotification=async()=>{
@@ -41,9 +36,7 @@ const NotificationMenu = ({handleOpenNotificationMenu,setWarning,setWarningMessa
     <div className='open'>
     <div onClick={()=>handleOpenNotificationMenu(null)} className="closeNotificationItem"><FaTimes/></div>
     <div className="notificationImage"><img src={notificationData?.originatorProfile.profile_image_avatar} alt="" /></div>
-    
-        <div className="notification-message-item">{`${notificationData?.originatorProfile.profileName} ${notificationData?.clickedNotification.operation}: ${notificationData?.clickedNotification.post_id?JSON.stringify(inspiration?.inspiration_title):''}`}</div>
-    
+    <div className="notification-message-item">{`${notificationData?.originatorProfile.profileName} ${notificationData?.clickedNotification.operation}: ${notificationData?.clickedNotification.post_id?JSON.stringify(inspiration?.inspiration_title):''}`}</div>
     <div className="notificationControls">
       <div className="notificationControls-item" onClick={handleDeleteNotification}>
         <div className="noti-icon">
@@ -51,13 +44,13 @@ const NotificationMenu = ({handleOpenNotificationMenu,setWarning,setWarningMessa
         </div>
          Remove this notification
       </div>
-      <div className="notificationControls-item" onClick={functionalityUnderDevelopment}>
+      <div className="notificationControls-item" onClick={()=>functionalityUnderDevelopment('functionality under construction')}>
         <div className="noti-icon">
           <FaToggleOff className='notificationControls-item-icon'/>
         </div>
          Turn off notifications about this photo
       </div>
-      <div className="notificationControls-item" onClick={functionalityUnderDevelopment}>
+      <div className="notificationControls-item" onClick={()=>functionalityUnderDevelopment('functionality under construction')}>
         <div className="noti-icon">
           <FaTools className='notificationControls-item-icon'/>
         </div>

@@ -11,6 +11,7 @@ import { useAddNewCommentMutation } from '../../../../reducxSlices/commentsSlice
 
 const ReadFeed = ({numberOfComments,numberOfLikes,likeAndUnlike,bookmarkAndUnbookmark,handleSetBookmark,handleSetLike,postAuthorImg,postAuthorName,handleOpenUserProfilePage,
   datePosted,userID}) => {
+
     const dispatch=useDispatch()
     const selectedInspiration = useSelector((state)=>state.myStates.selectedInspiration)
     const [addNewNotification]=useAddNewNotificationMutation()
@@ -154,7 +155,6 @@ const ReadFeed = ({numberOfComments,numberOfLikes,likeAndUnlike,bookmarkAndUnboo
             <p className='ref' ref={bottomRef}>.</p>
           </div>
         </div>
-        {/* <button onClick={handleBack}>Back</button> */}
 
       </div>
         

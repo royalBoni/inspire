@@ -1,13 +1,12 @@
 import React from 'react';
 import './activities.css';
 
-const Activities = ({activitiesCss}) => {
+const Activities = () => {
   return (
-    <div className={`${activitiesCss}`}>
-        <div className="activity">
-            Activities Functionality Under Construction
-        </div>
+    <div className="activity">
+        Activities Functionality Under Construction
     </div>
+ 
   )
 }
 

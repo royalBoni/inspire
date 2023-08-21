@@ -2,7 +2,6 @@ import React from 'react'
 import './searchcreate.css'
 import {FaPlus,FaAngleDown,FaAngleUp,FaSearch,FaGenderless,FaEllipsisH} from 'react-icons/fa'
 import { useParams } from 'react-router-dom'
-import profileimage from './me.jpeg'
 import { useState,useEffect } from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 import { selectAllBookmarks } from '../../../reducxSlices/bookmarksSlice'
@@ -124,7 +123,7 @@ const SearchCreate = ({setSearchInput,searchInput,handleCreatePost,toggleProfile
                                                                     </div>
                                                                     <div className="author-name">{postAuthorName(item.authorID)?postAuthorName(item.authorID):'anonymous'}</div>
                                                                 </div>
-                                                                <div className="post-operation-menu" onClick={functionalityUnderDevelopment}>
+                                                                <div className="post-operation-menu" onClick={()=>functionalityUnderDevelopment('functionality under construction')}>
                                                                     <FaEllipsisH/>
                                                                 </div>
                                                             </div>

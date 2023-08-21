@@ -13,7 +13,8 @@ const initialState={
     inspirersFollowed:[],
     beenFollowed:[],
     suggested:[],
-    isOverColor:false
+    isOverColor:false,
+    selectedProfileID:null
 }
 
 export const myStatesSlice =createSlice({
@@ -53,12 +54,15 @@ export const myStatesSlice =createSlice({
         },
         setIsOverColor:(state, action)=>{
             state.isOverColor=!state.isOverColor
+        },
+        setSelectedProfileID:(state, action)=>{
+            state.selectedProfileID=action.payload
         }
     }
 })
 
 export const {setIsToggleMobileNav,setIsOverPage, setIsAccountNav, setPageWidth, setSelectedNotification,
     setFeedPosts, setViewInspiration, setOpenMobileSearchComponent,setIsSearched,setInspirersFollowed,
-    setBeenFollowed,setSuggested,setSelectedInspiration,setIsOverColor} = myStatesSlice.actions;
+    setBeenFollowed,setSuggested,setSelectedInspiration,setIsOverColor, setSelectedProfileID} = myStatesSlice.actions;
 
 export default myStatesSlice.reducer;

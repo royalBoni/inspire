@@ -48,7 +48,7 @@ const FeedPostMenu = ({ userID,postID,handlePostMenu,creatorID,postAuthorName,ha
         </>
         :
         <div className="feed-post-menu-control">
-          <div className="feed-post-menu-control-item" onClick={functionalityUnderDevelopment}>
+          <div className="feed-post-menu-control-item" onClick={()=>functionalityUnderDevelopment('functionality under construction')}>
             <div className="feed-post-menu-icon">
               <FaFrown className='feed-post-menu-control-item-icon'/>
             </div>
@@ -63,13 +63,13 @@ const FeedPostMenu = ({ userID,postID,handlePostMenu,creatorID,postAuthorName,ha
             }
             
           </div>
-          <div className="feed-post-menu-control-item" onClick={functionalityUnderDevelopment}>
+          <div className="feed-post-menu-control-item" onClick={()=>functionalityUnderDevelopment('functionality under construction')}>
             <div className="feed-post-menu-icon">
               <FaToggleOff className='feed-post-menu-control-item-icon'/>
             </div>
             Turn off notifications about this Inspiration
           </div>
-          <div className="feed-post-menu-control-item" onClick={functionalityUnderDevelopment}>
+          <div className="feed-post-menu-control-item" onClick={()=>functionalityUnderDevelopment('functionality under construction')}>
             <div className="feed-post-menu-icon">
               <FaFlag className='feed-post-menu-control-item-icon'/>
             </div>

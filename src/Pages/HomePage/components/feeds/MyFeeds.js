@@ -1,14 +1,18 @@
 import React from 'react'
-import { FaTimes,FaHeart,FaCommentDots,FaBookmark, FaLongArrowAltDown, FaSpinner } from 'react-icons/fa'
+import { FaTimes,FaHeart,FaCommentDots,FaBookmark, FaSpinner } from 'react-icons/fa'
 import './myFeeds.css'
 import { useDeleteInspirationMutation } from '../../../../reducxSlices/inspirationsSlice'
+import { selectAllInspirations } from '../../../../reducxSlices/inspirationsSlice'
 import { selectAllLikes, useDeleteLikeMutation, useAddNewLikeMutation } from '../../../../reducxSlices/likesSlice'
+import { selectAllComments } from '../../../../reducxSlices/commentsSlice'
 import { useAddNewNotificationMutation } from '../../../../reducxSlices/notificationsSlice'
 import { selectAllBookmarks, useAddNewBookmarkMutation,useDeleteBookmarkMutation } from '../../../../reducxSlices/bookmarksSlice'
 import { format } from 'date-fns'
 import { useSelector } from 'react-redux'
 
-const MyFeeds = ({userID,posts,handleReadPost,numberOfComments,bookmarkAndUnbookmark,postAuthorImg,postAuthorName}) => {
+const MyFeeds = ({userID,handleReadPost,postAuthorImg,postAuthorName}) => {
+
+    const isProfileMine = userID===JSON.parse(localStorage.getItem('myInspireAccount'))
 
     const likes = useSelector(selectAllLikes)
     const [deleteLike]=useDeleteLikeMutation()
@@ -18,6 +22,10 @@ const MyFeeds = ({userID,posts,handleReadPost,numberOfComments,bookmarkAndUnbook
     const bookmarks= useSelector(selectAllBookmarks)
     const [deleteBookmark]=useDeleteBookmarkMutation()
     const [addNewBookmark] = useAddNewBookmarkMutation()
+
+    const comments = useSelector(selectAllComments)
+
+    const posts = useSelector(selectAllInspirations)
 
     const likeAndUnlike=(id)=>{
         const userLiked=likes?.filter((item)=>item.post_id===id)
@@ -87,6 +95,14 @@ const MyFeeds = ({userID,posts,handleReadPost,numberOfComments,bookmarkAndUnbook
          
       }
 
+      const bookmarkAndUnbookmark=(id)=>{
+        const userbook=bookmarks?.filter((item)=>item.post_id===id)
+        const findbook=userbook?.find((item)=>item.bookmarker_id===userID);
+        if(findbook){
+            return 'activeLikeBtn'
+        } 
+    }
+
     const [deleteInspiration, {isLoading}]=useDeleteInspirationMutation()
 
     const handleDeletePost=async(postID)=>{
@@ -98,6 +114,12 @@ const MyFeeds = ({userID,posts,handleReadPost,numberOfComments,bookmarkAndUnbook
       }
      
     }
+
+    const numberOfComments=(id)=>{
+        const total=comments.filter((item)=>item.post_id===id)
+        return total?.length
+    }
+
   return (
     <div className='my-feed'>
     {
@@ -117,9 +139,11 @@ const MyFeeds = ({userID,posts,handleReadPost,numberOfComments,bookmarkAndUnbook
                         {item.category?item.category:'uncategorized'} 
                         <div className="postMenu" onClick={()=>handleDeletePost(item._id)}>
                             {
+                                isProfileMine?
                                 isLoading?
                                 <FaSpinner/>:
-                                <FaTimes/>
+                                <FaTimes/>:
+                                null
                             }
                           
                         </div>

@@ -1,9 +1,5 @@
-.no-groups{
-    display:none
-}
-
 .groups{
-    min-height: 50vh;
+    min-height: auto;
     display: grid;
     place-content: center;
     color: var(--PRIMARYCOLOR);

@@ -7,13 +7,16 @@ import { selectNotifications } from '../../../../reducxSlices/notificationsSlice
 import { useSelector,useDispatch } from 'react-redux';
 import { setSelectedNotification } from '../../../../reducxSlices/actionStateSlice';
 import { selectAllProfiles } from '../../../../reducxSlices/profilesSlice';
+import { selectAllInspirations } from '../../../../reducxSlices/inspirationsSlice';
 import { setIsOverColor } from '../../../../reducxSlices/actionStateSlice';
 
-const Notifications = ({setWarning,setWarningMessage,functionalityUnderDevelopment}) => {
+const Notifications = ({functionalityUnderDevelopment}) => {
   const dispatch = useDispatch()
   const [openClose,setOpenClose]=useState(false)
   const notifications = useSelector(selectNotifications)
   const profiles=useSelector(selectAllProfiles)
+  const inspirations = useSelector(selectAllInspirations)
+  console.log('d')
 
   const handleOpenNotificationMenu=(data)=>{
     if(!openClose){
@@ -35,8 +38,6 @@ const Notifications = ({setWarning,setWarningMessage,functionalityUnderDevelopme
         openClose&&
         <NotificationMenu
         handleOpenNotificationMenu={handleOpenNotificationMenu}
-        setWarning={setWarning}
-        setWarningMessage={setWarningMessage}
         functionalityUnderDevelopment={functionalityUnderDevelopment}
         />
       }
@@ -69,24 +70,22 @@ const Notifications = ({setWarning,setWarningMessage,functionalityUnderDevelopme
                             </div>
                             <div className="notification-details-info">
                               {
-                                !item.post_id&&
+                                !item.post_id?
                                 <div className="notification-details-message">{`${prof.userName}`} {`${item.operation}`}</div>
-                              }
-
-                              {
-                                item.post_id&&   
+                                :
                                 <div>
                                   {
-                                    notifications.map((post)=>{
+                                    inspirations.map((post)=>{
                                       if(post._id===item.post_id){
                                         return(
-                                          <div key={post._id} className="notification-details-message">{`${prof.userName}`} {`${item.operation}: ${post.inspiration_title}`}</div>
+                                          <div key={post._id} className="notification-details-message">{`${prof.userName}`} {`${item.operation} "${post.inspiration_title}"`}</div>
                                         )
                                       }
                                     })
                                   }
-                                </div>
+                                </div>                               
                               }
+
                               <div className="notification-details-date">{`${item.date}`}</div>
                             </div>
                             <FaEllipsisH className="more-icon" onClick={()=>handleOpenNotificationMenu({clickedNotification:item,originatorProfile:prof}/* item._id,prof.userName,item.operation,prof.profile_image_avatar,item.post_id */)}/>

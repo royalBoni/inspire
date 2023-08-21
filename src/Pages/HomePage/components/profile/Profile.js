@@ -11,8 +11,7 @@ import MyInspiration from './MyInspiration';
 import { selectAllInspirations } from '../../../../reducxSlices/inspirationsSlice';
 
 
-const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,setOpenCloseUserProfilePage,
-    activateSearch,searchInput,setSearchInput,myInfo,bookmarkAndUnbookmark,numberOfComments,
+const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,setOpenCloseUserProfilePage,activateSearch,searchInput,setSearchInput,myInfo,
     postAuthorName,postAuthorImg,triggerCloseProfileMenu,handleFollowUnfollow,userID,handleReadPost,handleOpenUserProfilePage}) => {
    
    
@@ -110,8 +109,6 @@ const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,set
                 activeItem===1?
                 <Timeline
                 userID={userID}
-                bookmarkAndUnbookmark={bookmarkAndUnbookmark}
-                numberOfComments={numberOfComments}
                 postAuthorImg={postAuthorImg}
                 postAuthorName={postAuthorName}
                 setWarning={setWarning}
@@ -137,10 +134,7 @@ const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,set
                 activeItem===4?
                 <MyInspiration 
                 userID={userID}
-                posts={posts}
                 handleReadPost={handleReadPost}
-                numberOfComments={numberOfComments}
-                bookmarkAndUnbookmark={bookmarkAndUnbookmark}
                 postAuthorImg={postAuthorImg}
                 postAuthorName={postAuthorName}/>
                 :

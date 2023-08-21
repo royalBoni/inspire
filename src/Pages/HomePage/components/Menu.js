@@ -1,7 +1,7 @@
 import React from 'react'
 import './menu.css'
 import { FaTimes,FaUsers,FaAngleDown,FaAngleUp,FaBookmark, FaPalette, FaFont,FaUserAlt,FaBug,FaLifeRing,FaTools,FaBook,FaRegSun } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import pic from './me.jpeg'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -9,13 +9,15 @@ import { useSelector } from 'react-redux'
 const Menu = ({displayMenu,handleCloseMenu,myInfo,handleActive}) => {
     const [pageWidth,setPageWidth]=useState('')
 
-const inspirersFollowed=useSelector((state)=>state.myStates.inspirersFollowed)
-const beenFollowed=useSelector((state)=>state.myStates.beenFollowed)
+    const navigate = useNavigate()
 
-const screen =()=>{
-    const myWidth = window.innerWidth;
-    setPageWidth(myWidth)
-}
+    const inspirersFollowed=useSelector((state)=>state.myStates.inspirersFollowed)
+    const beenFollowed=useSelector((state)=>state.myStates.beenFollowed)
+
+    const screen =()=>{
+        const myWidth = window.innerWidth;
+        setPageWidth(myWidth)
+    }
     window.onresize = screen;
     window.onload = screen;
 
@@ -27,6 +29,11 @@ const screen =()=>{
         else{
             handleActive(4)
         }
+    }
+
+    const logout =()=>{
+        localStorage.removeItem('myInspireAccount')
+        navigate('/')
     }
     
   return (
@@ -91,7 +98,7 @@ const screen =()=>{
             </div>
         
 
-        <Link className='link' to={'/'}><button className="log-out-button">Log Out</button></Link>
+        <button className="log-out-button" onClick={logout}>Log Out</button>
     </div>
   )
 }

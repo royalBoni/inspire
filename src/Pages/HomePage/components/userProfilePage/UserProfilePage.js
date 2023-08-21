@@ -1,63 +1,40 @@
 import React from 'react'
 import './userProfilePage.css'
-import {FaBriefcase,FaGraduationCap,FaCalendarAlt,FaMapMarkerAlt,FaArrowLeft,FaUserAlt,FaBookmark,FaCommentDots,FaEllipsisV,FaHeart} from 'react-icons/fa'
+import {FaBriefcase,FaGraduationCap,FaCalendarAlt,FaMapMarkerAlt,FaArrowLeft,FaUserAlt} from 'react-icons/fa'
 import MyFeeds from '../feeds/MyFeeds'
 import { useState } from 'react'
 import Activities from './components/Activities'
 import Groups from './components/Groups'
+import UserInspirations from './components/UserInspirations'
+import { selectAllProfiles } from '../../../../reducxSlices/profilesSlice'
+import { useSelector} from 'react-redux'
 
-const UserProfilePage = ({openCloseUserProfilePage,handleCloseUserProfilePage,userProfileID,profiles,myInfo,usersFollowed,myFollowers,
-  posts,handleReadPost,postAuthorImg,postAuthorName,likeAndUnlike,handleSetLike,numberOfLikes,numberOfComments,bookmarkAndUnbookmark,
-  handleSetBookmark,inspirersFollowed,handleFollowUnfollow}) => {
+const UserProfilePage = ({handleCloseUserProfilePage,myInfo,usersFollowed,myFollowers,postAuthorImg,postAuthorName,handleFollowUnfollow}) => {
+  
+ 
+  const profiles = useSelector(selectAllProfiles)
+  
+  const userProfileID = useSelector((state)=>state.myStates.selectedProfileID)
+
   const userProfile=profiles.find((item)=>item.userID===userProfileID)
 
-
-
-  const [inspirationActive,setInspirationActive]=useState('down-header-active')
-  const [activitiesActive,setActivitiesActive]=useState('')
-  const [groupsActive,setGroupsActive]=useState('')
-
-  const [inspirationCss,setInspirationCss]=useState('')
-  const [activitiesCss,setActivitiesCss]=useState('no-activities')
-  const [groupsCss,setGroupCss]=useState('no-groups')
+  const [activeItem, setActiveItem]=useState(1)
 
   const handleDownHeaderActive=(id)=>{
-    if(id===1){
-      setInspirationActive('down-header-active')
-      setInspirationCss('')
-
-      setActivitiesActive('')
-      setGroupsActive('')
-
-      setActivitiesCss('no-activities')
-      setGroupCss('no-groups')
-    }
-
-    else if(id===2){
-      setActivitiesActive('down-header-active')
-      setActivitiesCss('')
-
-      setInspirationActive('')
-      setGroupsActive('')
-
-      setGroupCss('no-groups')
-      setInspirationCss('no-inspiration')
-    }
-
-    else if(id===3){
-      setGroupsActive('down-header-active')
-      setGroupCss('')
-
-      setInspirationActive('')
-      setActivitiesActive('')
-
-      setActivitiesCss('no-activities')
-      setInspirationCss('no-inspiration')
-    }
-    
+    setActiveItem(id)
   }
+
+  const inspirersFollowed = useSelector((state)=>state.myStates.inspirersFollowed)
+
+  
+  {/* <MyFeeds 
+              postAuthorImg={postAuthorImg}
+              postAuthorName={postAuthorName}
+              userID={userProfileID}/> */}
+
+
   return (
-    <div className={`${openCloseUserProfilePage}`}>
+    <div className='user-profile-page'>
 
       <div className="user-profile-content">
         <div className="search-nav">
@@ -118,44 +95,31 @@ const UserProfilePage = ({openCloseUserProfilePage,handleCloseUserProfilePage,us
 
           <div className="down-header">
             <ul>
-              <li className={`${inspirationActive}`} onClick={()=>handleDownHeaderActive(1)}>Inpirations</li>
-              <li className={`${activitiesActive}`} onClick={()=>handleDownHeaderActive(2)}>Activities</li>
-              <li className={`${groupsActive}`} onClick={()=>handleDownHeaderActive(3)}>Groups</li>
+              <li className={activeItem===1?'down-header-active':null} onClick={()=>handleDownHeaderActive(1)}>Inpirations</li>
+              <li className={activeItem===2?'down-header-active':null} onClick={()=>handleDownHeaderActive(2)}>Activities</li>
+              <li className={activeItem===3?'down-header-active':null} onClick={()=>handleDownHeaderActive(3)}>Groups</li>
             </ul>
           </div>
 
           
           <div className="down-content">
-            <div className={`${inspirationCss}`}>
-              <MyFeeds 
-              posts={posts}
-              handleReadPost={handleReadPost}
+            {
+              activeItem===1?
+              <UserInspirations
               postAuthorImg={postAuthorImg}
               postAuthorName={postAuthorName}
-              likeAndUnlike={likeAndUnlike}
-              handleSetLike={handleSetLike}
-              numberOfLikes={numberOfLikes}
-              numberOfComments={numberOfComments}
-              bookmarkAndUnbookmark={bookmarkAndUnbookmark}
-              handleSetBookmark={handleSetBookmark}
-              userID={userProfileID}/>
-            </div>
-            
-
-            <Activities 
-            activitiesCss={activitiesCss}/>
-
-            <Groups 
-            groupsCss={groupsCss}
-            />
-   
+              userProfileID={userProfileID}
+              />:
+              activeItem===2?
+              <Activities/>:
+              <Groups/>
+            }
+           
           </div>
 
 
         </div>
-              </div>
-     
-      {/* <button onClick={handleCloseUserProfilePage}>Back</button> */}
+      </div>
       
     </div>
   )

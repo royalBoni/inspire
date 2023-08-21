@@ -10,7 +10,7 @@ const initialState = notificationsAdapter.getInitialState()
 export const extendedNotificationsApiSlice=apiSlice.injectEndpoints({
     endpoints: builder=>({
         getNotifications : builder.query({
-            query:()=> `/notification/${(JSON.parse(localStorage.getItem("myInspireAccount")))._id}`,
+            query:()=> `/notification/${(JSON.parse(localStorage.getItem("myInspireAccount")))}`,
             transformResponse: responseData=>{
                 const loadedPosts= responseData
                 return notificationsAdapter.setAll(initialState, loadedPosts)

@@ -1,13 +1,12 @@
 import React from 'react'
 import './groups.css'
 
-const Groups = ({groupsCss}) => {
+const Groups = () => {
   return (
-    <div className={`${ groupsCss}`}>
-      <div className="groups">
+    <div className="groups">
           Groups Functionality Under Construction
-      </div>
     </div>
+
   )
 }
 

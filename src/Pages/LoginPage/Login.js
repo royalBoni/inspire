@@ -31,7 +31,7 @@ const Login = () => {
         
         else{
           localStorage.setItem("myInspireAccount", JSON.stringify(jsonresult.message)); 
-          navigate(`/home/${jsonresult.message._id}`)
+          navigate(`/home/${jsonresult.message}`)
           
         }
     }

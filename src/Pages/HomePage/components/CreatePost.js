@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useAddNewInspirationMutation } from '../../../reducxSlices/inspirationsSlice';
 
 
-const CreatePost = ({setWarning,setWarningMessage,setCreatingPost,userID,setTriggerCloseProfileMenu,profileImage}) => {
+const CreatePost = ({functionalityUnderDevelopment,setCreatingPost,userID,setTriggerCloseProfileMenu,profileImage}) => {
 
     const colors=['rgba(243, 240, 237, 0.884)','red','blue','yellow','aqua','pink','antiquewhite','#ffffff','#ffff00','#ccff00',
     '#99ff00','#99ccff','#ccff99','#333300']
@@ -49,7 +49,6 @@ const CreatePost = ({setWarning,setWarningMessage,setCreatingPost,userID,setTrig
     },[image])
  
     const reset=()=>{
-        setWarning(false)
         setInspiration_content('')
         setInspiration_title('')
         setImage(null) 
@@ -98,21 +97,10 @@ const CreatePost = ({setWarning,setWarningMessage,setCreatingPost,userID,setTrig
                 }
                 catch(err){
                     if(err.message==='Failed to fetch'){
-                        setWarningMessage('network or server might be down')
-                        setWarning(true)
-                        setTimeout(() => {
-                            setWarning(false)
-                            setWarningMessage(null)
-                    }, 17000);
-                        
+                        functionalityUnderDevelopment('network or server might be down')
                       }
                     else{
-                        setWarningMessage(`Error: ${err.message}`)
-                        setWarning(true)
-                        setTimeout(() => {
-                            setWarning(false)
-                            setWarningMessage(null)
-                    }, 17000);
+                        functionalityUnderDevelopment(`Error: ${err.message}`)
                       }
                 }
                 
@@ -120,12 +108,7 @@ const CreatePost = ({setWarning,setWarningMessage,setCreatingPost,userID,setTrig
            
             
             else{
-                setWarning(true)
-                setWarningMessage('please enter a content')
-                setTimeout(() => {
-                    setWarning(false)
-                    setWarningMessage('')
-                }, 17000);
+                functionalityUnderDevelopment('please enter a content')
             }
     }
   return (

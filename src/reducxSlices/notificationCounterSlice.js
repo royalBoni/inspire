@@ -5,12 +5,13 @@ const notificationsCounterAdapter = createEntityAdapter({
     selectId:(e)=>e._id
 })
 
+
 const initialState = notificationsCounterAdapter.getInitialState()
 
 export const extendedNotificationsCounterApiSlice=apiSlice.injectEndpoints({
     endpoints: builder=>({
         getNotificationsCounter : builder.query({
-            query:()=> `/notification/${(JSON.parse(localStorage.getItem("myInspireAccount")))._id}`,
+            query:()=> `/notification/${(JSON.parse(localStorage.getItem("myInspireAccount")))}`,
             transformResponse: responseData=>{
                 const loadedPosts= responseData
                 return notificationsCounterAdapter.setAll(initialState, loadedPosts)

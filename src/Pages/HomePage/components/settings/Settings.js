@@ -11,7 +11,7 @@ import Community from './components/Community'
 import ReportBug from './components/ReportBug'
 import ReportProblem from './components/ReportProblem'
 
-const Settings = ({settingsPage,warning,setWarning,setWarningMessage}) => {
+const Settings = ({settingsPage,functionalityUnderDevelopment}) => {
     const [notificationActive,setNotificationActive]=useState('active')
     const [darkThemesActive,setDarkThemesActive]=useState('')
     const [languageActive,setLanguageActive]=useState('')
@@ -250,8 +250,6 @@ const Settings = ({settingsPage,warning,setWarning,setWarningMessage}) => {
     const handleBack=()=>{
         setMainContent('settings-page-item-content')
         setCloseNav('settings-page-nav')
-        setWarning(false)
-        setWarningMessage(null)
     }
 
 
@@ -349,18 +347,14 @@ const Settings = ({settingsPage,warning,setWarning,setWarningMessage}) => {
                 <div className={`${reportProblemComp}`}>
                     <ReportProblem
                     handleBack={handleBack}
-                    warning={warning}
-                    setWarning={setWarning}
-                    setWarningMessage={setWarningMessage}
+                    functionalityUnderDevelopment={functionalityUnderDevelopment}
                     />
                 </div>
 
                 <div className={`${reportBugComp}`}>
                     <ReportBug
                     handleBack={handleBack}
-                    warning={warning}
-                    setWarning={setWarning}
-                    setWarningMessage={setWarningMessage}
+                    functionalityUnderDevelopment={functionalityUnderDevelopment}
                     />
                 </div>
             </div>

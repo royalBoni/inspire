@@ -3,7 +3,7 @@ import './reportproblem.css'
 import {useState} from 'react'
 import{FaImage,FaTimes,FaSpinner} from 'react-icons/fa'
 
-const ReportProblem = ({handleBack,setWarning,setWarningMessage}) => {
+const ReportProblem = ({handleBack,functionalityUnderDevelopment}) => {
     const{userName,userEmail}=JSON.parse(localStorage.getItem("myInspireAccount"));
     const [problemImage,setProblemImage]=useState(null)
     const [uploadProblemImageFile,setUploadProblemImageFile]=useState(null)
@@ -55,41 +55,21 @@ const ReportProblem = ({handleBack,setWarning,setWarningMessage}) => {
 
                     const jsonfile= await response.json()
                     if(!response.ok){
-                        setWarningMessage(jsonfile.message)
-                        setWarning(true)
-                        setTimeout(() => {
-                            setWarning(false)
-                            setWarningMessage(null)
-                        }, 17000);
+                        functionalityUnderDevelopment(jsonfile.message)
                       }
                      
                      else{
                        handleReset()
-                       setWarningMessage('Problem successfully sent.')
-                       setWarning(true)
-                       setTimeout(() => {
-                           setWarning(false)
-                           setWarningMessage(null)
-                       }, 17000);
+                       functionalityUnderDevelopment('Problem successfully sent.')
                      }
             }
             catch(err){
                 if(err.message==='Failed to fetch'){
-                    setWarningMessage('network or server might be down')
-                    setWarning(true)
-                    setTimeout(() => {
-                        setWarning(false)
-                        setWarningMessage(null)
-                }, 17000);
+                    functionalityUnderDevelopment('network or server might be down')
                     
                   }
                 else{
-                    setWarningMessage(`Error: ${err.message}`)
-                    setWarning(true)
-                    setTimeout(() => {
-                        setWarning(false)
-                        setWarningMessage(null)
-                }, 17000);
+                    functionalityUnderDevelopment(`Error: ${err.message}`)
                   }
                 
             }
@@ -99,12 +79,7 @@ const ReportProblem = ({handleBack,setWarning,setWarningMessage}) => {
         
         }
         else{
-            setWarningMessage('please make sure the form is filled')
-            setWarning(true)
-            setTimeout(() => {
-            setWarning(false)
-            setWarningMessage(null)
-             }, 17000);
+            functionalityUnderDevelopment('please make sure the form is filled')
         }
     }
 

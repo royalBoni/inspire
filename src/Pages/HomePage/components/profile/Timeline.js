@@ -3,8 +3,7 @@ import './timeline.css'
 import Feeds from '../feeds/Feeds'
 import { useParams } from 'react-router-dom'
 
-const Timeline = ({likeAndUnlike,bookmarkAndUnbookmark,numberOfLikes,numberOfComments,handleSetBookmark,postAuthorImg,
-postAuthorName,setWarning,setWarningMessage,handleFollowUnfollow,functionalityUnderDevelopment,handleOpenUserProfilePage,
+const Timeline = ({handleSetBookmark,postAuthorImg,postAuthorName,setWarning,setWarningMessage,handleFollowUnfollow,functionalityUnderDevelopment,handleOpenUserProfilePage,
 setOpenCloseUserProfilePage,activateSearch,searchInput,setSearchInput}) => {
 
     const {userID}=useParams()
@@ -15,10 +14,6 @@ setOpenCloseUserProfilePage,activateSearch,searchInput,setSearchInput}) => {
         <Feeds       
       
         userID={userID}
-        likeAndUnlike={likeAndUnlike}
-        bookmarkAndUnbookmark={bookmarkAndUnbookmark}
-        numberOfLikes={numberOfLikes}
-        numberOfComments={numberOfComments}
         handleSetBookmark={handleSetBookmark}
         postAuthorImg={postAuthorImg}
         postAuthorName={postAuthorName}

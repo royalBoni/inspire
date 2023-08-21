@@ -2,9 +2,8 @@ import React from 'react'
 import './reportbug.css'
 import {FaTimes,FaSpinner} from 'react-icons/fa'
 import { useState } from 'react'
-import Warning from '../../Warning';
 
-const ReportBug = ({handleBack,warning,setWarning,setWarningMessage}) => {
+const ReportBug = ({handleBack,functionalityUnderDevelopment}) => {
   const{userName,userEmail}=JSON.parse(localStorage.getItem("myInspireAccount"));
   const [closeInstruction,setCloseInstruction]=useState('no-instruction')
   const [closeForm,setCloseForm]=useState('report-bug-page-content-content-form')
@@ -52,41 +51,20 @@ const ReportBug = ({handleBack,warning,setWarning,setWarningMessage}) => {
         const response=await fetch(`http://localhost:5000/help`,postOptions)
         const jsonfile=await response.json()
         if(!response.ok){
-          setWarningMessage(jsonfile.message)
-          setWarning(true)
-          setTimeout(() => {
-              setWarning(false)
-              setWarningMessage(null)
-          }, 17000);
+          functionalityUnderDevelopment(jsonfile.message)
         }
        
        else{
          handleReset()
-         setWarningMessage('Report successfully sent.')
-         setWarning(true)
-         setTimeout(() => {
-             setWarning(false)
-             setWarningMessage(null)
-         }, 17000);
+         functionalityUnderDevelopment('Report successfully sent.')
        }
       }
       catch(err){
         if(err.message==='Failed to fetch'){
-          setWarningMessage('network or server might be down')
-          setWarning(true)
-          setTimeout(() => {
-              setWarning(false)
-              setWarningMessage(null)
-      }, 17000);
-          
+          functionalityUnderDevelopment('network or server might be down')        
         }
       else{
-          setWarningMessage(`Error: ${err.message}`)
-          setWarning(true)
-          setTimeout(() => {
-              setWarning(false)
-              setWarningMessage(null)
-      }, 17000);
+          functionalityUnderDevelopment(`Error: ${err.message}`)
         }
       }
       finally{
@@ -94,12 +72,7 @@ const ReportBug = ({handleBack,warning,setWarning,setWarningMessage}) => {
       }
     }
     else{
-      setWarningMessage('please describe the bug')
-      setWarning(true)
-      setTimeout(() => {
-          setWarning(false)
-          setWarningMessage(null)
-  }, 17000);
+      functionalityUnderDevelopment('please describe the bug')
     }
    
   }
