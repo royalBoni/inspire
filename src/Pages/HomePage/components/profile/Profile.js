@@ -8,13 +8,17 @@ import About from './About';
 import Inspirers from './Inspirers';
 import ProfileMenu from '../ProfileMenu';
 import MyInspiration from './MyInspiration';
-import { selectAllInspirations } from '../../../../reducxSlices/inspirationsSlice';
+import { setIsOverColor } from '../../../../reducxSlices/actionStateSlice';
+import { useDispatch } from 'react-redux';
+import ProfileEditor from './ProfileEditor';
 
 
 const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,setOpenCloseUserProfilePage,activateSearch,searchInput,setSearchInput,myInfo,
     postAuthorName,postAuthorImg,triggerCloseProfileMenu,handleFollowUnfollow,userID,handleReadPost,handleOpenUserProfilePage}) => {
    
    
+    const dispatch = useDispatch()    
+    const isEditor = useState(true)
     const [profileOver,setProfileOver]=useState('no-profile-over-color')
 
     const [activeItem, setActiveItem]=useState(1)
@@ -36,7 +40,10 @@ const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,set
         setActiveItem(id)
     }
     
-    const posts = useSelector(selectAllInspirations)
+    const editProfile =()=>{
+        console.log('i am editing the profile')
+        dispatch(setIsOverColor())
+    }
 
     useEffect(()=>{
         if(triggerCloseProfileMenu){
@@ -46,6 +53,10 @@ const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,set
   return (
     
     <div className='profile-page'>
+        {
+            isEditor&&
+            <ProfileEditor/>
+        }
         <div className={profileOver}></div>
         <ProfileMenu
         handleCloseProfileMenu={handleCloseProfileMenu}
@@ -69,7 +80,7 @@ const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,set
                         <div className="profileName">{`${myInfo?.profileName}`}</div>
                     </div>
                     <div className="editActivities">
-                        <button className="edit">Edit Profile</button>
+                        <button className="edit" onClick={editProfile}>Edit Profile</button>
                         <button className="activities">View Activities</button>
                     </div>
                 </div>

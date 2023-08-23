@@ -145,9 +145,14 @@ const handleSetLike=async(id,authorID)=>{
    } 
   }
   else{
-      try{
-        await addNewNotification({date:format(new Date(), 'EE MM dd, yyyy pp'),operation:"liked your post",post_id:id,userID,authorID}).unwrap()
-        await addNewLike({userID,postID:id}).unwrap()
+      try{ 
+        if(userID===authorID){
+          await addNewLike({userID,postID:id})
+        }
+        else{
+          await addNewLike({userID,postID:id})
+          await addNewNotification({date:format(new Date(), 'EE MM dd, yyyy pp'),operation:"liked your post",post_id:id,userID,authorID})
+        }
      }
      catch(err){
        if(err.message==='Failed to fetch'){

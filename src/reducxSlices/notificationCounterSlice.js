@@ -11,7 +11,7 @@ const initialState = notificationsCounterAdapter.getInitialState()
 export const extendedNotificationsCounterApiSlice=apiSlice.injectEndpoints({
     endpoints: builder=>({
         getNotificationsCounter : builder.query({
-            query:()=> `/notification/${(JSON.parse(localStorage.getItem("myInspireAccount")))}`,
+            query:()=> `/counter/load/${(JSON.parse(localStorage.getItem("myInspireAccount")))}`,
             transformResponse: responseData=>{
                 const loadedPosts= responseData
                 return notificationsCounterAdapter.setAll(initialState, loadedPosts)
@@ -23,30 +23,19 @@ export const extendedNotificationsCounterApiSlice=apiSlice.injectEndpoints({
             ]
         }),
 
-       /*  getPostsByUserId: builder.query({
-            query: id => `/posts/?userId=${id}`,
-            transformResponse: responseData => {
-                const loadedPosts = responseData.map(post => {
-                    return post;
-                });
-                return notificationsCounterAdapter.setAll(initialState, loadedPosts)
-            },
-            providesTags: (result, error, arg) => [
-                ...result.ids.map(id => ({ type: 'Post', id }))
-            ]
-        }),
+      
 
-        addNewPost: builder.mutation({
+        unloadNotificationCounter: builder.mutation({
             query: initialPost => ({
-                url: '/dishes',
-                method: 'POST',
-                body: initialPost
+                url: `/counter/unload/${(JSON.parse(localStorage.getItem("myInspireAccount")))}`,
+                method: 'POST'
             }),
             invalidatesTags: [
                 { type: 'Post', id: "LIST" }
             ]
         }),
 
+         /* 
         updatePost: builder.mutation({
             query: initialPost => ({
                 url: `/dishes`,
@@ -72,7 +61,8 @@ export const extendedNotificationsCounterApiSlice=apiSlice.injectEndpoints({
 })
 
 export const {
-    useGetNotificationsCounterQuery
+    useGetNotificationsCounterQuery,
+    useUnloadNotificationCounterMutation
 }=extendedNotificationsCounterApiSlice
 
 // returns the query result object

@@ -1,9 +1,10 @@
 import React from 'react'
 import './notification.css'
 import { FaEllipsisH,FaComment, FaThumbsUp, FaUserPlus } from 'react-icons/fa'
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 import NotificationMenu from './components/NotificationMenu';
 import { selectNotifications } from '../../../../reducxSlices/notificationsSlice';
+import { useUnloadNotificationCounterMutation } from '../../../../reducxSlices/notificationCounterSlice';
 import { useSelector,useDispatch } from 'react-redux';
 import { setSelectedNotification } from '../../../../reducxSlices/actionStateSlice';
 import { selectAllProfiles } from '../../../../reducxSlices/profilesSlice';
@@ -16,7 +17,12 @@ const Notifications = ({functionalityUnderDevelopment}) => {
   const notifications = useSelector(selectNotifications)
   const profiles=useSelector(selectAllProfiles)
   const inspirations = useSelector(selectAllInspirations)
-  console.log('d')
+
+  const [unloadNotificationCounter]=useUnloadNotificationCounterMutation()
+
+  useEffect(()=>{
+    unloadNotificationCounter() 
+  },[])
 
   const handleOpenNotificationMenu=(data)=>{
     if(!openClose){
@@ -31,6 +37,12 @@ const Notifications = ({functionalityUnderDevelopment}) => {
     }
     
   }
+
+  /* const fetchNotification=useSelector(selectNotifications)
+
+  useEffect(()=>{
+    console.log(fetchNotification)
+  },) */
 
   return (
     <div className='notification'>

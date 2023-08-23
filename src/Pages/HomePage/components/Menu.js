@@ -76,7 +76,7 @@ const Menu = ({displayMenu,handleCloseMenu,myInfo,handleActive}) => {
                 </ul>
             </div>
 
-            <div className="profile-page-links">
+           {/*  <div className="profile-page-links">
                 <div className="profile-page-links-title">Links</div>
                 <ul className="links-items">
                     <li>Blog</li>
@@ -85,7 +85,7 @@ const Menu = ({displayMenu,handleCloseMenu,myInfo,handleActive}) => {
                     <li>Help Center</li>
                     <li>Contact</li>
                 </ul>
-            </div>
+            </div> */}
 
             <div className="profile-page-links">
                 <div className="profile-page-links-title">Help and Support</div>

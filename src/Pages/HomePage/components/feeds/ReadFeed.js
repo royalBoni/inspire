@@ -42,18 +42,23 @@ const ReadFeed = ({numberOfComments,numberOfLikes,likeAndUnlike,bookmarkAndUnboo
       
       if(comment.length>0){
         try{
-          await addNewNotification({date:new Date(),operation:"commented on your post",post_id:id,userID,authorID})
-          await addNewComment({comment:comment,datetime:datetime,id,userID})
+          if(authorID === userID){
+            await addNewComment({comment:comment,datetime:datetime,id,userID})
           }
-          catch(err){
-              if(err.message==='Failed to fetch'){
-                  console.log('server or network might be down')
-                  setPlaceholder('server or network might be down')
-                }
-              else{
-                  console.log(err.message)
-                  setPlaceholder(err.message)
-                }
+          else{
+            await addNewComment({comment:comment,datetime:datetime,id,userID})
+            await addNewNotification({date:new Date(),operation:"commented on your post",post_id:id,userID,authorID})
+          }
+          }
+        catch(err){
+          if(err.message==='Failed to fetch'){
+              console.log('server or network might be down')
+              setPlaceholder('server or network might be down')
+            }
+          else{
+              console.log(err.message)
+              setPlaceholder(err.message)
+            }
           }
       }
     }

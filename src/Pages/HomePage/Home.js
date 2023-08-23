@@ -31,17 +31,9 @@ import { store } from '../../app/store';
 
 const Home = () => {
 
- useEffect(()=>{
-    store.dispatch(extendedNotificationsApiSlice.endpoints.getNotifications.initiate())
-    store.dispatch(extendedNotificationsCounterApiSlice.endpoints.getNotificationsCounter.initiate())
-    console.log('loA')
-  },) 
-
-  /* setInterval(() => {
-    store.dispatch(extendedNotificationsApiSlice.endpoints.getNotifications.initiate())
-    store.dispatch(extendedNotificationsCounterApiSlice.endpoints.getNotificationsCounter.initiate())
-  },2000);
- */
+  store.dispatch(extendedNotificationsApiSlice.endpoints.getNotifications.initiate())
+  store.dispatch(extendedNotificationsCounterApiSlice.endpoints.getNotificationsCounter.initiate())
+ 
     const {userID}= useParams();
     const dispatch = useDispatch()
 
@@ -124,6 +116,7 @@ const Home = () => {
       dispatch(setInspirersFollowed(inspirers.filter((item)=>item.fan_id===userID)))
       dispatch(setBeenFollowed(inspirers.filter((item)=>item.inspirer_id===userID)))
       dispatch(setSuggested(profiles.filter((item)=>item.userID!=userID)))
+      
     }) 
 
 const usersFollowed=(id)=>{
@@ -259,10 +252,10 @@ const myFollowers=(id)=>{
                 <div className={`icon ${activeComponent===7?'active-icon':null}`} onClick={()=>handleActive(7)}>
                   <FaBell/> 
                   {
-                    myNotificationsCounter===0?
+                    myNotificationsCounter[0]?.difference===0 || !myNotificationsCounter[0]?
                     null
                     :
-                    <div className="notification-counter">{'3'}</div>
+                    <div className="notification-counter">{myNotificationsCounter[0]?.difference}</div>
                   }
                 </div>
                 
@@ -332,10 +325,10 @@ const myFollowers=(id)=>{
                             <div className={`icon ${activeComponent===7?'active-icon':null} `}>
                               <FaBell/>
                               {
-                                myNotificationsCounter===0?
+                                myNotificationsCounter[0]?.difference===0 || !myNotificationsCounter[0]?
                                 null
                                 :
-                                <div className="notification-counter">{'3'}</div>
+                                <div className="notification-counter">{myNotificationsCounter[0]?.difference}</div>
                               }
                             </div>
                             <div className="item">Notifications</div>
