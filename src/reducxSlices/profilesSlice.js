@@ -22,6 +22,17 @@ export const extendedProfilesApiSlice=apiSlice.injectEndpoints({
             ]
         }),
 
+        updateProfile: builder.mutation({
+            query: initialPost => ({
+                url: `/profile`,
+                method: 'PUT',
+                body: initialPost
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Post', id: arg.id }
+            ]
+        }),
+
        /*  addNewPost: builder.mutation({
             query: initialPost => ({
                 url: '/dishes',
@@ -58,7 +69,8 @@ export const extendedProfilesApiSlice=apiSlice.injectEndpoints({
 })
 
 export const {
-    useGetProfilesQuery
+    useGetProfilesQuery,
+    useUpdateProfileMutation
 }=extendedProfilesApiSlice
 
 // returns the query result object

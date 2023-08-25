@@ -145,7 +145,7 @@ const SearchCreate = ({setSearchInput,searchInput,handleCreatePost,toggleProfile
                 </div>
             </div>
         </div>
-        <div className="third-box-content">
+        {/* <div className="third-box-content">
             <ul>
                 <li>Blog</li><FaGenderless className='dot-icon'/>
                 <li>About</li><FaGenderless className='dot-icon'/>
@@ -153,7 +153,7 @@ const SearchCreate = ({setSearchInput,searchInput,handleCreatePost,toggleProfile
                 <li>Help</li><FaGenderless className='dot-icon'/>
                 <li>Contact</li>
             </ul>
-        </div>
+        </div> */}
     </div>
   )
 }

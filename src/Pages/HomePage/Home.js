@@ -47,6 +47,7 @@ const Home = () => {
     const [resourceLoading,setResourceLoading]=useState(true)
 
     const isOverColor=useSelector((state)=>state.myStates.isOverColor)
+    const [openUserProfilePage,setOpenUserProfilePage]= useState(false)
 
     setTimeout(() => {
       setResourceLoading(false)
@@ -106,6 +107,7 @@ const Home = () => {
 
     const handleActive=(num)=>{
       setActiveComponent(num)
+      handleCloseUserProfilePage()
     }
 
     const [searchInput,setSearchInput]=useState('')
@@ -118,16 +120,6 @@ const Home = () => {
       dispatch(setSuggested(profiles.filter((item)=>item.userID!=userID)))
       
     }) 
-
-const usersFollowed=(id)=>{
-  const uF=inspirers.filter((item)=>item.fan_id===id)
-  return uF.length
-}
-
-const myFollowers=(id)=>{
-  const uF=inspirers.filter((item)=>item.inspirer_id===id)
-  return uF.length
-}
 
   const [myInfo,setMyInfo]=useState()
   useEffect(()=>{
@@ -203,13 +195,18 @@ const myFollowers=(id)=>{
 
   const [openCloseUserProfilePage,setOpenCloseUserProfilePage]=useState('no-user-profile-page')
   const [userProfileID,setUserProfileID]=useState('')
-  const handleOpenUserProfilePage=(item)=>{
+ /*  const handleOpenUserProfilePage=(item)=>{
     dispatch(setSelectedProfileID(item))
     handleActive(10)
+  } */
+
+  const handleOpenUserProfilePage=(item)=>{
+    dispatch(setSelectedProfileID(item))
+    setOpenUserProfilePage(true)
   }
 
   const handleCloseUserProfilePage=()=>{
-    setOpenCloseUserProfilePage('no-user-profile-page')
+    setOpenUserProfilePage(false)
   }
 
 
@@ -348,6 +345,17 @@ const myFollowers=(id)=>{
             </div>
             <div className="flex-box second">
               {
+                openUserProfilePage&&
+                <UserProfilePage
+                handleCloseUserProfilePage={handleCloseUserProfilePage}
+                userProfileID={userProfileID}
+                myInfo={myInfo}
+                postAuthorImg={postAuthorImg}
+                postAuthorName={postAuthorName}
+                handleFollowUnfollow={handleFollowUnfollow}
+                />
+              }
+              {
                 activeComponent===1?
                 <Feeds 
                 userID={userID}
@@ -376,15 +384,15 @@ const myFollowers=(id)=>{
                 />:
                 activeComponent===5?
                 <InspireComp
-                profiles={profiles}       
-                userID={userID}
                 handleFollowUnfollow={handleFollowUnfollow}
+                handleOpenUserProfilePage={handleOpenUserProfilePage}
                 />:
                 activeComponent===6?
                 <Groups/>:
                 activeComponent===7?
                 <Notifications 
                 functionalityUnderDevelopment={functionalityUnderDevelopment}
+                handleOpenUserProfilePage={handleOpenUserProfilePage}
                 />:
                 activeComponent===9?
                 <BookmarkPage
@@ -392,17 +400,6 @@ const myFollowers=(id)=>{
                 postAuthorImg={postAuthorImg}
                 postAuthorName={postAuthorName}
                 functionalityUnderDevelopment={functionalityUnderDevelopment}
-                />:
-                activeComponent===10?
-                <UserProfilePage
-                handleCloseUserProfilePage={handleCloseUserProfilePage}
-                userProfileID={userProfileID}
-                myInfo={myInfo}
-                usersFollowed={usersFollowed}
-                myFollowers={myFollowers}
-                postAuthorImg={postAuthorImg}
-                postAuthorName={postAuthorName}
-                handleFollowUnfollow={handleFollowUnfollow}
                 />
                 :
                 <p>component under construction</p>

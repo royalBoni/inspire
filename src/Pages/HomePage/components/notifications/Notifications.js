@@ -11,7 +11,7 @@ import { selectAllProfiles } from '../../../../reducxSlices/profilesSlice';
 import { selectAllInspirations } from '../../../../reducxSlices/inspirationsSlice';
 import { setIsOverColor } from '../../../../reducxSlices/actionStateSlice';
 
-const Notifications = ({functionalityUnderDevelopment}) => {
+const Notifications = ({functionalityUnderDevelopment,handleOpenUserProfilePage}) => {
   const dispatch = useDispatch()
   const [openClose,setOpenClose]=useState(false)
   const notifications = useSelector(selectNotifications)
@@ -70,7 +70,7 @@ const Notifications = ({functionalityUnderDevelopment}) => {
                         return(
                          <div key={prof.userID} className="notification-details">
                             <div className="notification-image">
-                              <img src={prof.profile_image_avatar} alt="" />
+                              <img src={prof.profile_image_avatar} alt="" onClick={()=>handleOpenUserProfilePage(prof.userID)}/>
                               <div className="operation-icon">
                                 {
                                   item.operation==="liked your post"?<FaThumbsUp/>:

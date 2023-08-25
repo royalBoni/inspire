@@ -7,11 +7,14 @@ import Activities from './components/Activities'
 import Groups from './components/Groups'
 import UserInspirations from './components/UserInspirations'
 import { selectAllProfiles } from '../../../../reducxSlices/profilesSlice'
+import { selectAllInspirers } from '../../../../reducxSlices/inspirersSlice'
 import { useSelector} from 'react-redux'
 
-const UserProfilePage = ({handleCloseUserProfilePage,myInfo,usersFollowed,myFollowers,postAuthorImg,postAuthorName,handleFollowUnfollow}) => {
+const UserProfilePage = ({handleCloseUserProfilePage,myInfo,postAuthorImg,postAuthorName,handleFollowUnfollow}) => {
   
- 
+  const pageWidth = useSelector((state)=>state.myStates.pageWidth)
+  console.log(pageWidth)
+
   const profiles = useSelector(selectAllProfiles)
   
   const userProfileID = useSelector((state)=>state.myStates.selectedProfileID)
@@ -26,11 +29,18 @@ const UserProfilePage = ({handleCloseUserProfilePage,myInfo,usersFollowed,myFoll
 
   const inspirersFollowed = useSelector((state)=>state.myStates.inspirersFollowed)
 
+  console.log(userProfile)
+
+  const inspirers = useSelector(selectAllInspirers)
+  const usersFollowed=(id)=>{
+    const uF=inspirers.filter((item)=>item.fan_id===id)
+    return uF.length
+  }
   
-  {/* <MyFeeds 
-              postAuthorImg={postAuthorImg}
-              postAuthorName={postAuthorName}
-              userID={userProfileID}/> */}
+  const myFollowers=(id)=>{
+    const uF=inspirers.filter((item)=>item.inspirer_id===id)
+    return uF.length
+  }
 
 
   return (
@@ -38,11 +48,7 @@ const UserProfilePage = ({handleCloseUserProfilePage,myInfo,usersFollowed,myFoll
 
       <div className="user-profile-content">
         <div className="search-nav">
-          <div className="back-icon" onClick={handleCloseUserProfilePage}><FaArrowLeft/></div>
-          <input type="text" placeholder='search' />
-          <div className="my-profile">
-            <img src={myInfo?.profile_image_avatar} alt="" />
-          </div>
+          <div className="back-icon" onClick={handleCloseUserProfilePage}>{pageWidth<768?<button>Back</button>:<FaArrowLeft/>}</div>
         </div>
         <div className="top"> 
           <div className={`top-top`}  style={{backgroundImage:`url(${userProfile?.profile_image_avatar})`}}>
@@ -66,22 +72,26 @@ const UserProfilePage = ({handleCloseUserProfilePage,myInfo,usersFollowed,myFoll
         </div>
 
         <div className="down">
-          <div className="user-tagline">"i am a tech savy who will stop at nothing until i achieve my aim"</div>
+          <div className="user-tagline">{userProfile.bio}</div>
           
           <div className="down-user-info">
             <div className="down-user-info-experience">
               <div className="item">
                 <FaBriefcase/> 
-                <p>Web Developer</p>
+                <p>{userProfile?.work?`${(JSON.parse(userProfile?.work))?.position} at ${(JSON.parse(userProfile?.work))?.company}`:'Work Not Specified'}</p>
               </div>
               <div className="item">
                 <FaGraduationCap/> 
-                <p>University of energy and natural resources</p>
+                <p>{userProfile?.education?`${(JSON.parse(userProfile?.education))?.program} at ${(JSON.parse(userProfile?.education))?.institute}`:'Education Not Specified'}</p>
               </div>
-              <div className="item">
-                <FaMapMarkerAlt/> 
-                <p>Brahabebome</p>
-              </div>
+              {
+                userProfile.country&&
+                <div className="item">
+                  <FaMapMarkerAlt/> 
+                  <p>{userProfile.country}</p>
+                </div>
+              }
+              
               <div className="item">
                 <FaCalendarAlt/> 
                 <p>Joined May 2015</p>

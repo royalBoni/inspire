@@ -20,8 +20,7 @@ import { setViewInspiration } from '../../../../reducxSlices/actionStateSlice'
 import { setSelectedInspiration } from '../../../../reducxSlices/actionStateSlice'
 import { setIsOverColor } from '../../../../reducxSlices/actionStateSlice'
 
-const Feeds = ({userID,postAuthorName,postAuthorImg,
-handleFollowUnfollow,functionalityUnderDevelopment,handleOpenUserProfilePage,setOpenCloseUserProfilePage,activateSearch,searchInput,setSearchInput}) => {
+const Feeds = ({userID,postAuthorName,postAuthorImg,handleFollowUnfollow,functionalityUnderDevelopment,handleOpenUserProfilePage,setOpenCloseUserProfilePage,activateSearch,searchInput,setSearchInput}) => {
    
 const dispatch=useDispatch()
 
@@ -333,7 +332,7 @@ return (
       </div>:
       <ReadFeed 
       userID={userID} numberOfComments={numberOfComments} numberOfLikes={numberOfLikes} likeAndUnlike={likeAndUnlike} bookmarkAndUnbookmark={bookmarkAndUnbookmark}
-      handleSetBookmark={handleSetBookmark} handleSetLike={handleSetLike}  postAuthorImg={postAuthorImg} datePosted={datePosted}
+      handleSetBookmark={handleSetBookmark} handleSetLike={handleSetLike}  postAuthorImg={postAuthorImg} datePosted={datePosted} 
       postAuthorName={postAuthorName} setOpenCloseUserProfilePage={setOpenCloseUserProfilePage} handleOpenUserProfilePage={handleOpenUserProfilePage} />
       }
       </>

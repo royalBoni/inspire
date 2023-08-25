@@ -18,7 +18,7 @@ const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,set
    
    
     const dispatch = useDispatch()    
-    const isEditor = useState(true)
+    const [isEditor,setIsEditor] = useState(false)
     const [profileOver,setProfileOver]=useState('no-profile-over-color')
 
     const [activeItem, setActiveItem]=useState(1)
@@ -41,7 +41,7 @@ const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,set
     }
     
     const editProfile =()=>{
-        console.log('i am editing the profile')
+        setIsEditor(!isEditor)
         dispatch(setIsOverColor())
     }
 
@@ -55,7 +55,10 @@ const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,set
     <div className='profile-page'>
         {
             isEditor&&
-            <ProfileEditor/>
+            <ProfileEditor
+            editProfile={editProfile}
+            myInfo={myInfo}
+            />
         }
         <div className={profileOver}></div>
         <ProfileMenu
@@ -101,7 +104,7 @@ const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,set
                         <div className="profileName">{`${myInfo?.profileName}`}</div>
                     </div>
                     <div className="editActivities">
-                        <button className="edit">Edit Profile</button>
+                        <button className="edit" onClick={editProfile}>Edit Profile</button>
                         <button className="activities">View Activities</button>
                         <button className="more" onClick={handleProfileMenu}><FaEllipsisH/></button>
                     </div>
@@ -134,7 +137,9 @@ const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,set
 
                 :
                 activeItem===2?
-                <About />
+                <About 
+                myInfo={myInfo}
+                editProfile={editProfile}/>
                 :
                 activeItem===3?
                 <Inspirers 

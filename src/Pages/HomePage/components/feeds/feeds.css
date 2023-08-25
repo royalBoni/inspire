@@ -8,7 +8,8 @@
 
 .feed-box-content{
     height: 100%;
-    width: 100%;}
+    width: 100%;
+}
 
 .favorite-inspires{
     background-color: brown;
@@ -334,9 +335,8 @@
  
  @media screen and (max-width:768px){
     .feed-box{
-        display: grid;
-        flex-direction: column;
         gap: 1rem;
+        position: relative;
     }
     .feeds{
         display: flex;

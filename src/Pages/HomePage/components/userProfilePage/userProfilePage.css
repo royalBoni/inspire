@@ -1,10 +1,26 @@
-.user-profile-page{
+/* .user-profile-page{
     height: 100%;
     background-color:var(--PAGEBACKGROUND);
     color: var(--PRIMARYCOLOR);
     width: 100%;
     overflow: scroll;
     overflow-x: hidden;
+} */
+
+.user-profile-page{
+    height: 100%;
+    width: 100%;
+    background-color:var(--PAGEBACKGROUND);
+    color: var(--PRIMARYCOLOR);
+    overflow: scroll;
+    overflow-x: hidden;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
 }
 
 .user-profile-content{
@@ -24,26 +40,16 @@
     z-index: 1;
 }
 
-.search-nav input{
-    width: 50%;
-    font-size: 0.8rem;
-    outline: none;
-    border: none;
-    border-radius: 20px;
-    height: 1.6rem;
+.back-icon button{
+    background-color: var(--PRIMARYCOLOR);
+    color: var(--MAINBGICONCOLOR);
+    font-weight: bold;
+    padding: 0.2rem 0.4rem;
+    border-radius: 8px;
+    display: grid;
+    place-content: center;
 }
 
-.search-nav .my-profile{
-    width: 2rem;
-    height: 2rem;
-    display: none;
-}
-
-.search-nav .my-profile img{
-    width: 100%;
-    height: 100%;
-    border-radius: 50px;
-}
 
 .top{
     height: 60vh;
@@ -209,14 +215,6 @@
  
  @media screen and (max-width:768px){
 
-    .search-nav input{
-        width: 70%;
-    }
-
-    .search-nav .my-profile{
-        display: unset;
-    }
-
    
  }
  
@@ -233,7 +231,7 @@
     }
 
     .top{
-        height: 60vh;
+
         border-bottom: 5px solid var(--HOMEBGCOLOR);
     }
 
