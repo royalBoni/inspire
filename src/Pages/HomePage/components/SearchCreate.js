@@ -7,9 +7,9 @@ import { useSelector,useDispatch } from 'react-redux'
 import { selectAllBookmarks } from '../../../reducxSlices/bookmarksSlice'
 import { selectAllInspirations } from '../../../reducxSlices/inspirationsSlice'
 import { setViewInspiration } from '../../../reducxSlices/actionStateSlice'
-import { setSelectedInspiration } from '../../../reducxSlices/actionStateSlice'
+import { setSelectedInspiration,setIsOverColor,setIsCreatePost } from '../../../reducxSlices/actionStateSlice'
 
-const SearchCreate = ({setSearchInput,searchInput,handleCreatePost,toggleProfile,toggle,profile_image_avatar,
+const SearchCreate = ({setSearchInput,searchInput,toggleProfile,toggle,profile_image_avatar,
     postAuthorImg,postAuthorName,functionalityUnderDevelopment,handleActive,
     handleFollowUnfollow,handleOpenUserProfilePage,activateSearch}) => {
 
@@ -24,10 +24,14 @@ const SearchCreate = ({setSearchInput,searchInput,handleCreatePost,toggleProfile
   const suggested=useSelector((state)=>state.myStates.suggested)
   const inspirersFollowed=useSelector((state)=>state.myStates.inspirersFollowed)
 
+  const handleCreatePost=()=>{
+    dispatch(setIsOverColor())
+    dispatch(setIsCreatePost())
+  } 
+
   const readBookmark = (item)=>{
     dispatch(setViewInspiration())
     dispatch(setSelectedInspiration(item))
-    console.log(item)
   }
 
   return (

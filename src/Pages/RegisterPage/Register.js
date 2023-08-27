@@ -2,9 +2,17 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import { Link,useNavigate } from 'react-router-dom'
 import {FaSpinner,FaTimes} from 'react-icons/fa'
+import { setIsOverColor,setIsEditProfile } from '../../reducxSlices/actionStateSlice'
+import { useDispatch } from 'react-redux'
+import { useAddNewProfileMutation } from '../../reducxSlices/profilesSlice'
 import './register.css'
 
 const Register = () => {
+
+  const dispatch = useDispatch()
+
+  const [addNewProfile]=useAddNewProfileMutation()
+
     const [email,setEmail]=useState('');
     const [username,setUsername]=useState('');
     const [password,setPassword]=useState('');
@@ -59,10 +67,10 @@ const Register = () => {
             }
            
            else{
-             
-             alert('account successfully created')
-             navigate(`/`)
-             
+              await addNewProfile({...jsonfile})
+              navigate(`/`)
+              dispatch(setIsOverColor())
+              dispatch(setIsEditProfile())
            }
         }
 

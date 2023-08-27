@@ -33,9 +33,9 @@ export const extendedProfilesApiSlice=apiSlice.injectEndpoints({
             ]
         }),
 
-       /*  addNewPost: builder.mutation({
+         addNewProfile: builder.mutation({
             query: initialPost => ({
-                url: '/dishes',
+                url: '/profile',
                 method: 'POST',
                 body: initialPost
             }),
@@ -43,6 +43,7 @@ export const extendedProfilesApiSlice=apiSlice.injectEndpoints({
                 { type: 'Post', id: "LIST" }
             ]
         }),
+        /*
 
         updatePost: builder.mutation({
             query: initialPost => ({
@@ -70,7 +71,8 @@ export const extendedProfilesApiSlice=apiSlice.injectEndpoints({
 
 export const {
     useGetProfilesQuery,
-    useUpdateProfileMutation
+    useUpdateProfileMutation,
+    useAddNewProfileMutation
 }=extendedProfilesApiSlice
 
 // returns the query result object

@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { useState,useEffect,useRef } from 'react'
-import { FaCommentDots,FaHeart,FaSearch,FaTimes,FaAngleUp,FaAngleDown,FaBookmark } from 'react-icons/fa'
+import { FaCommentDots,FaHeart,FaSearch,FaTimes,FaAngleUp,FaAngleDown,FaBookmark, FaPlus } from 'react-icons/fa'
 import { format } from 'date-fns'
 import intervalToDuration from 'date-fns/intervalToDuration'
 import './feeds.css'
@@ -15,12 +15,10 @@ import { selectAllBookmarks,useAddNewBookmarkMutation ,useDeleteBookmarkMutation
 import { selectAllLikes, useDeleteLikeMutation, useAddNewLikeMutation } from '../../../../reducxSlices/likesSlice'
 import { useAddNewNotificationMutation } from '../../../../reducxSlices/notificationsSlice'
 import { useSelector,useDispatch } from 'react-redux'
-import { setFeedPosts } from '../../../../reducxSlices/actionStateSlice'
-import { setViewInspiration } from '../../../../reducxSlices/actionStateSlice'
-import { setSelectedInspiration } from '../../../../reducxSlices/actionStateSlice'
-import { setIsOverColor } from '../../../../reducxSlices/actionStateSlice'
+import { setIsOverColor,setIsCreatePost,setViewInspiration,setFeedPosts,setSelectedInspiration } from '../../../../reducxSlices/actionStateSlice'
 
-const Feeds = ({userID,postAuthorName,postAuthorImg,handleFollowUnfollow,functionalityUnderDevelopment,handleOpenUserProfilePage,setOpenCloseUserProfilePage,activateSearch,searchInput,setSearchInput}) => {
+const Feeds = ({userID,postAuthorName,postAuthorImg,handleFollowUnfollow,functionalityUnderDevelopment,handleOpenUserProfilePage,setOpenCloseUserProfilePage,
+  activateSearch,searchInput,setSearchInput}) => {
    
 const dispatch=useDispatch()
 
@@ -46,6 +44,10 @@ const [limitOfInspirationsToDisplay, setLimitOfInspirationsToDisplay]=useState(4
 
 const [resourceLoading, setResourceLoading]=useState(false)
 
+const handleCreatePost=()=>{
+  dispatch(setIsOverColor())
+  dispatch(setIsCreatePost())
+} 
 
 const scrolling =(e)=>{
   if ((e.target.scrollHeight - e.target.scrollTop)-4 < e.target.clientHeight) { 
@@ -274,55 +276,63 @@ return (
                 <ProductLoadingPage
                 message='Loading Inspirations'/>:
                 
+                  feedPosts.length===0?
+                  <div className='no-post'>
+                    <p>No Post</p>
+                    <div className='add-new-post' onClick={handleCreatePost}>
+                      <FaPlus/>
+                      Add a Post
+                    </div>
+                  </div>:
                   feedPosts?.slice(0,limitOfInspirationsToDisplay).map((item)=>{
-                      return(
-                          <div key={item._id} className="individual-post">
-                            <div className="post-category">
-                              {item.category?item.category:'General'} 
-                              <div className="postMenu" onClick={()=>handlePostMenu(item._id,item.authorID)}>
-                                <FaEllipsisV/>
-                              </div>
+                    return(
+                        <div key={item._id} className="individual-post">
+                          <div className="post-category">
+                            {item.category?item.category:'General'} 
+                            <div className="postMenu" onClick={()=>handlePostMenu(item._id,item.authorID)}>
+                              <FaEllipsisV/>
                             </div>
-                            <div className='post-info'>
-                              <div className="post-image" style={{backgroundColor:item.bgColor,color:item.fgColor,fontFamily:item.fStyle}} onClick={()=>handleReadPost(item)}>
-                                  {item.inspiration_image_avatar?<img src={item.inspiration_image_avatar} alt="" />:null}
-                                  {
-                                      !item.inspiration_image_avatar?<div className='text'>{item.inspiration_content}</div>:null    
-                                  }
-                              </div>
+                          </div>
+                          <div className='post-info'>
+                            <div className="post-image" style={{backgroundColor:item.bgColor,color:item.fgColor,fontFamily:item.fStyle}} onClick={()=>handleReadPost(item)}>
+                                {item.inspiration_image_avatar?<img src={item.inspiration_image_avatar} alt="" />:null}
+                                {
+                                    !item.inspiration_image_avatar?<div className='text'>{item.inspiration_content}</div>:null    
+                                }
+                            </div>
 
-                              <div className="post-title">
-                                {item.inspiration_title}
-                                <div className="commenter-content-iteraction-item">{datePosted(item.datetime)}</div>
-                              </div>
-                              <div className="item-content">{!item.inspiration_image_avatar?null:`${(item.inspiration_content).slice(0,80)}...`}</div>
+                            <div className="post-title">
+                              {item.inspiration_title}
+                              <div className="commenter-content-iteraction-item">{datePosted(item.datetime)}</div>
                             </div>
-                            <div className="interaction">
-                                <div className="author" onClick={()=>handleOpenUserProfilePage(item.authorID)}>
-                                    <div className="author-info">
-                                        <div className="author-image">
-                                            <img src={postAuthorImg(item.authorID)} alt="" />
-                                        </div>
-                                        <div className="author-name">{postAuthorName(item.authorID)?postAuthorName(item.authorID):'anonymous'}</div>
-                                    </div>
-                                </div>
-                                <div className="metrics">
-                                    <div className="likes">
-                                        <FaHeart className={likeAndUnlike(item._id)} onClick={()=>handleSetLike(item._id,item.authorID)}/>
-                                        <div className="number">{numberOfLikes(item._id)}</div>
-                                    </div>
-                                    <div className="comments" onClick={()=>handleReadPost(item)}>
-                                        <FaCommentDots/>
-                                        <div className="number">{numberOfComments(item._id)}</div>
-                                    </div>
-                                    <div className="comments">
-                                        <FaBookmark className={bookmarkAndUnbookmark(item._id)} onClick={()=>handleSetBookmark(item._id)}/>
-                                    </div>
+                            <div className="item-content">{!item.inspiration_image_avatar?null:`${(item.inspiration_content).slice(0,80)}...`}</div>
+                          </div>
+                          <div className="interaction">
+                              <div className="author" onClick={()=>handleOpenUserProfilePage(item.authorID)}>
+                                  <div className="author-info">
+                                      <div className="author-image">
+                                          <img src={postAuthorImg(item.authorID)} alt="" />
+                                      </div>
+                                      <div className="author-name">{postAuthorName(item.authorID)?postAuthorName(item.authorID):'anonymous'}</div>
                                   </div>
-                            </div>
-                        </div>
-                        )
-                    })
+                              </div>
+                              <div className="metrics">
+                                  <div className="likes">
+                                      <FaHeart className={likeAndUnlike(item._id)} onClick={()=>handleSetLike(item._id,item.authorID)}/>
+                                      <div className="number">{numberOfLikes(item._id)}</div>
+                                  </div>
+                                  <div className="comments" onClick={()=>handleReadPost(item)}>
+                                      <FaCommentDots/>
+                                      <div className="number">{numberOfComments(item._id)}</div>
+                                  </div>
+                                  <div className="comments">
+                                      <FaBookmark className={bookmarkAndUnbookmark(item._id)} onClick={()=>handleSetBookmark(item._id)}/>
+                                  </div>
+                                </div>
+                          </div>
+                      </div>
+                      )
+                  })
                 }
             </div>
                     

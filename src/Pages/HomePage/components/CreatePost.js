@@ -3,12 +3,12 @@ import './createPost.css';
 import { FaTimes,FaImage,FaSpinner,FaPalette,FaFillDrip, FaItalic, FaFont} from 'react-icons/fa';
 import { useState,useEffect  } from 'react';
 import { format } from 'date-fns';
-import { setIsOverColor } from '../../../reducxSlices/actionStateSlice';
-import { useDispatch } from 'react-redux';
+import { setIsOverColor,setIsCreatePost } from '../../../reducxSlices/actionStateSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import { useAddNewInspirationMutation } from '../../../reducxSlices/inspirationsSlice';
 
 
-const CreatePost = ({functionalityUnderDevelopment,setCreatingPost,userID,setTriggerCloseProfileMenu,profileImage}) => {
+const CreatePost = ({functionalityUnderDevelopment,userID,setTriggerCloseProfileMenu,profileImage}) => {
 
     const colors=['rgba(243, 240, 237, 0.884)','red','blue','yellow','aqua','pink','antiquewhite','#ffffff','#ffff00','#ccff00',
     '#99ff00','#99ccff','#ccff99','#333300']
@@ -32,7 +32,6 @@ const CreatePost = ({functionalityUnderDevelopment,setCreatingPost,userID,setTri
     const [activeItem, setActiveItem]=useState(1)
 
     const [addNewInspiration, {isLoading, isSuccess}]=useAddNewInspirationMutation()
-
 
     const dispatch=useDispatch()
     const handleActiveMenu=(num)=>{
@@ -60,7 +59,7 @@ const CreatePost = ({functionalityUnderDevelopment,setCreatingPost,userID,setTri
     }
     const handleCloseCreatePost=()=>{
         dispatch(setIsOverColor())
-        setCreatingPost(false)
+        dispatch(setIsCreatePost())
         reset()
         setTriggerCloseProfileMenu(false)
     }
@@ -105,8 +104,6 @@ const CreatePost = ({functionalityUnderDevelopment,setCreatingPost,userID,setTri
                 }
                 
             }
-           
-            
             else{
                 functionalityUnderDevelopment('please enter a content')
             }

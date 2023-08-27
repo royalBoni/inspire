@@ -116,6 +116,28 @@
     gap: 30px;
 }
 
+.no-post{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    font-weight: bold;
+    color: var(--PRIMARYCOLOR);
+}
+
+.add-new-post{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+    align-items: center;
+    box-shadow: 0px 2px 1px 1px var(--HOMEBGLIGHT);
+    padding: 15px;
+}
+
 .individual-inspirer{
     display: grid;
     gap: 0.3rem;
@@ -336,8 +358,8 @@
  @media screen and (max-width:768px){
     .feed-box{
         gap: 1rem;
-        position: relative;
     }
+
     .feeds{
         display: flex;
     }

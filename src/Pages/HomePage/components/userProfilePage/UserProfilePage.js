@@ -9,11 +9,12 @@ import UserInspirations from './components/UserInspirations'
 import { selectAllProfiles } from '../../../../reducxSlices/profilesSlice'
 import { selectAllInspirers } from '../../../../reducxSlices/inspirersSlice'
 import { useSelector} from 'react-redux'
+import { format } from 'date-fns'
 
-const UserProfilePage = ({handleCloseUserProfilePage,myInfo,postAuthorImg,postAuthorName,handleFollowUnfollow}) => {
+const UserProfilePage = ({handleCloseUserProfilePage,myInfo,postAuthorImg,postAuthorName,handleFollowUnfollow,
+  handleOpenUserProfilePage}) => {
   
   const pageWidth = useSelector((state)=>state.myStates.pageWidth)
-  console.log(pageWidth)
 
   const profiles = useSelector(selectAllProfiles)
   
@@ -34,13 +35,14 @@ const UserProfilePage = ({handleCloseUserProfilePage,myInfo,postAuthorImg,postAu
   const inspirers = useSelector(selectAllInspirers)
   const usersFollowed=(id)=>{
     const uF=inspirers.filter((item)=>item.fan_id===id)
-    return uF.length
+    return uF
   }
   
   const myFollowers=(id)=>{
     const uF=inspirers.filter((item)=>item.inspirer_id===id)
-    return uF.length
+    return uF
   }
+  console.log(usersFollowed(userProfile?.userID))
 
 
   return (
@@ -77,37 +79,48 @@ const UserProfilePage = ({handleCloseUserProfilePage,myInfo,postAuthorImg,postAu
           <div className="down-user-info">
             <div className="down-user-info-experience">
               <div className="item">
-                <FaBriefcase/> 
-                <p>{userProfile?.work?`${(JSON.parse(userProfile?.work))?.position} at ${(JSON.parse(userProfile?.work))?.company}`:'Work Not Specified'}</p>
+                {
+                  (JSON.parse(userProfile?.work))?.position&&
+                  <>
+                   <FaBriefcase/> 
+                   <p>{`${(JSON.parse(userProfile?.work))?.position} ${(JSON.parse(userProfile?.work))?.company&& `at ${(JSON.parse(userProfile?.work))?.company}`}`}</p>
+                  </>
+                }
+
               </div>
               <div className="item">
-                <FaGraduationCap/> 
-                <p>{userProfile?.education?`${(JSON.parse(userProfile?.education))?.program} at ${(JSON.parse(userProfile?.education))?.institute}`:'Education Not Specified'}</p>
+                {
+                  (JSON.parse(userProfile?.education))?.program &&
+                  <>
+                    <FaGraduationCap/> 
+                    <p>{`${(JSON.parse(userProfile?.education))?.program} ${(JSON.parse(userProfile?.education))?.institute&& `at ${(JSON.parse(userProfile?.education))?.institute}`}`}</p>
+                  </>
+                }
               </div>
-              {
-                userProfile.country&&
-                <div className="item">
-                  <FaMapMarkerAlt/> 
-                  <p>{userProfile.country}</p>
-                </div>
-              }
+                {
+                  userProfile.country&&
+                  <div className="item">
+                    <FaMapMarkerAlt/> 
+                    <p>{userProfile.country}</p>
+                  </div>
+                }
               
               <div className="item">
                 <FaCalendarAlt/> 
-                <p>Joined May 2015</p>
+                <p>{`Joined on ${format(new Date(myInfo?.dateCreated),"MMM dd, yyyy")}`}</p>
               </div>
             </div>
             <div className="down-user-analytics">
-              <div className="down-user-analytics-item">{usersFollowed(userProfile?.userID)} <p>Following</p></div>
-              <div className="down-user-analytics-item">{myFollowers(userProfile?.userID)} <p>Followers</p></div>
+              <div className="down-user-analytics-item">{(usersFollowed(userProfile?.userID)).length} <p>Following</p></div>
+              <div className="down-user-analytics-item">{(myFollowers(userProfile?.userID)).length} <p>Followers</p></div>
             </div>
           </div>
 
           <div className="down-header">
             <ul>
               <li className={activeItem===1?'down-header-active':null} onClick={()=>handleDownHeaderActive(1)}>Inpirations</li>
-              <li className={activeItem===2?'down-header-active':null} onClick={()=>handleDownHeaderActive(2)}>Activities</li>
-              <li className={activeItem===3?'down-header-active':null} onClick={()=>handleDownHeaderActive(3)}>Groups</li>
+              <li className={activeItem===2?'down-header-active':null} onClick={()=>handleDownHeaderActive(2)}>Following</li>
+              <li className={activeItem===3?'down-header-active':null} onClick={()=>handleDownHeaderActive(3)}>Followed</li>
             </ul>
           </div>
 
@@ -121,8 +134,78 @@ const UserProfilePage = ({handleCloseUserProfilePage,myInfo,postAuthorImg,postAu
               userProfileID={userProfileID}
               />:
               activeItem===2?
-              <Activities/>:
-              <Groups/>
+           
+              <div className="all-followed">
+                
+                {
+                  usersFollowed(userProfile?.userID).length===0?
+                  <div className='no-item'>Yet to follow an inspirer</div>:
+                  usersFollowed(userProfile?.userID)?.map((item)=>{
+                      return(
+                          <div key={item._id} className="individual-account">
+                              {
+                                profiles.map((prof)=>{
+                                    if(item.inspirer_id===prof.userID){
+                                        return(
+                                            <div key={prof.userID} className="account-details" onClick={()=>handleOpenUserProfilePage(prof.userID)}>
+                                                <div className="account-image"><img src={prof.profile_image_avatar} alt="" /></div>
+                                                <div className="account-details-info">
+                                                    <div className="account-details-info-name">{prof.userName}</div>
+                                                    <div className="account-details-info-profile-name">{prof.profileName}</div>
+                                                </div>
+                                            </div>
+                                        )
+
+                                    }
+                                    
+                                })
+                              }
+                              <button className={inspirersFollowed.find((followed)=>followed.inspirer_id===item.inspirer_id)?'following-button':'follow-button'}
+                              onClick={()=>handleFollowUnfollow(item.inspirer_id)}>
+                                  {inspirersFollowed.find((followed)=>followed.inspirer_id===item.inspirer_id)?'following':'follow'}
+                              </button>
+                          </div>
+                          
+                      )
+                  })
+                } 
+            </div>
+              :
+              <div className="all-followed">
+                
+                {
+                  myFollowers(userProfile?.userID).length===0?
+                  <div className='no-item'>Yet to follow an inspirer</div>:
+                  myFollowers(userProfile?.userID)?.map((item)=>{
+                      return(
+                          <div key={item._id} className="individual-account">
+                              {
+                                profiles.map((prof)=>{
+                                    if(item.inspirer_id===prof.userID){
+                                        return(
+                                            <div key={prof.userID} className="account-details" onClick={()=>handleOpenUserProfilePage(prof.userID)}>
+                                                <div className="account-image"><img src={prof.profile_image_avatar} alt="" /></div>
+                                                <div className="account-details-info">
+                                                    <div className="account-details-info-name">{prof.userName}</div>
+                                                    <div className="account-details-info-profile-name">{prof.profileName}</div>
+                                                </div>
+                                            </div>
+                                        )
+
+                                    }
+                                    
+                                })
+                              }
+                              <button className={inspirersFollowed.find((followed)=>followed.inspirer_id===item.inspirer_id)?'following-button':'follow-button'}
+                              onClick={()=>handleFollowUnfollow(item.inspirer_id)}>
+                                  {inspirersFollowed.find((followed)=>followed.inspirer_id===item.inspirer_id)?'following':'follow'}
+                              </button>
+                          </div>
+                          
+                      )
+                  })
+                } 
+            </div>
             }
            
           </div>

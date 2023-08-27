@@ -1,6 +1,6 @@
 import React from 'react';
 import './about.css';
-import { FaUserAlt,FaBriefcase,FaGraduationCap,FaLocationArrow, FaSchool, FaPhone, FaMobile } from 'react-icons/fa';
+import { FaUserAlt,FaBriefcase,FaGraduationCap,FaLocationArrow, FaSchool, FaPhone, FaMobile, FaAt } from 'react-icons/fa';
 import { useState } from 'react';
 
 const About = ({myInfo,editProfile}) => {
@@ -10,6 +10,7 @@ const About = ({myInfo,editProfile}) => {
     const handleActiveAboutContent=(num)=>{
        setActiveItem(num)
     }
+   
   return (
     
     <div className="about">
@@ -28,18 +29,26 @@ const About = ({myInfo,editProfile}) => {
                 {
                     activeItem===1?
                     <div className="overview-detail">
-                        <p><FaBriefcase className='iconics'/>  <span>{JSON.parse(myInfo.work).position}</span> at <span>{JSON.parse(myInfo.work).company}</span></p>
+                         {myInfo?.work&&JSON.parse(myInfo?.work)?.position&&<p><FaBriefcase className='iconics'/>  <span>{JSON.parse(myInfo.work).company}</span> at <span>{JSON.parse(myInfo.work).position}</span></p>}
+                        {myInfo?.education&&JSON.parse(myInfo?.education).institute&&
+                        <>
                         <p><FaGraduationCap className='iconics'/> Studied <span>{JSON.parse(myInfo.education).level}</span> in <span>{JSON.parse(myInfo.education).program}</span></p>
                         <p><FaSchool className='iconics'/> At <span>{JSON.parse(myInfo.education).institute}</span> </p>
-                        <p><FaLocationArrow className='iconics'/> From <span>{myInfo.country}</span> </p>
-                        <p><FaPhone className='iconics'/> {myInfo.phoneNumber}</p>
+                        </>
+                        }
+                        {myInfo?.country&&<p><FaLocationArrow className='iconics'/> From <span>{myInfo.country}</span> </p>}
+                        {myInfo?.email&&<p><FaAt className='iconics'/>{myInfo.email}</p>}
+                        {myInfo?.phoneNumber&&<p><FaPhone className='iconics'/> {myInfo.phoneNumber}</p>}
                     </div>:
 
                     activeItem===2?
                     <div className='item'>
                         <div className='add-item' onClick={editProfile}>Add a college</div>
                         <div className='item-item'>
-                            <p><FaSchool className='iconics'/> Studied  <span>{JSON.parse(myInfo.education).program}</span> from <span>{JSON.parse(myInfo.education).institute}</span></p>
+                            {
+                                myInfo?.education&&JSON.parse(myInfo.education).institute&&
+                                <p><FaGraduationCap className='iconics'/> Studied <span>{JSON.parse(myInfo.education).level}</span> in <span>{JSON.parse(myInfo.education).program}</span>{JSON.parse(myInfo.education).institute}</p>
+                            }
                         </div>
                     </div>:
 
@@ -47,7 +56,7 @@ const About = ({myInfo,editProfile}) => {
                     <div className='item'>
                         <div className='add-item' onClick={editProfile}>Add work</div>
                         <div className='item-item'>
-                            <p><FaBriefcase className='iconics'/> Worked at  <span>{JSON.parse(myInfo.work).company}</span> as <span>{JSON.parse(myInfo.work).position}</span></p>
+                        {myInfo?.work&&JSON.parse(myInfo.work).position&&<p><FaBriefcase className='iconics'/>  <span>{JSON.parse(myInfo.work).position}</span> at <span>{JSON.parse(myInfo.work).company}</span></p>}
                         </div>
                     </div>:
 
@@ -55,8 +64,8 @@ const About = ({myInfo,editProfile}) => {
                     <div className='item'>
                         <div className='add-item' onClick={editProfile}>Edit Info</div>
                         <div className='item-item'>
-                            <p><FaLocationArrow className='iconics'/>From  <span>{myInfo.country}</span></p>
-                            <p><FaMobile className='iconics'/> {myInfo.phoneNumber}</p>
+                            {myInfo?.country&&<p><FaLocationArrow className='iconics'/>From  <span>{myInfo.country}</span></p>}
+                            {myInfo?.phoneNumber&&<p><FaMobile className='iconics'/> {myInfo.phoneNumber}</p>}
                         </div>
                     </div>:
 

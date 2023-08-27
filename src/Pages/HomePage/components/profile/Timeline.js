@@ -12,7 +12,6 @@ setOpenCloseUserProfilePage,activateSearch,searchInput,setSearchInput}) => {
    
     <div className='timeline'>
         <Feeds       
-      
         userID={userID}
         handleSetBookmark={handleSetBookmark}
         postAuthorImg={postAuthorImg}

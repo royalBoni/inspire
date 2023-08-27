@@ -15,18 +15,20 @@ import Groups from './components/groups/Groups';
 import BookmarkPage from './components/bookmark/BookmarkPage';
 import InspireComp from './components/inspirers/InspireComp';
 import Settings from './components/settings/Settings';
+import ProfileEditor from './components/profile/ProfileEditor';
 import { selectAllInspirations } from '../../reducxSlices/inspirationsSlice';
 import { useSelector,useDispatch } from 'react-redux';
 import { FaHome,FaRegEnvelope,FaUserAlt,FaBookmark,FaUsers,FaRegSun,FaUserFriends,FaAngleDown,FaSearch,FaAngleUp,FaPlus, FaBell} from 'react-icons/fa';
 import { selectNotificationsCounter } from '../../reducxSlices/notificationCounterSlice';
 import { selectAllProfiles} from '../../reducxSlices/profilesSlice';
 import { selectAllInspirers } from '../../reducxSlices/inspirersSlice';
-import { setFeedPosts, setOpenMobileSearchComponent,setSelectedProfileID, setIsSearched, setInspirersFollowed,setSuggested,setBeenFollowed,setIsOverColor,setPageWidth } from '../../reducxSlices/actionStateSlice';
+import { setFeedPosts, setOpenMobileSearchComponent,setSelectedProfileID, setIsCreatePost,setIsSearched, setInspirersFollowed,setSuggested,setBeenFollowed,setIsOverColor,setPageWidth } from '../../reducxSlices/actionStateSlice';
 import { useAddNewNotificationMutation } from '../../reducxSlices/notificationsSlice';
 import { useDeleteInspirerMutation, useAddNewInspirerMutation } from '../../reducxSlices/inspirersSlice'; 
 import ProductLoadingPage from './components/ProductLoadingPage';
 import { extendedNotificationsApiSlice } from '../../reducxSlices/notificationsSlice';
 import { extendedNotificationsCounterApiSlice } from '../../reducxSlices/notificationCounterSlice';
+
 import { store } from '../../app/store';
 
 const Home = () => {
@@ -34,6 +36,7 @@ const Home = () => {
   store.dispatch(extendedNotificationsApiSlice.endpoints.getNotifications.initiate())
   store.dispatch(extendedNotificationsCounterApiSlice.endpoints.getNotificationsCounter.initiate())
  
+  
     const {userID}= useParams();
     const dispatch = useDispatch()
 
@@ -47,6 +50,8 @@ const Home = () => {
     const [resourceLoading,setResourceLoading]=useState(true)
 
     const isOverColor=useSelector((state)=>state.myStates.isOverColor)
+    const isEditProfile = useSelector((state)=>state.myStates.isEditProfile)
+    const isCreatePost = useSelector((state)=>state.myStates.isCreatePost)
     const [openUserProfilePage,setOpenUserProfilePage]= useState(false)
 
     setTimeout(() => {
@@ -83,14 +88,13 @@ const Home = () => {
     const [activeComponent, setActiveComponent]=useState(1)
 
     const [triggerCloseProfileMenu,setTriggerCloseProfileMenu]=useState(false)
-    const [creatingPost,setCreatingPost]=useState(false)
 
     const [warning,setWarning]=useState(false)
     const [warningMessage,setWarningMessage]=useState('')
 
     const handleCreatePost=()=>{
       dispatch(setIsOverColor())
-      setCreatingPost(true)
+      dispatch(setIsCreatePost())
     } 
 
     const [toggle,setToggle]=useState(true)
@@ -112,8 +116,6 @@ const Home = () => {
 
     const [searchInput,setSearchInput]=useState('')
 
-    
-
     useEffect(()=>{
       dispatch(setInspirersFollowed(inspirers.filter((item)=>item.fan_id===userID)))
       dispatch(setBeenFollowed(inspirers.filter((item)=>item.inspirer_id===userID)))
@@ -125,7 +127,7 @@ const Home = () => {
   useEffect(()=>{
       const myInfoResult=profiles?.find((item)=>item.userID===userID)
       setMyInfo(myInfoResult)
-  },)
+  },[profiles])
   const {profile_image_avatar}=myInfo||[]
     
     
@@ -193,7 +195,7 @@ const Home = () => {
     }, 17000);
   }
 
-  const [openCloseUserProfilePage,setOpenCloseUserProfilePage]=useState('no-user-profile-page')
+ 
   const [userProfileID,setUserProfileID]=useState('')
  /*  const handleOpenUserProfilePage=(item)=>{
     dispatch(setSelectedProfileID(item))
@@ -260,15 +262,17 @@ const Home = () => {
         </div>
         <div className={isOverColor?'over-color':'no-over-color'}></div>
         {
-        creatingPost?
+        isCreatePost?
         <CreatePost 
-        creatingPost={creatingPost}
         functionalityUnderDevelopment={functionalityUnderDevelopment}
-        setCreatingPost={setCreatingPost}
         userID={userID}
         setTriggerCloseProfileMenu={setTriggerCloseProfileMenu}
         profileImage={profile_image_avatar}
         />:
+        isEditProfile?
+        <ProfileEditor 
+        myInfo={myInfo}
+        functionalityUnderDevelopment={functionalityUnderDevelopment}/>:
         null
         }
 
@@ -314,10 +318,10 @@ const Home = () => {
                             <div className={`icon ${activeComponent===5?'active-icon':null}`}><FaUserFriends/></div>
                             <div className="item">Inspirers</div>
                         </div>
-                        <div className={`menu-content-item ${activeComponent===6?'activee':null}`} onClick={()=>handleActive(6)}>
+                        {/* <div className={`menu-content-item ${activeComponent===6?'activee':null}`} onClick={()=>handleActive(6)}>
                             <div className={`icon ${activeComponent===6?'active-icon':null}`}><FaUsers/></div>
                             <div className="item">Groups</div>
-                        </div>
+                        </div> */}
                         <div className={`menu-content-item ${activeComponent===7?'activee':null}`} onClick={()=>handleActive(7)}>
                             <div className={`icon ${activeComponent===7?'active-icon':null} `}>
                               <FaBell/>
@@ -353,6 +357,7 @@ const Home = () => {
                 postAuthorImg={postAuthorImg}
                 postAuthorName={postAuthorName}
                 handleFollowUnfollow={handleFollowUnfollow}
+                handleOpenUserProfilePage={handleOpenUserProfilePage}
                 />
               }
               {
@@ -364,7 +369,6 @@ const Home = () => {
                 handleFollowUnfollow={handleFollowUnfollow}
                 functionalityUnderDevelopment={functionalityUnderDevelopment}
                 handleOpenUserProfilePage={handleOpenUserProfilePage}
-                setOpenCloseUserProfilePage={setOpenCloseUserProfilePage}
                 activateSearch={activateSearch}
                 searchInput={searchInput}
                 setSearchInput={setSearchInput}
@@ -411,7 +415,6 @@ const Home = () => {
                 handleActive={handleActive}
                 searchInput={searchInput}
                 setSearchInput={setSearchInput}
-                handleCreatePost={handleCreatePost}
                 toggleProfile={toggleProfile}
                 toggle={toggle}
                 profile_image_avatar={profile_image_avatar}

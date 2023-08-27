@@ -32,40 +32,40 @@ const Inspirers = ({handleFollowUnfollow,handleOpenUserProfilePage}) => {
             activeInspirerItem===1?
             <div className="all-followed">
                 
-                    {
-                        inspirersFollowed?.map((item)=>{
-                            return(
-                                <div key={item._id} className="individual-account">
-                                    {
-                                        profiles.map((prof)=>{
-                                            if(item.inspirer_id===prof.userID){
-                                                return(
-                                                    <div key={prof.userID} className="account-details" onClick={()=>handleOpenUserProfilePage(prof.userID)}>
-                                                        <div className="account-image"><img src={prof.profile_image_avatar} alt="" /></div>
-                                                        <div className="account-details-info">
-                                                            <div className="account-details-info-name">{prof.userName}</div>
-                                                            <div className="account-details-info-profile-name">{prof.profileName}</div>
-                                                        </div>
+                {
+                    inspirersFollowed.length===0?
+                    <div className='no-item'>Yet to follow an inspirer</div>:
+                    inspirersFollowed?.map((item)=>{
+                        return(
+                            <div key={item._id} className="individual-account">
+                                {
+                                    profiles.map((prof)=>{
+                                        if(item.inspirer_id===prof.userID){
+                                            return(
+                                                <div key={prof.userID} className="account-details" onClick={()=>handleOpenUserProfilePage(prof.userID)}>
+                                                    <div className="account-image"><img src={prof.profile_image_avatar} alt="" /></div>
+                                                    <div className="account-details-info">
+                                                        <div className="account-details-info-name">{prof.userName}</div>
+                                                        <div className="account-details-info-profile-name">{prof.profileName}</div>
                                                     </div>
-                                                )
+                                                </div>
+                                            )
 
-                                            }
-                                            else{
-                                                
-                                            }
-                                        })
-                                    }
-                                    <button className={inspirersFollowed.find((followed)=>followed.inspirer_id===item.inspirer_id)?'following-button':'follow-button'}
-                                    onClick={()=>handleFollowUnfollow(item.inspirer_id)}>
-                                        {inspirersFollowed.find((followed)=>followed.inspirer_id===item.inspirer_id)?'following':'follow'}
-                                    </button>
-                                </div>
-                                
-                            )
-                        })
-                    }
-                
-                
+                                        }
+                                        else{
+                                            
+                                        }
+                                    })
+                                }
+                                <button className={inspirersFollowed.find((followed)=>followed.inspirer_id===item.inspirer_id)?'following-button':'follow-button'}
+                                onClick={()=>handleFollowUnfollow(item.inspirer_id)}>
+                                    {inspirersFollowed.find((followed)=>followed.inspirer_id===item.inspirer_id)?'following':'follow'}
+                                </button>
+                            </div>
+                            
+                        )
+                    })
+                } 
             </div>
             :
             activeInspirerItem===2?
@@ -98,34 +98,35 @@ const Inspirers = ({handleFollowUnfollow,handleOpenUserProfilePage}) => {
             :
             <div className="followed-you">
                 {
-                        beenFollowed.map((item)=>{
-                            return(
-                                <div key={item._id} className="individual-account">
-                                    {
-                                        profiles.map((prof)=>{
-                                            if(item.fan_id===prof.userID){
-                                                return(
-                                                    <div key={prof.userID} className="account-details" onClick={()=>handleOpenUserProfilePage(prof.userID)}>
-                                                        <div className="account-image"><img src={prof.profile_image_avatar} alt="" /></div>
-                                                        <div className="account-details-info">
-                                                            <div className="account-details-info-name">{prof.userName}</div>
-                                                            <div className="account-details-info-profile-name">{prof.profileName}</div>
-                                                        </div>
-                                                    </div>
-                                                )
+                   beenFollowed.length===0?
+                   <div className='no-item'>No followership yet</div>:
+                   beenFollowed.map((item)=>{
+                    return(
+                        <div key={item._id} className="individual-account">
+                            {
+                                profiles.map((prof)=>{
+                                    if(item.fan_id===prof.userID){
+                                        return(
+                                            <div key={prof.userID} className="account-details" onClick={()=>handleOpenUserProfilePage(prof.userID)}>
+                                                <div className="account-image"><img src={prof.profile_image_avatar} alt="" /></div>
+                                                <div className="account-details-info">
+                                                    <div className="account-details-info-name">{prof.userName}</div>
+                                                    <div className="account-details-info-profile-name">{prof.profileName}</div>
+                                                </div>
+                                            </div>
+                                        )
 
-                                            }
-                                        })
                                     }
-                                    <button className={inspirersFollowed.find((followed)=>followed.inspirer_id===item.fan_id)?'following-button':'follow-button'}
-                                    onClick={()=>handleFollowUnfollow(item.fan_id)}>
-                                        {inspirersFollowed.find((followed)=>followed.inspirer_id===item.fan_id)?'following':'follow'}
-                                    </button>
-                                </div>
-                                
-                            )
-                        })
-                    }
+                                })
+                            }
+                            <button className={inspirersFollowed.find((followed)=>followed.inspirer_id===item.fan_id)?'following-button':'follow-button'}
+                            onClick={()=>handleFollowUnfollow(item.fan_id)}>
+                                {inspirersFollowed.find((followed)=>followed.inspirer_id===item.fan_id)?'following':'follow'}
+                            </button>
+                        </div>     
+                    )
+                })
+                }
             </div>
             }
                 

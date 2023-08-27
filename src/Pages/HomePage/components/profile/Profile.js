@@ -2,15 +2,15 @@ import React from 'react'
 import { useState,useEffect } from 'react';
 import './profile.css'
 import { FaBars,FaEllipsisH,FaUserAlt } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
 import Timeline from './Timeline';
 import About from './About';
 import Inspirers from './Inspirers';
 import ProfileMenu from '../ProfileMenu';
 import MyInspiration from './MyInspiration';
 import { setIsOverColor } from '../../../../reducxSlices/actionStateSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import ProfileEditor from './ProfileEditor';
+import { setIsEditProfile } from '../../../../reducxSlices/actionStateSlice';
 
 
 const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,setOpenCloseUserProfilePage,activateSearch,searchInput,setSearchInput,myInfo,
@@ -18,7 +18,6 @@ const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,set
    
    
     const dispatch = useDispatch()    
-    const [isEditor,setIsEditor] = useState(false)
     const [profileOver,setProfileOver]=useState('no-profile-over-color')
 
     const [activeItem, setActiveItem]=useState(1)
@@ -41,7 +40,7 @@ const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,set
     }
     
     const editProfile =()=>{
-        setIsEditor(!isEditor)
+        dispatch(setIsEditProfile())
         dispatch(setIsOverColor())
     }
 
@@ -53,13 +52,6 @@ const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,set
   return (
     
     <div className='profile-page'>
-        {
-            isEditor&&
-            <ProfileEditor
-            editProfile={editProfile}
-            myInfo={myInfo}
-            />
-        }
         <div className={profileOver}></div>
         <ProfileMenu
         handleCloseProfileMenu={handleCloseProfileMenu}
@@ -133,7 +125,8 @@ const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,set
                 setOpenCloseUserProfilePage={setOpenCloseUserProfilePage}
                 activateSearch={activateSearch}
                 searchInput={searchInput}
-                setSearchInput={setSearchInput}/>
+                setSearchInput={setSearchInput}
+                />
 
                 :
                 activeItem===2?
