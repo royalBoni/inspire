@@ -1,19 +1,19 @@
 import React from 'react'
 import './userProfilePage.css'
 import {FaBriefcase,FaGraduationCap,FaCalendarAlt,FaMapMarkerAlt,FaArrowLeft,FaUserAlt} from 'react-icons/fa'
-import MyFeeds from '../feeds/MyFeeds'
+
 import { useState } from 'react'
-import Activities from './components/Activities'
-import Groups from './components/Groups'
 import UserInspirations from './components/UserInspirations'
 import { selectAllProfiles } from '../../../../reducxSlices/profilesSlice'
 import { selectAllInspirers } from '../../../../reducxSlices/inspirersSlice'
 import { useSelector} from 'react-redux'
 import { format } from 'date-fns'
+import { useParams } from 'react-router-dom'
 
 const UserProfilePage = ({handleCloseUserProfilePage,myInfo,postAuthorImg,postAuthorName,handleFollowUnfollow,
   handleOpenUserProfilePage}) => {
   
+  const {userID}=useParams()
   const pageWidth = useSelector((state)=>state.myStates.pageWidth)
 
   const profiles = useSelector(selectAllProfiles)
@@ -40,9 +40,9 @@ const UserProfilePage = ({handleCloseUserProfilePage,myInfo,postAuthorImg,postAu
   
   const myFollowers=(id)=>{
     const uF=inspirers.filter((item)=>item.inspirer_id===id)
+    console.log(uF)
     return uF
   }
-  console.log(usersFollowed(userProfile?.userID))
 
 
   return (
@@ -65,7 +65,7 @@ const UserProfilePage = ({handleCloseUserProfilePage,myInfo,postAuthorImg,postAu
               </div>
 
               <div className="top-down-buttons">
-                <button /* className="follow" */ className={inspirersFollowed.find((followed)=>followed.inspirer_id===userProfile?.userID)?'message':'follow-button'} onClick={()=>handleFollowUnfollow(userProfile?.userID)}>
+                <button className={inspirersFollowed.find((followed)=>followed.inspirer_id===userProfile?.userID)?'message':'follow-button'} onClick={()=>handleFollowUnfollow(userProfile?.userID)}>
                   {inspirersFollowed.find((followed)=>followed.inspirer_id===userProfile?.userID)?'following':'follow'}
                 </button>
                 <button className="message">Message</button>
@@ -120,7 +120,7 @@ const UserProfilePage = ({handleCloseUserProfilePage,myInfo,postAuthorImg,postAu
             <ul>
               <li className={activeItem===1?'down-header-active':null} onClick={()=>handleDownHeaderActive(1)}>Inpirations</li>
               <li className={activeItem===2?'down-header-active':null} onClick={()=>handleDownHeaderActive(2)}>Following</li>
-              <li className={activeItem===3?'down-header-active':null} onClick={()=>handleDownHeaderActive(3)}>Followed</li>
+              <li className={activeItem===3?'down-header-active':null} onClick={()=>handleDownHeaderActive(3)}>Followers</li>
             </ul>
           </div>
 
@@ -142,28 +142,34 @@ const UserProfilePage = ({handleCloseUserProfilePage,myInfo,postAuthorImg,postAu
                   <div className='no-item'>Yet to follow an inspirer</div>:
                   usersFollowed(userProfile?.userID)?.map((item)=>{
                       return(
-                          <div key={item._id} className="individual-account">
+                          <div key={item._id}>
                               {
                                 profiles.map((prof)=>{
                                     if(item.inspirer_id===prof.userID){
                                         return(
-                                            <div key={prof.userID} className="account-details" onClick={()=>handleOpenUserProfilePage(prof.userID)}>
+                                          <div key={prof.userID} className="individual-account">
+                                            <div className="account-details" onClick={()=>handleOpenUserProfilePage(prof.userID)}>
                                                 <div className="account-image"><img src={prof.profile_image_avatar} alt="" /></div>
                                                 <div className="account-details-info">
                                                     <div className="account-details-info-name">{prof.userName}</div>
                                                     <div className="account-details-info-profile-name">{prof.profileName}</div>
                                                 </div>
                                             </div>
+                                            {
+                                              item.inspirer_id!==userID&&
+                                              <button className={inspirersFollowed.find((followed)=>followed.inspirer_id===item.inspirer_id)?'following-button':'follow-button'}
+                                              onClick={()=>handleFollowUnfollow(prof.userID)}>
+                                                  {inspirersFollowed.find((followed)=>followed.inspirer_id===item.inspirer_id)?'following':'follow'}
+                                              </button>
+                                            }
+                                          </div>
                                         )
 
                                     }
                                     
                                 })
                               }
-                              <button className={inspirersFollowed.find((followed)=>followed.inspirer_id===item.inspirer_id)?'following-button':'follow-button'}
-                              onClick={()=>handleFollowUnfollow(item.inspirer_id)}>
-                                  {inspirersFollowed.find((followed)=>followed.inspirer_id===item.inspirer_id)?'following':'follow'}
-                              </button>
+                          
                           </div>
                           
                       )
@@ -178,28 +184,36 @@ const UserProfilePage = ({handleCloseUserProfilePage,myInfo,postAuthorImg,postAu
                   <div className='no-item'>Yet to follow an inspirer</div>:
                   myFollowers(userProfile?.userID)?.map((item)=>{
                       return(
-                          <div key={item._id} className="individual-account">
+                          <div key={item._id}>
                               {
                                 profiles.map((prof)=>{
-                                    if(item.inspirer_id===prof.userID){
+                                    if(item.fan_id===prof.userID){
                                         return(
-                                            <div key={prof.userID} className="account-details" onClick={()=>handleOpenUserProfilePage(prof.userID)}>
+                                          <div key={prof.userID} className="individual-account">
+                                            <div className="account-details" onClick={()=>handleOpenUserProfilePage(prof.userID)}>
                                                 <div className="account-image"><img src={prof.profile_image_avatar} alt="" /></div>
                                                 <div className="account-details-info">
                                                     <div className="account-details-info-name">{prof.userName}</div>
                                                     <div className="account-details-info-profile-name">{prof.profileName}</div>
                                                 </div>
                                             </div>
+                                            {
+                                              item.fan_id!==userID&&
+                                              <button className={inspirersFollowed.find((followed)=>followed.fan_id===userID)?'following-button':'follow-button'}
+                                              onClick={()=>handleFollowUnfollow(prof.userID)}>
+                                                  {inspirersFollowed.find((followed)=>followed.fan_id===userID)?'following':'follow'}
+                                              </button>
+
+                                              
+                                            }
+                                          </div>
                                         )
 
                                     }
                                     
                                 })
                               }
-                              <button className={inspirersFollowed.find((followed)=>followed.inspirer_id===item.inspirer_id)?'following-button':'follow-button'}
-                              onClick={()=>handleFollowUnfollow(item.inspirer_id)}>
-                                  {inspirersFollowed.find((followed)=>followed.inspirer_id===item.inspirer_id)?'following':'follow'}
-                              </button>
+                              
                           </div>
                           
                       )

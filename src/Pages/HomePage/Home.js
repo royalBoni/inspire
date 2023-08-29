@@ -22,7 +22,8 @@ import { FaHome,FaRegEnvelope,FaUserAlt,FaBookmark,FaUsers,FaRegSun,FaUserFriend
 import { selectNotificationsCounter } from '../../reducxSlices/notificationCounterSlice';
 import { selectAllProfiles} from '../../reducxSlices/profilesSlice';
 import { selectAllInspirers } from '../../reducxSlices/inspirersSlice';
-import { setFeedPosts, setOpenMobileSearchComponent,setSelectedProfileID, setIsCreatePost,setIsSearched, setInspirersFollowed,setSuggested,setBeenFollowed,setIsOverColor,setPageWidth } from '../../reducxSlices/actionStateSlice';
+import { setFeedPosts, setOpenMobileSearchComponent,setSelectedProfileID, setIsCreatePost,setIsSearched,
+   setInspirersFollowed,setSuggested,setBeenFollowed,setIsOverColor,setPageWidth,setIsEditProfile } from '../../reducxSlices/actionStateSlice';
 import { useAddNewNotificationMutation } from '../../reducxSlices/notificationsSlice';
 import { useDeleteInspirerMutation, useAddNewInspirerMutation } from '../../reducxSlices/inspirersSlice'; 
 import ProductLoadingPage from './components/ProductLoadingPage';
@@ -35,10 +36,9 @@ const Home = () => {
 
   store.dispatch(extendedNotificationsApiSlice.endpoints.getNotifications.initiate())
   store.dispatch(extendedNotificationsCounterApiSlice.endpoints.getNotificationsCounter.initiate())
- 
-  
-    const {userID}= useParams();
-    const dispatch = useDispatch()
+
+  const {userID}= useParams();
+  const dispatch = useDispatch()
 
     const [addNewNotification]=useAddNewNotificationMutation()
     const [deleteInspirer]=useDeleteInspirerMutation()

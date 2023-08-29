@@ -1,7 +1,0 @@
-.activity{
-    height: auto;
-    display: grid;
-    place-content: center;
-    color: var(--PRIMARYCOLOR);
-    text-align: center;
-}

@@ -1,7 +1,3 @@
-.no_inspirers{
-    display: none;
-}
-
 .inspirers{
     display: flex;
     flex-direction: column;
@@ -70,6 +66,7 @@
 
 .account-details{
     display: flex;
+    justify-content: space-between;
     gap: 1rem;
     cursor:pointer;
 }

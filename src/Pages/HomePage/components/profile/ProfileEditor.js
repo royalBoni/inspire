@@ -16,6 +16,7 @@ const ProfileEditor = ({myInfo,functionalityUnderDevelopment}) => {
   const closeEditProfile =()=>{
     dispatch(setIsEditProfile())
     dispatch(setIsOverColor())
+    localStorage.removeItem('profileStatus')
   }
 
   const countries = ['Ghana','Nigeria','South Africa']
@@ -103,7 +104,14 @@ const ProfileEditor = ({myInfo,functionalityUnderDevelopment}) => {
   return (
     <div className='editor'>
       <div className='editProfile-sections'>
-          <div className='section-title'>Edit Profile</div>
+          <div className='section-title'>
+            {
+              (JSON.parse(localStorage.getItem('profileStatus')))==='unsetted'?
+              'Set Up Profile':
+              'Edit Profile'
+            }
+            
+          </div>
           <div className='close-editor' onClick={closeEditProfile}><FaTimes/></div>
       </div>
 

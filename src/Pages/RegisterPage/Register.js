@@ -68,6 +68,7 @@ const Register = () => {
            
            else{
               await addNewProfile({...jsonfile})
+              localStorage.setItem("profileStatus", JSON.stringify('unsetted'));
               navigate(`/`)
               dispatch(setIsOverColor())
               dispatch(setIsEditProfile())
