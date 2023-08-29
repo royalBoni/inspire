@@ -8,8 +8,8 @@
     position: relative;
 }
 
-.background-layer{
-    background-color: rgba(0, 0, 0, 0.884);
+.login .background-layer{
+    background-color: rgba(139, 137, 137, 0.637);
     background-size:100% 100%;
     width: inherit; 
     height: 100vh;
@@ -17,14 +17,15 @@
 
 .login .signUp-button{
     padding: 5px;
-    font-size: 18px;
-    background-color: black;
-    color:rgba(207, 207, 207, 0.459);
-    border-radius: 10px;
+    background-color: var(--PRIMARYCOLOR);
+    color:var(--MAINBGICONCOLOR);
+    border-radius: unset;
+    font-weight: bold;
 }
 
 .login .main-content{
     height: 100%;
+    width: 100%;
 }
 
 .login .main-content-content{
@@ -34,9 +35,8 @@
     justify-content: space-between;
 }
 
-.words{
-    color: rgba(255, 255, 255, 0.027);
-    font-size: 8rem;
+.login .words{
+    font-size: 150px;
     font-weight: bold;
     font-style: italic;
     font-family:'Geneva';
@@ -44,16 +44,13 @@
     position: absolute;
     bottom: 0;
     left: 0;
+    color: rgba(63, 4, 50, 0.543);
 }
 
 .login .main-content-content .content{
     height: auto;
     width: 47%;
 }
-
-/* .left-content{
-    
-} */
 
 .login .right-content{
     height: auto;
@@ -70,11 +67,11 @@
 .login .welcome{
     font-size:45px;
     font-weight: bold;
-    color:rgba(207, 207, 207, 0.459);
+    color: var(--MAINBGICONCOLOR);
 }
 
-span{
-    color: black;
+.login span{
+    color: var(--PRIMARYCOLOR);
 }
 
 .login form{
@@ -91,98 +88,72 @@ span{
 
 .login form label{
     font-size: 18px;
-    color: rgba(207, 207, 207, 0.459);
-    font-weight: unset;
+    color: var(--PRIMARYCOLOR);
+    font-weight: bold;
 }
 
 .login input{
-    height: 40px;
-    border: 2px solid black;
+    padding: 18px;
+    border: none;
+    background-color: var(--MAINBGICONCOLOR);
     border-radius: 10px;
-    font-size: 0.7rem;
-    padding-left: 1rem;
+    font-size: 14px;
 }
 
 .login-button{
     margin-top: 1rem;
-    background-color: black;
-    color:rgba(207, 207, 207, 0.459);
+    background-color: var(--PRIMARYCOLOR);
+    color:var(--MAINBGICONCOLOR);
+    padding: 5px 20px;
     margin-left: auto;
     margin-right: auto;
-    padding: 0.3rem 0.8rem ;
-    display: grid;
-    place-content: center;
-    width: 5rem;
-    font-size: 1rem;
-    border-radius: 10px;   
+    border-radius: unset;
+    font-weight: bold;   
 }
 
-.forgetOrRegister{
+.login  .forget{
     margin-top: 1rem;
     display: flex;
     justify-content: space-between;
-    font-size: 1rem;
-    color: red;
+    color: var(--PRIMARYCOLOR);
 }
 
 
-
-/* || EXTRA LARGE */
-
-@media screen and (max-width:1500px){
-   /*  .words{
-        display: none;
-    } */
-
-    .content{
-        height: 60vh;
-    }
-    .right-content{
-        padding: 3rem;
-        background-color: rgba(160, 113, 113, 0.096);
-        box-shadow: 0px 2px 4px 4px rgba(0, 0, 0, 0.274);
-    }
-   
-}
 
 /* || LARGE */
 
 @media screen and (max-width:992px){
 
-    .left-content{
+    .login .words{
+        font-size: 100px;
+        bottom: 0;
+        right: 0;
+        left: unset;
+    }
+
+    .login .main-content-content{
+        height: 90%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .login .main-content-content .content{
+        width: 100%;
+    }
+
+    .login .left-content{
         display: none;
     }
-    .right-content{
+
+    .login .right-content{
         padding: 3rem;
-        width: auto;
+        width: 100%;
         height: auto;
         border-radius: 0;
         background-color: rgba(160, 113, 113, 0.096);
         box-shadow: 0px 2px 4px 4px rgba(0, 0, 0, 0.274);
-    }
-
-    .welcome{
-        font-size:2rem;
-    }
-
-    .right-content p{
-        font-size: 1rem;
-    }
-
-    form{
-        gap: 1rem;
-    } 
-    
-    .form-row{
-        gap: 0.5rem;
-    }
-    
-    label{
-        font-size: 0.9rem;
-    }
-       
-    .forgetOrRegister{
-        font-size: 0.8rem;
     }
     
    
@@ -190,27 +161,8 @@ span{
 /* || MEDIUM */
 
 @media screen and (max-width:768px){
-    .words{
-        color: rgba(255, 255, 255, 0.027);
-        font-size: 6rem;
-        font-weight: bold;
-        font-style: italic;
-        font-family:'Geneva';
-        letter-spacing: 1rem;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-    }
-    
-    nav{
-        display: none;
-    }
-
-    .left-content{
-        display: none;
-    }
-    .right-content{
-        padding: 4rem;
+    .login .right-content{
+        padding: 40px;
         width: auto;
         height: auto;
         border-radius: 0;
@@ -218,23 +170,12 @@ span{
         box-shadow: 0px 2px 4px 4px rgba(0, 0, 0, 0.274);
     }
 
-    .welcome{
-        font-size:1.2rem;
+    .login .welcome{
         text-align: center;
     }
 
-    .right-content p{
+    .login .right-content p{
         text-align: center;
-        font-size: 0.6rem;
-    }
-
-    
-    label{
-        font-size: 0.9rem;
-    }
-    
-    input{
-        font-size: 0.5rem;
     }
     
     
@@ -243,23 +184,40 @@ span{
 /* || SMALL */
 
 @media screen and (max-width:576px){
-    .words{
-        display: none;
+    .login .words{
+        font-size: 150px;
+        font-weight: bold;
+        font-style: italic;
+        font-family:'Geneva';
+        letter-spacing: 2rem;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        color: rgba(63, 4, 50, 0.543);
+        color: red;
     }
 
-    .signUp-button{
-        padding: 0.3rem;
-        font-size: 0.8rem;
-        background-color: black;
-        color:rgba(207, 207, 207, 0.459);
-        border-radius: 10px;
+    .login .main-content{
+        height: 100%;
+        width: 100%;
+    }
+    
+    .login .main-content-content{
+        height: 90%;
+        width: 100%;
+        padding: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
-    .left-content{
-        display: none;
+    .login .main-content-content .content{
+        height: auto;
+        width: 100%;
     }
-    .right-content{
-        padding: 2rem;
+
+    .login .right-content{
+        padding: 70px 10px;
         width: auto;
         height: auto;
         border-radius: 0;
@@ -267,56 +225,12 @@ span{
         box-shadow: 0px 2px 4px 4px rgba(0, 0, 0, 0.274);
     }
 
-    .welcome{
-        font-size:1rem;
-    }
-
-    .right-content p{
-        font-size: 0.5rem;
-    }
-
-    form{
-        gap: 0.5rem;
-    } 
-    
-    .form-row{
-        gap: 0.3rem;
-    }
-    
-    label{
-        font-size: 0.8rem;
+    .login .welcome{
+        font-size:35px;
         font-weight: bold;
-    }
-    
-    input{
-        height: 1.5rem;
-        border: 1px solid black;
-        border-radius: 5px;
-        font-size: 0.5rem;
-    }
-    
-    .login-button{
-        background-color: black;
-        color: rgba(207, 207, 207, 0.459);
-        margin-left: auto;
-        margin-right: auto;
-        padding: 0.1rem 0.4rem ;
-        font-size: 0.7rem;
-        border-radius: 5px;
+        color: var(--MAINBGICONCOLOR);
     }
 
-    .forget{
-        font-size: 0.7rem;
-    }
-    
-    .forgetOrRegister{
-        margin-top: 1rem;
-        display: flex;
-        justify-content: space-between;
-        font-size: 0.5rem;
-    }
-    
-    
 }
 
 

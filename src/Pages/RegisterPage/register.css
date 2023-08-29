@@ -21,7 +21,7 @@
     font-size: 0.8rem;
     background-color: black;
     color:rgba(207, 207, 207, 0.459);
-    border-radius: 10px;
+
 }
 
 .register .main-content{
@@ -151,14 +151,14 @@
 }
 
 .input-error{
-    background-color:rgba(160, 113, 113, 0.096);
-    color:rgba(207, 207, 207, 0.459);
+    background-color:var(--PRIMARYCOLOR);
+    color:var(--MAINBGICONCOLOR);
     width: 9rem;
     padding: 2rem 1rem 1rem 1rem;
     text-align: justify;
-    border-radius: 15px;
     box-shadow: 5px 5px 2px 5px rgba(0, 0, 0, 0.534);
     position: absolute;
+    z-index: 1;
     margin-top: 1rem;
     animation-name: error-message-appear;
     animation-duration: 1s;
@@ -344,9 +344,9 @@
 /* || SMALL */
 
 @media screen and (max-width:576px){
-    .register .words{
+   /*  .register .words{
         display: none;
-    }
+    } */
 
     .register .signUp-button{
         padding: 0.3rem;
@@ -420,8 +420,8 @@
     }
 
     .input-error{
-        background-color:rgba(29, 28, 28, 0.747);
-        color:rgba(207, 207, 207, 0.459);
+        background-color:var(--PRIMARYCOLOR);;
+        color:var(--MAINBGICONCOLOR);
         width: 100%;
         padding: 2rem 1rem 1rem 1rem;
         text-align: justify;

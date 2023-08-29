@@ -1,3 +1,19 @@
+:root{
+  /*COLOR*/
+  --FF:sans-serif;
+  --FS:1.5rem;
+  --FS-XL:3rem;
+  --FW:bold;
+
+  /*COLOR*/
+  --PAGEBACKGROUND:rgb(233, 216, 214);
+  --HOMEBGCOLOR: rgba(63, 4, 50, 0.178);
+  --HOMEBGLIGHT:rgba(63, 4, 50, 0.397);
+  --MAINBGICONCOLOR: rgba(243, 240, 237, 0.884);
+  --BORDERRIGHTCOLOR:rgba(63, 4, 50, 0.048);
+  --PRIMARYCOLOR: rgb(63, 4, 50);
+}
+
 *{
   padding: 0;
   margin: 0;

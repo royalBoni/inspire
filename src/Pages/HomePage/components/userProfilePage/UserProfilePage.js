@@ -1,19 +1,20 @@
 import React from 'react'
 import './userProfilePage.css'
 import {FaBriefcase,FaGraduationCap,FaCalendarAlt,FaMapMarkerAlt,FaArrowLeft,FaUserAlt} from 'react-icons/fa'
-
 import { useState } from 'react'
 import UserInspirations from './components/UserInspirations'
 import { selectAllProfiles } from '../../../../reducxSlices/profilesSlice'
 import { selectAllInspirers } from '../../../../reducxSlices/inspirersSlice'
-import { useSelector} from 'react-redux'
+import { useSelector, useDispatch} from 'react-redux'
 import { format } from 'date-fns'
 import { useParams } from 'react-router-dom'
+import { setIsEditProfile,setIsOverColor } from '../../../../reducxSlices/actionStateSlice'
 
 const UserProfilePage = ({handleCloseUserProfilePage,myInfo,postAuthorImg,postAuthorName,handleFollowUnfollow,
   handleOpenUserProfilePage}) => {
   
   const {userID}=useParams()
+  const dispatch=useDispatch()
   const pageWidth = useSelector((state)=>state.myStates.pageWidth)
 
   const profiles = useSelector(selectAllProfiles)
@@ -28,9 +29,12 @@ const UserProfilePage = ({handleCloseUserProfilePage,myInfo,postAuthorImg,postAu
     setActiveItem(id)
   }
 
-  const inspirersFollowed = useSelector((state)=>state.myStates.inspirersFollowed)
+  const editProfile =()=>{
+    dispatch(setIsEditProfile())
+    dispatch(setIsOverColor())
+}
 
-  console.log(userProfile)
+  const inspirersFollowed = useSelector((state)=>state.myStates.inspirersFollowed)
 
   const inspirers = useSelector(selectAllInspirers)
   const usersFollowed=(id)=>{
@@ -40,7 +44,6 @@ const UserProfilePage = ({handleCloseUserProfilePage,myInfo,postAuthorImg,postAu
   
   const myFollowers=(id)=>{
     const uF=inspirers.filter((item)=>item.inspirer_id===id)
-    console.log(uF)
     return uF
   }
 
@@ -65,10 +68,20 @@ const UserProfilePage = ({handleCloseUserProfilePage,myInfo,postAuthorImg,postAu
               </div>
 
               <div className="top-down-buttons">
-                <button className={inspirersFollowed.find((followed)=>followed.inspirer_id===userProfile?.userID)?'message':'follow-button'} onClick={()=>handleFollowUnfollow(userProfile?.userID)}>
+                {
+                  userID===userProfile.userID?
+                  <>
+                  <button className="message" onClick={editProfile}>Edit Profile</button>
+                  <button className="message">View Activities</button>
+                  </>:
+                  <>
+                  <button className={inspirersFollowed.find((followed)=>followed.inspirer_id===userProfile?.userID)?'message':'follow-button'} onClick={()=>handleFollowUnfollow(userProfile?.userID)}>
                   {inspirersFollowed.find((followed)=>followed.inspirer_id===userProfile?.userID)?'following':'follow'}
-                </button>
-                <button className="message">Message</button>
+                  </button>
+                  <button className="message">Message</button>
+                  </>
+                }
+                
               </div>
           </div>
         </div>

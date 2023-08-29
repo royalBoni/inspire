@@ -7,10 +7,8 @@ import About from './About';
 import Inspirers from './Inspirers';
 import ProfileMenu from '../ProfileMenu';
 import MyInspiration from './MyInspiration';
-import { setIsOverColor } from '../../../../reducxSlices/actionStateSlice';
 import { useDispatch,useSelector } from 'react-redux';
-import ProfileEditor from './ProfileEditor';
-import { setIsEditProfile } from '../../../../reducxSlices/actionStateSlice';
+import { setIsEditProfile,setIsOverColor } from '../../../../reducxSlices/actionStateSlice';
 
 
 const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,setOpenCloseUserProfilePage,activateSearch,searchInput,setSearchInput,myInfo,
