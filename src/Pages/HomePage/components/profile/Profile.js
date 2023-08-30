@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState,useEffect } from 'react';
+import { useState } from 'react';
 import './profile.css'
 import { FaBars,FaEllipsisH,FaUserAlt } from 'react-icons/fa';
 import Timeline from './Timeline';
@@ -7,34 +7,24 @@ import About from './About';
 import Inspirers from './Inspirers';
 import ProfileMenu from '../ProfileMenu';
 import MyInspiration from './MyInspiration';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { setIsEditProfile,setIsOverColor } from '../../../../reducxSlices/actionStateSlice';
 
 
 const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,setOpenCloseUserProfilePage,activateSearch,searchInput,setSearchInput,myInfo,
-    postAuthorName,postAuthorImg,triggerCloseProfileMenu,handleFollowUnfollow,userID,handleReadPost,handleOpenUserProfilePage}) => {
+    postAuthorName,postAuthorImg,handleFollowUnfollow,userID,handleReadPost,handleOpenUserProfilePage}) => {
    
-   
-    const dispatch = useDispatch()    
-    const [profileOver,setProfileOver]=useState('no-profile-over-color')
-
+    const dispatch = useDispatch()   
+    const [activateMenu, setAactivateMenu]=useState(false) 
     const [activeItem, setActiveItem]=useState(1)
 
-
-    const[profileMenu,setProfileMenu]=useState('no-profile-menu')
-
     const handleProfileMenu=()=>{
-        setProfileMenu('profile-menu')
-        setProfileOver('profile-over-color')
-    }
-
-    const handleCloseProfileMenu=()=>{
-        setProfileMenu('no-profile-menu')
-        setProfileOver('no-profile-over-color')
+        setAactivateMenu(!activateMenu)
     }
 
     const handleControlActive=(id)=>{
         setActiveItem(id)
+        setAactivateMenu(false)
     }
     
     const editProfile =()=>{
@@ -42,19 +32,20 @@ const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,set
         dispatch(setIsOverColor())
     }
 
-    useEffect(()=>{
-        if(triggerCloseProfileMenu){
-            handleCloseProfileMenu()
-        }
-    },[triggerCloseProfileMenu])
   return (
     
     <div className='profile-page'>
-        <div className={profileOver}></div>
-        <ProfileMenu
-        handleCloseProfileMenu={handleCloseProfileMenu}
-        profileMenu={profileMenu}
-        handleControlActive={handleControlActive}/>
+        {
+            activateMenu&&
+            <>
+                <div className='profile-over-color'></div>
+                <ProfileMenu
+                handleProfileMenu={handleProfileMenu}
+                handleControlActive={handleControlActive}/>
+            </>
+            
+        }
+        
 
         <div className={`upper-section`}>
             <div className="first-info-profile-image">

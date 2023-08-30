@@ -66,7 +66,6 @@
     height: 100%;
     display: grid;
     place-content: center;
-    border-radius: 15px;
 }
 
 .categoryDate{
@@ -185,8 +184,6 @@
     height: 2rem;
     border-radius: 50px;
     background-color: var(--HOMEBGLIGHT);
-    display: grid;
-    place-content: center;
     border-radius: 50px;
 }
 

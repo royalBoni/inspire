@@ -99,19 +99,10 @@ const ChangePassword = () => {
       <div className="background-layer">
         <div className="words">inspire</div>
         <div className="main-content">
-          <header>
-            <div className="brand">inspire</div>
-            <nav>
-              <ul>
-                <li>Blog</li>
-                <li>About</li>
-                <li>Terms</li>
-                <li>Help</li>
-                <li>Contact</li>
-              </ul>
-            </nav>
-            <Link to='/register'><button className="signUp-button">Sign Up</button></Link>
-          </header>
+          <div className='navigation-buttons'>
+          <Link to='/register'><button className="signUp-button">Sign Up</button></Link>
+          <Link to='/'><button className="signUp-button">Sign In</button></Link>
+          </div>
           <div className="main-content-content">
             {
             activateInputEror&&

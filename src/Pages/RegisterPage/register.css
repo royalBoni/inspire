@@ -6,39 +6,41 @@
     background-size:100% 100%;
     background-position: center;
     position: relative;
+    overflow: hidden;
     
 }
 
 .register .background-layer{
-    background-color: rgba(0, 0, 0, 0.884);
+    background-color: rgba(139, 137, 137, 0.637);
     background-size:100% 100%;
-    width: 100%; 
+    width: inherit; 
     height: 100vh;
 }
 
-.register .signIn-button{
-    padding: 0.3rem;
-    font-size: 0.8rem;
-    background-color: black;
-    color:rgba(207, 207, 207, 0.459);
-
+.register .signUp-button{
+    padding: 5px;
+    background-color: var(--PRIMARYCOLOR);
+    color:var(--MAINBGICONCOLOR);
+    border-radius: unset;
+    font-weight: bold;
 }
+
 
 .register .main-content{
-    height: 100vh;
+    height: 100%;
+    width: 100%;
 }
 
 .register .main-content-content{
-    height: auto;
+    height: 90%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4rem; 
+    padding-inline: 70px;
 }
 
 .register .words{
-    color: rgba(255, 255, 255, 0.027);
-    font-size: 8rem;
+    font-size: 150px;
     font-weight: bold;
     font-style: italic;
     font-family:'Geneva';
@@ -46,82 +48,80 @@
     position: absolute;
     bottom: 0;
     left: 0;
+    color: rgba(63, 4, 50, 0.543);
 }
 
 .register .content{
-    height: auto;
+    height: 100%;
     width: 40%;
     display: grid;
     place-content: center;
 }
 
-/* .left-content{
-    
-} */
 
 .register .right-content{
-
+    height: auto;
     background-color:rgba(160, 113, 113, 0.096);
-    display: grid;
-    gap: 1rem;
-    padding: 1rem 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 50px 80px ;
     border-top-left-radius: 60px;
     border-bottom-right-radius: 60px;
-    box-shadow: 5px 0px 0px 2px rgba(0, 0, 0, 0.534);
+    box-shadow: 5px 0px 0px 2px rgba(63, 4, 50, 0.502);
 }
 
 .register .welcome{
-    font-size:2rem;
+    font-size:45px;
     font-weight: bold;
-    color:rgba(207, 207, 207, 0.459);
+    color: var(--MAINBGICONCOLOR);
 }
 
 .register span{
-    color: black;
+    color: var(--PRIMARYCOLOR);
 }
 
 .register .right-content p{
-    font-size: 1rem;
     color:rgba(207, 207, 207, 0.459);
 }
 
-.register .register form{
-    display: grid;
-    gap: 0.8rem;
+.register form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 } 
 
 .register .form-row{
-    position: relative;
-    display: grid;
-    gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .register label{
-    font-size: 1rem;
+    font-size: 18px;
+    color: var(--PRIMARYCOLOR);
     font-weight: bold;
 }
 
 .register input{
-    height: 2rem;
-    border: 2px solid black;
-    border-radius: 10px;
-    font-size: 0.7rem;
-    padding-left: 1rem;
+    padding: 10px;
+    border: none;
+    background-color: var(--MAINBGICONCOLOR);
+    border-radius: unset;
+    font-size: 14px;
+    outline: none;
 }
 
 
 .register-button{
     margin-top: 1rem;
-    background-color: black;
-    color:rgba(207, 207, 207, 0.459);
+    background-color: var(--PRIMARYCOLOR);
+    color:var(--MAINBGICONCOLOR);
+    padding: 5px 20px;
     margin-left: auto;
     margin-right: auto;
-    padding: 0.3rem 0.8rem ;
-    display: grid;
-    place-content: center;
-    width: 5rem;
-    font-size: 1rem;
-    border-radius: 10px;
+    border-radius: unset;
+    font-weight: bold;  
 }
 
 .forgetOrRegister{
@@ -176,21 +176,21 @@
 
 .input-error-close-button{
     font-size: 0.7rem;
-    border: 1px solid black;
+    border: 1px solid var(--PRIMARYCOLOR);
     position: absolute;
     right: 1rem;
     border-radius: 50px;
     display: grid;
     place-content: center;
     top: 1rem;
-    background-color:rgba(207, 207, 207, 0.459);
-    color: black;
+    background-color:var(--MAINBGICONCOLOR);
+    color:var(--PRIMARYCOLOR);
     cursor: pointer;
 }
 
 .input-error-close-button:hover{
-    background-color:black;
-    color: rgba(207, 207, 207, 0.459);
+    background-color:var(--PRIMARYCOLOR);
+    color: var(--MAINBGICONCOLOR);
 }
 
 .loading-animation{
@@ -207,41 +207,16 @@
 }
 
 
-/* || EXTRA LARGE */
-
 @media screen and (max-width:1500px){
-   /*  .words{
-        display: none;
-    } */
-
-    .register .main-content-content{
-        height: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 2rem; 
-    }
-    
-    
-    .register .content{
-        height: auto;
-        width: 50%;
-    }
-    
-    /* .left-content{
-        
-    } */
-    
     .register .right-content{
-    
+        width: 55%;
         background-color:rgba(160, 113, 113, 0.096);
-        display: grid;
+        display: flex;
+        flex-direction: column;
         gap: 1rem;
-        padding: 1rem 3rem;
+        padding: 30px 50px;
         border-top-left-radius: 60px;
         border-bottom-right-radius: 60px;
-        box-shadow: 5px 0px 0px 2px rgba(0, 0, 0, 0.534);
-        
     }
    
 }
@@ -249,170 +224,102 @@
 /* || LARGE */
 
 @media screen and (max-width:992px){
+    .register .words{
+        font-size: 100px;
+        bottom: 0;
+        right: 0;
+        left: unset;
+    }
 
-    .register nav{
-        display: none;
+    .register .main-content-content{
+        width: 100%;
     }
 
     .register .left-content{
         display: none;
     }
+
     .register .right-content{
-        padding: 2rem;
-        width: 70%;
+        padding: 30px;
+        width: 100%;
         height: auto;
         border-radius: 0;
         background-color: rgba(160, 113, 113, 0.096);
-        box-shadow: 0px 2px 4px 4px rgba(0, 0, 0, 0.274);
+        box-shadow: 0px 2px 4px 4px rgba(63, 4, 50, 0.502);
     }
-
-    .register .welcome{
-        font-size:2rem;
-    }
-
-    .register .right-content p{
-        font-size: 1rem;
-    }
-
-    .register form{
-        gap: 1rem;
-    } 
-    
-    .register .form-row{
-        gap: 0.5rem;
-    }
-    
-    .register label{
-        font-size: 0.9rem;
-    }
-       
-    .register .forgetOrRegister{
-        font-size: 0.8rem;
-    }
-    
    
 }
 /* || MEDIUM */
 
 @media screen and (max-width:768px){
-    .register .words{
-        color: rgba(255, 255, 255, 0.027);
-        font-size: 6rem;
-        font-weight: bold;
-        font-style: italic;
-        font-family:'Geneva';
-        letter-spacing: 1rem;
-        position: absolute;
-        bottom: 0;
-        left: 0;
+    .register .main-content-content{
+        padding-inline: 30px;
     }
-    
-    .register .left-content{
-        display: none;
-    }
+
     .register .right-content{
-        padding: 2rem;
-        width: 70%;
+        padding: 40px;
         height: auto;
+        width: 90%;
         border-radius: 0;
         background-color: rgba(160, 113, 113, 0.096);
-        box-shadow: 0px 2px 4px 4px rgba(0, 0, 0, 0.274);
+        box-shadow: 0px 2px 4px 4px rgba(63, 4, 50, 0.502);
     }
 
     .register .welcome{
-        font-size:1.2rem;
         text-align: center;
     }
 
     .register .right-content p{
         text-align: center;
-        font-size: 0.6rem;
-    }
-
-    
-    .register label{
-        font-size: 0.9rem;
     }
     
-    .register input{
-        font-size: 0.5rem;
+    .register .words{
+        font-size: 50px;
+        bottom: 0;
+        right: 0;
+        left: unset;
+        text-align: center;
     }
-    
-    
 }
 
 /* || SMALL */
 
 @media screen and (max-width:576px){
-   /*  .register .words{
-        display: none;
-    } */
 
-    .register .signUp-button{
-        padding: 0.3rem;
-        font-size: 0.8rem;
-        background-color: black;
-        color:rgba(207, 207, 207, 0.459);
-        border-radius: 10px;
-    }
-
-    .register .left-content{
-        display: none;
-    }
-    .register .right-content{
-        padding: 3rem;
+    .register .main-content{
+        height: 100%;
         width: 100%;
+    }
+
+    .register .main-content-content{
+        height: 90%;
+        width: 100%;
+        padding: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .register .main-content-content .content{
+        height: auto;
+        width: 100%;
+    }
+
+    .register .right-content{
+        padding:30px 10px;
+        width: auto;
         height: auto;
         border-radius: 0;
         background-color: rgba(160, 113, 113, 0.096);
-        box-shadow: 0px 2px 4px 4px rgba(0, 0, 0, 0.274);
+        box-shadow: 0px 2px 4px 4px rgba(63, 4, 50, 0.502);
     }
 
     .register .welcome{
-        font-size:1rem;
-    }
-
-    .register .right-content p{
-        font-size: 0.5rem;
-    }
-
-    .register form{
-        gap: 0.5rem;
-    } 
-    
-    .register .form-row{
-        gap: 0.3rem;
-    }
-    
-    .register label{
-        font-size: 0.8rem;
+        font-size:35px;
         font-weight: bold;
+        color: var(--MAINBGICONCOLOR);
     }
-    
-    .register input{
-        height: 1.5rem;
-        border: 1px solid black;
-        border-radius: 5px;
-        font-size: 0.5rem;
-    }
-    
-    .register-button{
-        background-color: black;
-        color: rgba(207, 207, 207, 0.459);
-        margin-left: auto;
-        margin-right: auto;
-        padding: 0.1rem 0.4rem ;
-        font-size: 0.7rem;
-        border-radius: 5px;
-    }
-    
-    .register .forgetOrRegister{
-        margin-top: 1rem;
-        display: flex;
-        justify-content: space-between;
-        font-size: 0.5rem;
-    }
-    
+
     .test{
         position: sticky;
         font-size: 0.7rem;

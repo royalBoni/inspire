@@ -1,7 +1,7 @@
 import React from 'react'
 import './home.css'
 import { useState,useEffect } from 'react'
-import { Link,useParams } from 'react-router-dom';
+import { Link,useParams, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import Feeds from './components/feeds/Feeds';
 import SearchCreate from './components/SearchCreate';
@@ -39,6 +39,7 @@ const Home = () => {
 
   const {userID}= useParams();
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
     const [addNewNotification]=useAddNewNotificationMutation()
     const [deleteInspirer]=useDeleteInspirerMutation()
@@ -58,8 +59,14 @@ const Home = () => {
       setResourceLoading(false)
     }, 5000);
   
-    
-    dispatch(setFeedPosts(inspirations))
+
+    useEffect(()=>{
+      const arrayTobeSorted=[...inspirations]
+      const sortedItems = arrayTobeSorted.sort((a,b)=>{
+        return (format(new Date(b.datetime),"t")) - (format(new Date(a.datetime),"t"))
+      })
+      dispatch(setFeedPosts(sortedItems))
+    },[])
 
     useEffect(()=>{
       const width=window.innerWidth
@@ -87,8 +94,6 @@ const Home = () => {
 
     const [activeComponent, setActiveComponent]=useState(1)
 
-    const [triggerCloseProfileMenu,setTriggerCloseProfileMenu]=useState(false)
-
     const [warning,setWarning]=useState(false)
     const [warningMessage,setWarningMessage]=useState('')
 
@@ -110,8 +115,13 @@ const Home = () => {
   
 
     const handleActive=(num)=>{
-      setActiveComponent(num)
-      handleCloseUserProfilePage()
+      if(num===8){
+        navigate('/')
+      }
+      else{
+        setActiveComponent(num)
+        handleCloseUserProfilePage()
+      }
     }
 
     const [searchInput,setSearchInput]=useState('')
@@ -127,9 +137,9 @@ const Home = () => {
   useEffect(()=>{
       const myInfoResult=profiles?.find((item)=>item.userID===userID)
       setMyInfo(myInfoResult)
-  },[profiles])
+  },)
   const {profile_image_avatar}=myInfo||[]
-    
+  console.log(profiles)
     
   const postAuthorImg=(id)=>{
       const image=profiles?.find((item)=>item.userID===id)
@@ -148,13 +158,11 @@ const Home = () => {
     const[displayMenu,setDisplayMenu]=useState('no-menu')
     const handleDisplayMenu=()=>{
       setDisplayMenu('menu')
-      setTriggerCloseProfileMenu(true)
     }
 
     const handleCloseMenu=()=>{
       setDisplayMenu('no-menu')
       setToggle(!toggle)
-      setTriggerCloseProfileMenu(false)
     }
 
 
@@ -194,13 +202,6 @@ const Home = () => {
         setWarningMessage(null)
     }, 17000);
   }
-
- 
-  const [userProfileID,setUserProfileID]=useState('')
- /*  const handleOpenUserProfilePage=(item)=>{
-    dispatch(setSelectedProfileID(item))
-    handleActive(10)
-  } */
 
   const handleOpenUserProfilePage=(item)=>{
     dispatch(setSelectedProfileID(item))
@@ -266,7 +267,6 @@ const Home = () => {
         <CreatePost 
         functionalityUnderDevelopment={functionalityUnderDevelopment}
         userID={userID}
-        setTriggerCloseProfileMenu={setTriggerCloseProfileMenu}
         profileImage={profile_image_avatar}
         />:
         isEditProfile?
@@ -334,10 +334,14 @@ const Home = () => {
                             </div>
                             <div className="item">Notifications</div>
                         </div>
+                        <div className="menu-content-item" onClick={()=>handleActive(8)}>
+                            <div className="icon">@</div>
+                            <div className="item">Log Out</div> 
+                        </div>
                     </div>
                 </div>
                
-                <div className="first-content">
+                {/* <div className="first-content">
                     <div className="menu-title">OTHERS</div>
                     <div className="menu-content">
                         <div className="menu-content-item">
@@ -345,14 +349,13 @@ const Home = () => {
                             <Link className='link' to={'/'}><div className="item">Log Out</div></Link> 
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
             <div className="flex-box second">
               {
                 openUserProfilePage&&
                 <UserProfilePage
                 handleCloseUserProfilePage={handleCloseUserProfilePage}
-                userProfileID={userProfileID}
                 myInfo={myInfo}
                 postAuthorImg={postAuthorImg}
                 postAuthorName={postAuthorName}

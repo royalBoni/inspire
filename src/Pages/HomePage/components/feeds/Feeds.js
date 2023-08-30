@@ -39,7 +39,7 @@ const [feedMenu, setFeedMenu]=useState(false)
 
 const inspirations= useSelector(selectAllInspirations)
 
-const feedButtonList=['All','Category','Following','Newest','Popular']
+const feedButtonList=['All','Category','Following','Oldest','Popular']
 const [limitOfInspirationsToDisplay, setLimitOfInspirationsToDisplay]=useState(4)
 
 const [resourceLoading, setResourceLoading]=useState(false)
@@ -90,16 +90,20 @@ const handleFilterFeedItems=(filterValue,key)=>{
     return null
   }
 
-  else if(filterValue==='Newest'){
+  else if(filterValue==='Oldest'){
     const arrayTobeSorted=[...inspirations]
     const sortedItems = arrayTobeSorted.sort((a,b)=>{
-      return (format(new Date(b.datetime),"t")) - (format(new Date(a.datetime),"t"))
+      return (format(new Date(a.datetime),"t")) - (format(new Date(b.datetime),"t"))
     })
     dispatch(setFeedPosts(sortedItems))
   }
 
   else if(filterValue==='All'||filterValue==='Following'||filterValue==='Popular'){
-    dispatch(setFeedPosts(inspirations))
+    const arrayTobeSorted=[...inspirations]
+      const sortedItems = arrayTobeSorted.sort((a,b)=>{
+        return (format(new Date(b.datetime),"t")) - (format(new Date(a.datetime),"t"))
+      })
+      dispatch(setFeedPosts(sortedItems))
   }
 
   else{

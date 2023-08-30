@@ -1,19 +1,11 @@
 
-.profile-menu{
-    display: none;
-}
-
-.no-profile-menu{
-    display: none;
-}
-
 @media screen and (max-width:768px){
     .profile-menu{
         position: absolute;
         background-color: var(--PAGEBACKGROUND);
-        height: 88%;
+        height: 100%;
         width: 70%;
-        z-index: 1;
+        z-index: 2;
         display: flex;
         flex-direction: column;
         gap: 1.5rem;

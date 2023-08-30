@@ -61,7 +61,6 @@ const CreatePost = ({functionalityUnderDevelopment,userID,setTriggerCloseProfile
         dispatch(setIsOverColor())
         dispatch(setIsCreatePost())
         reset()
-        setTriggerCloseProfileMenu(false)
     }
 
     const handleClosePreview=()=>{
@@ -70,7 +69,7 @@ const CreatePost = ({functionalityUnderDevelopment,userID,setTriggerCloseProfile
     }
 
     useEffect(()=>{
-        reset()
+        handleCloseCreatePost()
     },[isSuccess])
 
     const handleSubmit=async()=>{

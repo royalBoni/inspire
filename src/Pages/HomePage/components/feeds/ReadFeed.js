@@ -81,7 +81,7 @@ const ReadFeed = ({numberOfComments,numberOfLikes,likeAndUnlike,bookmarkAndUnboo
               <div className="contentReadtime">{datePosted(selectedInspiration.datetime)}</div>
             </div>
             <div className="read-title">{selectedInspiration.inspiration_title}</div>
-            <div className="read-inspiration">{selectedInspiration.inspiration_content}</div> 
+            <div className="read-inspiration">{selectedInspiration?.inspiration_image_avatar && selectedInspiration.inspiration_content}</div> 
 
             <div className="interaction">
               <div className="author" onClick={()=>handleOpenUserProfilePage(selectedInspiration.authorID)}>
@@ -89,10 +89,6 @@ const ReadFeed = ({numberOfComments,numberOfLikes,likeAndUnlike,bookmarkAndUnboo
                       <div className="author-image"><img src={postAuthorImg(selectedInspiration.authorID)} alt="" /></div>
                       <div className="author-name">{postAuthorName(selectedInspiration.authorID)?postAuthorName(selectedInspiration.authorID):'anonymous'}</div>
                   </div>
-                                            {/* <div className="post-operation">
-                                                <div className="settings">...</div>
-                                                <div className="close"><FaTimes/></div>
-                                            </div> */}
               </div>
               <div className="metrics" ref={commentShowRef}>
                       <div className="likes">
