@@ -426,6 +426,7 @@ profile-image
         min-height: 100vh;
         background-color: var(--PAGEBACKGROUND);
         position: relative;
+        overflow: auto;
     }
 
     .bookmark-icon{
@@ -592,8 +593,10 @@ profile-image
  /* ||MOBILE DEVICE LANSCAPE */
  
  /* @media screen and (max-height:425px) and (min-aspect-ratio:7/4){
-      
- } */
+    .main-container{
+        background-color: red; 
+    }
+ }  */
  
  
  
