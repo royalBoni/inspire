@@ -423,10 +423,9 @@ profile-image
  @media screen and (max-width:768px){
 
     .home{
-        min-height: 100vh;
+        height: 100vh;
         background-color: var(--PAGEBACKGROUND);
         position: relative;
-        overflow: auto;
     }
 
     .bookmark-icon{
