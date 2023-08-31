@@ -423,7 +423,7 @@ profile-image
  @media screen and (max-width:768px){
 
     .home{
-        min-height: 50vh;
+        /* min-height: 50vh; */
         background-color: var(--PAGEBACKGROUND);
         position: relative;
     }
@@ -453,7 +453,7 @@ profile-image
         top: 0;
         z-index: 1;
         padding: 0.5rem;
-        min-height: 12%;
+        height: 12%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -541,6 +541,11 @@ profile-image
         .header{
            height:20%
         }  
+
+        .main-container{
+            padding: 0.5rem;
+            height: 80%;
+        }
     }
  
 /*  @media  (max-height:300px) and (max-width:1024px ){
