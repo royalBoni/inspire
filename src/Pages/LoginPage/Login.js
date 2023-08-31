@@ -23,7 +23,7 @@ const Login = () => {
       }
       
       try{
-         const result=await fetch("http://localhost:5000/user/login", postOptions);
+         const result=await fetch("https://inspire-api.onrender.com/user/login", postOptions);
          const jsonresult= await result.json()
          if(!result.ok){
            setFetchError(jsonresult.message)
