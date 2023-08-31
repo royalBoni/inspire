@@ -26,23 +26,6 @@
     font-weight: bold;
 }
 
-/* .notification-page .nav-close-button{
-   display: none;
-} */
-
-
-
-/* .notification-page .close-button{
-    background-color: var(--PRIMARYCOLOR);
-    color: var(--PAGEBACKGROUND);
-    display: grid;
-    place-content: center;
-    padding: 0.5rem 0.5rem;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 0.8rem;
-} */
-
 .notification-page-content{
     display:grid;
     gap:0.5rem;

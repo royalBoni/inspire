@@ -38,12 +38,6 @@ const Notifications = ({functionalityUnderDevelopment,handleOpenUserProfilePage}
     
   }
 
-  /* const fetchNotification=useSelector(selectNotifications)
-
-  useEffect(()=>{
-    console.log(fetchNotification)
-  },) */
-
   return (
     <div className='notification'>
       {

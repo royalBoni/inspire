@@ -1,7 +1,7 @@
 import React from 'react'
 import './home.css'
 import { useState,useEffect } from 'react'
-import { Link,useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import Feeds from './components/feeds/Feeds';
 import SearchCreate from './components/SearchCreate';
@@ -62,11 +62,11 @@ const Home = () => {
 
     useEffect(()=>{
       const arrayTobeSorted=[...inspirations]
-      const sortedItems = arrayTobeSorted.sort((a,b)=>{
+      const sortedItems = arrayTobeSorted?.sort((a,b)=>{
         return (format(new Date(b.datetime),"t")) - (format(new Date(a.datetime),"t"))
       })
       dispatch(setFeedPosts(sortedItems))
-    },[])
+    },[inspirations])
 
     useEffect(()=>{
       const width=window.innerWidth
@@ -139,7 +139,6 @@ const Home = () => {
       setMyInfo(myInfoResult)
   },)
   const {profile_image_avatar}=myInfo||[]
-  console.log(profiles)
     
   const postAuthorImg=(id)=>{
       const image=profiles?.find((item)=>item.userID===id)

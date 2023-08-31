@@ -9,14 +9,20 @@ import { setIsEditProfile,setIsOverColor } from '../../../../reducxSlices/action
 const ProfileEditor = ({myInfo,functionalityUnderDevelopment}) => {
 
   const dispatch = useDispatch()
-  console.log(myInfo)
 
-  const [updateProfile, {isLoading}]= useUpdateProfileMutation()
+  const [updateProfile, {isLoading, isSuccess}]= useUpdateProfileMutation()
   
   const closeEditProfile =()=>{
     dispatch(setIsEditProfile())
     dispatch(setIsOverColor())
     localStorage.removeItem('profileStatus')
+  }
+
+  console.log(isSuccess)
+
+  if(isSuccess){
+    dispatch(setIsEditProfile())
+    dispatch(setIsOverColor())
   }
 
   const countries = ['Ghana','Nigeria','South Africa']
@@ -70,7 +76,10 @@ const ProfileEditor = ({myInfo,functionalityUnderDevelopment}) => {
             formData.append('userName',myInfo.userName)
             formData.append('profileName',profileName)
             formData.append('image',uploadProfileImageFile)
-            formData.append('dateOfBirth',dateOfBirth)
+            {
+              dateOfBirth&&
+              formData.append('dateOfBirth',dateOfBirth)
+            }
             formData.append('phoneNumber',phoneNumber)
             formData.append('country',country)
             formData.append('bio',bio)
@@ -251,7 +260,12 @@ const ProfileEditor = ({myInfo,functionalityUnderDevelopment}) => {
           </div>
 
           <div className='form-section'>
-           <button onClick={handleUpdate}>{isLoading?<FaSpinner/>:'Save'}</button>
+            {
+              isSuccess?
+              <button className='updated-ok'>Updated</button>:
+              <button onClick={handleUpdate}>{isLoading?<FaSpinner/>:'Save'}</button>
+            }
+           
           </div>
 
 

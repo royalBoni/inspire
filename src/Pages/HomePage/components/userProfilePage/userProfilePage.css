@@ -185,6 +185,13 @@
     z-index: 1;
 }
 
+.down-header ul{
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    align-items: center;
+}
+
 .down-header li{
     cursor:pointer;
 }

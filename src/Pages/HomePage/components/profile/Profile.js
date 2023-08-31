@@ -28,8 +28,8 @@ const Profile = ({setWarning,setWarningMessage,functionalityUnderDevelopment,set
     }
     
     const editProfile =()=>{
-        dispatch(setIsEditProfile())
-        dispatch(setIsOverColor())
+        dispatch(setIsEditProfile(true))
+        dispatch(setIsOverColor(true))
     }
 
   return (
