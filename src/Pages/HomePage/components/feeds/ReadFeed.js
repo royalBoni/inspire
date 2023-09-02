@@ -72,7 +72,7 @@ const ReadFeed = ({numberOfComments,numberOfLikes,likeAndUnlike,bookmarkAndUnboo
           </div>
           <div className="read-content-details">
             <div className="read-image">{!selectedInspiration?.inspiration_image_avatar?
-            <div className='text' style={{backgroundColor:selectedInspiration.bgColor,color:selectedInspiration.fgColor,fontFamily:selectedInspiration.fStyle}}>{selectedInspiration.inspiration_content}</div>
+            <div className='text' style={{backgroundColor:selectedInspiration.bgColor,color:selectedInspiration.fgColor,fontFamily:selectedInspiration.fStyle, textAlign:'justify',paddingInline:'10px'}}>{selectedInspiration.inspiration_content}</div>
             :<img src={selectedInspiration.inspiration_image_avatar} alt="" />}</div>
             <div className="categoryDateRead">
               <div className='categoryDate'>

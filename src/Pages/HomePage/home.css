@@ -83,8 +83,6 @@
     z-index: 3;
 }
 
-profile-image
-
 .no-over-color{
     display: none;
 }
@@ -318,6 +316,13 @@ profile-image
     .header-profile{
         display: flex;
         align-items: center;
+    }
+
+    .header-profile .profile-image{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--HOMEBGLIGHT);
     }
 
     .main-container{ 

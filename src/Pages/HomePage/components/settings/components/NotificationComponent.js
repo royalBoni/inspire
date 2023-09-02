@@ -1,14 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './notification.css'
-import { FaEllipsisH } from 'react-icons/fa'
-import {useState,useEffect} from 'react'
+import {useState} from 'react'
 
 const NotificationComponent = ({handleBack}) => {
-  /* const [checkRadio,setCheckRadio]=useState('') */
+  const [checkNotification,setCheckNotification]=useState(false) 
+  const [checkLikeNotification, setCheckLikeNotification]=useState(false)
+  const [checkCommentNotification, setCheckCommentNotification]=useState(false)
+  const [checkFollowNotification, setCheckFollowNotification]=useState(false)
 
-  /* useEffect(()=>{
-    console.log(checkRadio)
-  },[checkRadio]) */
+  const notificationSettingsObject ={like:!checkNotification?false:checkLikeNotification,
+  follow:!checkNotification?false:checkFollowNotification,
+  comment:!checkNotification?false:checkCommentNotification,
+  }
+
  
   return (
     <div className='notification-settings-page'>
@@ -19,13 +23,17 @@ const NotificationComponent = ({handleBack}) => {
 
         <div className="notification-settings-page-content">
           <div className="individual-notification-settings">
-            System
-            {/* <input type='radio' checked={true} onClick={(e)=>{setCheckRadio(e.target.value)}} /> */}
+            Turn off notification
+            <input type='checkbox' checked={checkNotification} onChange={()=>setCheckNotification(!checkNotification)} /* onClick={()=>handleSetNotificationOnAndOff('all')} */ />
           </div>
-          <div className="individual-notification-settings">Likes</div>
-          <div className="individual-notification-settings">Comments</div>
-          <div className="individual-notification-settings">Follow</div>
-          <div className="individual-notification-settings">New post</div>
+          {
+            checkNotification&&
+            <>
+              <div className="individual-settings">Likes <input type='checkbox' checked={checkLikeNotification} onChange={()=>setCheckLikeNotification(!checkLikeNotification)}/></div>
+              <div className="individual-settings">Comments <input type='checkbox' checked={checkCommentNotification} onChange={()=>setCheckCommentNotification(!checkCommentNotification)} /></div>
+              <div className="individual-settings">Follow <input type='checkbox' checked={checkFollowNotification} onChange={()=>setCheckFollowNotification(!checkFollowNotification)}/></div>
+            </>
+          } 
         </div>
     </div>
   )

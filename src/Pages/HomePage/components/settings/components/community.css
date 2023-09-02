@@ -1,13 +1,14 @@
 .community-page{
-    height: 81vh;
+    height: 91vh;
     width: 100%;
     display: flex;
     flex-direction: column;
     background-color: var(--PAGEBACKGROUND);
     color: var(--PRIMARYCOLOR);
-    overflow: scroll;
-    gap: 1.5rem;
-    padding: 0rem 0.5rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    gap: 15px;
+    padding: 0px 5px;
     scroll-behavior: smooth;
 }
 
@@ -18,30 +19,29 @@
 .community-page-content{
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    font-size: 0.9rem;
+    gap: 15px;
 }
 
 .community-page-content-content{
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 10px;
 }
 
 .community-page-content-title{
     display: grid;
-    font-size: 1.3rem;
+    font-size: 18px;
     font-weight: bold;
 }
 
 .community-page-content-content-item{
     display: flex;
     flex-direction: column;
-    gap: 0.7rem;
+    gap: 7px;
 }
 
 .community-page-content-content-item-title{
-    font-size: 1.2rem;
+    font-size: 18px;
     font-weight: bold;
     position: sticky;
     top: 0;
@@ -52,13 +52,13 @@
 .community-page-content-content-item-message{
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 5px;
 }
 
 .community-page-content-foreword-message ol{
     display: flex;
     flex-direction: column;
-    margin-left: 1.5rem;
+    margin-left: 15px;
 }
 
 .community-page-content-foreword-message ol li{
@@ -68,7 +68,7 @@
 .community-page-content-content-item-message ul{
     display: flex;
     flex-direction: column;
-    margin-left: 1.5rem;
+    margin-left: 15px;
 }
 
 .community-page-content-content-item-message ul li{
@@ -88,7 +88,7 @@
         position: sticky;
         top: 0;
         background-color: var(--PAGEBACKGROUND);
-        padding: 0.5rem 0;
+        padding: 5px 0;
         z-index: unset;
     }
 
@@ -96,7 +96,7 @@
         background-color: var(--PRIMARYCOLOR);
         color: var(--MAINBGICONCOLOR);
         font-weight: bold;
-        padding: 0.2rem 0.4rem;
+        padding: 2px 4px;
         border-radius: 8px;
         display: grid;
         place-content: center;

@@ -56,7 +56,7 @@ const Register = () => {
               },
               body: JSON.stringify(newAcc)
             }
-            const response=await fetch('http://localhost:5000/user/register',postOptions)
+            const response=await fetch('https://inspire-api.onrender.com/user/register',postOptions)
 
             const jsonfile= await response.json()
             console.log(jsonfile.message)

@@ -1,9 +1,10 @@
 .problem-page{
     background-color: var(--PAGEBACKGROUND);
-    height: 95vh;
+    height: 91vh;
     width: 100%;
-    padding: 0 0.3rem;
-    overflow: scroll;
+    padding: 0 3px;
+    overflow-y: scroll;
+    overflow-x: hidden;
     color: var(--PRIMARYCOLOR);
 }
 
@@ -15,11 +16,8 @@
     top: 0;
     background-color: var(--PAGEBACKGROUND);
     z-index: 1;
-    margin-top: -0.5rem;
+    margin-top: -5px;
     padding: 0.5rem 0;
-}
-
-.probllem-page-header{
     font-weight: bold;
 }
 
@@ -28,22 +26,27 @@
 }
 
 .probllem-page-form{
-    margin-top: 1rem;
+    margin-top: 10px;
 }
 
 .probllem-page-form form{
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 15px;
 }
+
+.probllem-page-form .form-row{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+} 
 
 .problem-page textarea{
     border: none;
     outline: none;
-    padding: 0.5rem;
+    padding: 5px;
     border-radius: 15px;
     color: var(--PRIMARYCOLOR);
-    font-size: 1rem;
 }
 
 .problem-page textarea:hover{
@@ -52,7 +55,7 @@
 
 .form-row .preview-image{
     width: 100%;
-    height: 8rem;
+    height: 80px;
     position: relative;
 }
 
@@ -79,7 +82,7 @@
 
 .form-row .image-post{
     width: 100%;
-    height: 10rem;
+    height: 150px;
     background-color: var(--BORDERRIGHTCOLOR);
     border-radius: 20px;
     display: grid;
@@ -87,7 +90,7 @@
 }
 
 .image-icon{
-    font-size: 4rem;
+    font-size: 60px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -97,10 +100,9 @@
     color: var(--PAGEBACKGROUND);
     display: grid;
     place-content: center;
-    padding: 0.5rem 0.5rem;
+    padding: 5px;
     border-radius: 8px;
     font-weight: bold;
-    font-size: 0.8rem;
 }
 
 @media screen and (max-width:1500px){
@@ -119,7 +121,7 @@
         color: var(--PAGEBACKGROUND);
         display: grid;
         place-content: center;
-        padding: 0.2rem 0.5rem;
+        padding: 2px 5px;
         border-radius: 8px;
     }
 }
@@ -130,7 +132,5 @@
         height: 84vh;
     }
 
-    .problem-page textarea{
-        font-size: 0.8rem;
-    }
+    
 }
