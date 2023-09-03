@@ -234,7 +234,7 @@ const Home = () => {
                     </div>
                     <div className="header-create-button" role='button' onClick={handleCreatePost}>
                             <FaPlus/> 
-                            <div className="button-name">inspire</div>
+                            {/* <div className="button-name">inspire</div> */}
                     </div>
                     <div className="header-profile">
                             <div className="profile-image">
