@@ -14,7 +14,7 @@ const CreatePost = ({functionalityUnderDevelopment,userID,profileImage}) => {
     '#99ff00','#99ccff','#ccff99','#333300']
     const fontFamily=["times","sans-serif","Franklin","Courier New","Georgia","arial"]
     const fontStyle=['normal','italic']
-    const categories=['Love','Motivation','best','good']
+    const categories=['Love','Motivation','Wwisdom','Leadership']
     const [bg,setBg]=useState('')
     const [ff,setFf]=useState('')
     const [fg,setFg]=useState('')
@@ -37,6 +37,8 @@ const CreatePost = ({functionalityUnderDevelopment,userID,profileImage}) => {
     const handleActiveMenu=(num)=>{
         setActiveItem(num)
     }
+
+   /*  console.log(colors[Math.floor(Math.random() *colors.length)]); */
 
     useEffect(()=>{
         if(image){
@@ -86,7 +88,7 @@ const CreatePost = ({functionalityUnderDevelopment,userID,profileImage}) => {
                     formData.append('inspiration_title',inspiration_title)
                     formData.append('inspiration_content',inspiration_content)
                     formData.append('image',uploadImageFile)
-                    formData.append('bgColor',bg)
+                    formData.append('bgColor',bg?bg:colors[Math.floor(Math.random() *colors.length)])
                     formData.append('fgColor',fg)
                     formData.append('fStyle',fs)
                     formData.append('fFamily',ff)
@@ -267,7 +269,7 @@ const CreatePost = ({functionalityUnderDevelopment,userID,profileImage}) => {
                      {
                          categories.map((item)=>{
                              return(
-                                 <div key={item} className='individual-color'  onClick={()=>setC(item)}>{item}</div>
+                                 <div key={item} className={`cattt-item ${c===item&&'cattt-item-active'}`}  onClick={()=>setC(item)}>{item}</div>
                              )
                          })
                      }
