@@ -104,10 +104,8 @@ const Home = () => {
       /* functionalityUnderDevelopment('we are creating') */
     } 
 
-    useEffect(()=>{
       console.log(isOverColor)
       console.log(isCreatePost)
-    })
 
     const [toggle,setToggle]=useState(true)
     const toggleProfile=()=>{
