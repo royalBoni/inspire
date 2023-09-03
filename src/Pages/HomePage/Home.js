@@ -23,7 +23,7 @@ import { selectNotificationsCounter } from '../../reducxSlices/notificationCount
 import { selectAllProfiles} from '../../reducxSlices/profilesSlice';
 import { selectAllInspirers } from '../../reducxSlices/inspirersSlice';
 import { setFeedPosts, setOpenMobileSearchComponent,setSelectedProfileID, setIsCreatePost,setIsSearched,
-   setInspirersFollowed,setSuggested,setBeenFollowed,setIsOverColor,setPageWidth,setIsEditProfile } from '../../reducxSlices/actionStateSlice';
+   setInspirersFollowed,setSuggested,setBeenFollowed,setIsOverColor,setPageWidth} from '../../reducxSlices/actionStateSlice';
 import { useAddNewNotificationMutation } from '../../reducxSlices/notificationsSlice';
 import { useDeleteInspirerMutation, useAddNewInspirerMutation } from '../../reducxSlices/inspirersSlice'; 
 import ProductLoadingPage from './components/ProductLoadingPage';
@@ -100,7 +100,10 @@ const Home = () => {
     const handleCreatePost=()=>{
       console.log('clicked')
       dispatch(setIsOverColor())
+      dispatch(setIsOverColor())
       dispatch(setIsCreatePost())
+      console.log(isOverColor)
+      console.log(isCreatePost)
       /* functionalityUnderDevelopment('we are creating') */
     } 
 
