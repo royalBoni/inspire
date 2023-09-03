@@ -44,10 +44,10 @@ const [limitOfInspirationsToDisplay, setLimitOfInspirationsToDisplay]=useState(4
 
 const [resourceLoading, setResourceLoading]=useState(false)
 
-/* const handleCreatePost=()=>{
+const handleCreatePost=()=>{
   dispatch(setIsOverColor())
   dispatch(setIsCreatePost())
-}  */
+} 
 
 const scrolling =(e)=>{
   if ((e.target.scrollHeight - e.target.scrollTop)-4 < e.target.clientHeight) { 
@@ -283,7 +283,7 @@ return (
                   feedPosts.length===0?
                   <div className='no-post'>
                     <p>No Post</p>
-                    <div className='add-new-post' /* onClick={handleCreatePost} */>
+                    <div className='add-new-post' onClick={handleCreatePost}>
                       <FaPlus/>
                       Add a Post
                     </div>
