@@ -57,20 +57,22 @@ const CreatePost = ({functionalityUnderDevelopment,userID,profileImage}) => {
         setBg('')
         setFg('')
     }
-    /* const handleCloseCreatePost=()=>{
+    const handleCloseCreatePost=()=>{
         dispatch(setIsOverColor())
         dispatch(setIsCreatePost())
         reset()
-    } */
+    }
 
     const handleClosePreview=()=>{
         setImage(null) 
         setUploadImageFile(null)
     }
 
-   /*  useEffect(()=>{
-        handleCloseCreatePost()
-    },[isSuccess]) */
+    useEffect(()=>{
+        if(isSuccess){
+            handleCloseCreatePost()
+        }
+    },[isSuccess])
 
     const handleSubmit=async()=>{
         
@@ -109,9 +111,9 @@ const CreatePost = ({functionalityUnderDevelopment,userID,profileImage}) => {
     }
   return (
     <div className='createpost'>
-        <div className="close-create-post-button" /* onClick={handleCloseCreatePost} */><FaTimes/></div>
+        <div className="close-create-post-button" onClick={handleCloseCreatePost}><FaTimes/></div>
         <div className="createControls">
-            <button className="back-button" /* onClick={handleCloseCreatePost} */>Back</button>
+            <button className="back-button" onClick={handleCloseCreatePost}>Back</button>
             <div className="control-title">Create Post</div>
         </div>
         <div className="profile-line">
