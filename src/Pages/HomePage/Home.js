@@ -98,9 +98,9 @@ const Home = () => {
     const [warningMessage,setWarningMessage]=useState('')
 
     const handleCreatePost=()=>{
-     /*  dispatch(setIsOverColor())
-      dispatch(setIsCreatePost()) */
-      functionalityUnderDevelopment('we are creating')
+      dispatch(setIsOverColor())
+      dispatch(setIsCreatePost())
+      /* functionalityUnderDevelopment('we are creating') */
     } 
 
     const [toggle,setToggle]=useState(true)
