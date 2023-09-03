@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useAddNewInspirationMutation } from '../../../reducxSlices/inspirationsSlice';
 
 
-const CreatePost = ({functionalityUnderDevelopment,userID,setTriggerCloseProfileMenu,profileImage}) => {
+const CreatePost = ({functionalityUnderDevelopment,userID,profileImage}) => {
 
     const colors=['rgba(243, 240, 237, 0.884)','red','blue','yellow','aqua','pink','antiquewhite','#ffffff','#ffff00','#ccff00',
     '#99ff00','#99ccff','#ccff99','#333300']
@@ -57,20 +57,20 @@ const CreatePost = ({functionalityUnderDevelopment,userID,setTriggerCloseProfile
         setBg('')
         setFg('')
     }
-    const handleCloseCreatePost=()=>{
+    /* const handleCloseCreatePost=()=>{
         dispatch(setIsOverColor())
         dispatch(setIsCreatePost())
         reset()
-    }
+    } */
 
     const handleClosePreview=()=>{
         setImage(null) 
         setUploadImageFile(null)
     }
 
-    useEffect(()=>{
+   /*  useEffect(()=>{
         handleCloseCreatePost()
-    },[isSuccess])
+    },[isSuccess]) */
 
     const handleSubmit=async()=>{
         
@@ -109,9 +109,9 @@ const CreatePost = ({functionalityUnderDevelopment,userID,setTriggerCloseProfile
     }
   return (
     <div className='createpost'>
-        <div className="close-create-post-button" onClick={handleCloseCreatePost}><FaTimes/></div>
+        <div className="close-create-post-button" /* onClick={handleCloseCreatePost} */><FaTimes/></div>
         <div className="createControls">
-            <button className="back-button" onClick={handleCloseCreatePost}>Back</button>
+            <button className="back-button" /* onClick={handleCloseCreatePost} */>Back</button>
             <div className="control-title">Create Post</div>
         </div>
         <div className="profile-line">
