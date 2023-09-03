@@ -98,6 +98,7 @@ const Home = () => {
     const [warningMessage,setWarningMessage]=useState('')
 
     const handleCreatePost=()=>{
+      console.log('clicked')
       dispatch(setIsOverColor())
       dispatch(setIsCreatePost())
       /* functionalityUnderDevelopment('we are creating') */
