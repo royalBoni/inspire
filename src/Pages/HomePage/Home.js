@@ -100,12 +100,14 @@ const Home = () => {
     const handleCreatePost=()=>{
       console.log('clicked')
       dispatch(setIsOverColor())
-      dispatch(setIsOverColor())
       dispatch(setIsCreatePost())
-      console.log(isOverColor)
-      console.log(isCreatePost)
       /* functionalityUnderDevelopment('we are creating') */
     } 
+
+    useEffect(()=>{
+      console.log(isOverColor)
+      console.log(isCreatePost)
+    })
 
     const [toggle,setToggle]=useState(true)
     const toggleProfile=()=>{
