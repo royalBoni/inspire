@@ -58,12 +58,10 @@
 .searchCreateProf-item:nth-child(1) button{
     border: none;
     border-radius: 50px;
-    color: var(--PRIMARYCOLOR);
     outline: unset;
     background-color: var(--PRIMARYCOLOR);
     color: var(--MAINBGICONCOLOR);
     font-weight: bold;
-
     place-content: center;
     padding-inline: 20px;
 }

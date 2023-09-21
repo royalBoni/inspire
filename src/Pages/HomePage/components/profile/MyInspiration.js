@@ -9,7 +9,6 @@ const MyInspiration = ({userID,handleReadPost,postAuthorImg,postAuthorName}) => 
   return (
     <div className='my-inspiration'> 
          <MyFeeds 
-
             handleReadPost={handleReadPost}
             postAuthorImg={postAuthorImg}
             postAuthorName={postAuthorName}

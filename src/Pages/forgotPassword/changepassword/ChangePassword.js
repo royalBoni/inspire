@@ -17,12 +17,6 @@ const ChangePassword = () => {
 
     const navigate=useNavigate()
 
-     /*  useEffect(()=>{
-      console.log(tokenized)
-      console.log(email)
-    },[])
- */
-
     useEffect(()=>{
       password.length>=10 ?
       setPasswordTest('very-strong')

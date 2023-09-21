@@ -14,7 +14,7 @@ const CreatePost = ({functionalityUnderDevelopment,userID,profileImage}) => {
     '#99ff00','#99ccff','#ccff99','#333300']
     const fontFamily=["times","sans-serif","Franklin","Courier New","Georgia","arial"]
     const fontStyle=['normal','italic']
-    const categories=['Love','Motivation','Wwisdom','Leadership']
+    const categories=['Love','Motivation','Wisdom','Leadership']
     const [bg,setBg]=useState('')
     const [ff,setFf]=useState('')
     const [fg,setFg]=useState('')

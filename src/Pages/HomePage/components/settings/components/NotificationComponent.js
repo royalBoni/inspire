@@ -24,7 +24,7 @@ const NotificationComponent = ({handleBack}) => {
         <div className="notification-settings-page-content">
           <div className="individual-notification-settings">
             Turn off notification
-            <input type='checkbox' checked={checkNotification} onChange={()=>setCheckNotification(!checkNotification)} /* onClick={()=>handleSetNotificationOnAndOff('all')} */ />
+            <input type='checkbox' checked={checkNotification} onChange={()=>setCheckNotification(!checkNotification)} />
           </div>
           {
             checkNotification&&
